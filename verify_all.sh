@@ -4,7 +4,7 @@
 #   2. the six Lean 4 files checked without Mathlib (lean/verify_lean.sh);
 #   3. the eleven Python scripts (python/verify_python.sh);
 #   4. the Lean 4 project with Mathlib (lean-mathlib/verify_mathlib.sh). Its first run clones
-#      Mathlib and downloads its prebuilt cache (about 1 GB) and needs about 7 GB of disk;
+#      Mathlib and downloads its prebuilt cache (about 1 GB in all) and needs about 7 GB of disk;
 #      skip it with SKIP_MATHLIB=1.
 # If a file differs from SHA256SUMS, the script stops there: the archive is then not the
 # one that was published. To run the checks on a modified copy anyway, set SKIP_CHECKSUMS=1.

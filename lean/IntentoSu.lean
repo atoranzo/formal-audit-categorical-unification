@@ -172,7 +172,7 @@ theorem cm2_factor : ∀ x, cm2u x = id (cm2κ x) := fun _ => rfl
 theorem cm2_not_Su : ¬ Suff cm2Φ cm2u := by
   intro h; have := h 0 1 rfl; simp [cm2u, cm2κ] at this
 
-/-- CM3. Segregation: κ aligned with Φ-levels (κ is a function of Φ). u factors
+/-- CM3. Segregation: κ is a function of Φ (here κ = Φ, so κ is also aligned with Φ). u factors
 through κ, is non-constant, and S_u holds; co-occurrence is disconnected. -/
 def cm3Φ : Fin 4 → Nat := fun s => s.val / 2
 def cm3κ : Fin 4 → Nat := fun s => s.val / 2

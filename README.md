@@ -153,9 +153,10 @@ point to the items of the paper they check, such as (G1)–(G7) of Section 5. In
 `python/exact/v5_rkp_cadenas.py`, `a` is the paper's a_22 (the driver) and `alpha` the
 paper's a (the receiver); the script's header says so. Likewise, in item (C3) of
 `python/exact/gauss_conexiones.py`, `a` is the driver's memory, the paper's a_22. Comments
-in the Lean files cite the paper by the labels of its LaTeX source, such as `lem:J` (Lemma J),
-`thm:cheeger` (the min-cut sandwich) and `prop:scaling` (the proposition on monotonicity
-under scaling), which can be found in `paper/source/en/`.
+in the Lean files with Mathlib cite the paper by the labels of its LaTeX source, which can be
+found in `paper/source/en/`: `lem:J` is Lemma 28 of the PDF (Gaussian integration and
+connectivity, which these comments call Lemma J), `thm:cheeger` is Theorem 35 (the min-cut
+sandwich) and `prop:scaling` is Proposition 51 (monotonicity under scaling).
 
 ## How to verify
 
@@ -214,10 +215,10 @@ code 0 and compares the printed axioms with `lean/expected/`. The last line must
 bash lean-mathlib/verify_mathlib.sh
 ```
 
-It needs `lake` (installed with elan), `git`, and network access to GitHub and to the Mathlib
+It needs `lake` (installed with elan), `git`, `curl` and network access to GitHub and to the Mathlib
 cache. The first run clones Mathlib and its dependencies into `lean-mathlib/.lake/` and
 downloads the prebuilt Mathlib cache with `lake exe cache get` (about 1 GB in all; with the
-build, about 6.5 GB of disk, of which about 0.3 GB in Mathlib's cache directory,
+build, about 7 GB of disk, of which about 0.3 GB in Mathlib's cache directory,
 `~/.cache/mathlib` by default); `lake-manifest.json` pins Mathlib to v4.24.0 (commit
 `f897ebcf`). The script refuses forbidden constructs, builds the project, recompiles each of
 the seven modules and compares the printed axioms with `lean-mathlib/expected/`. The last
