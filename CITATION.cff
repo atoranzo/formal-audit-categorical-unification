@@ -5,6 +5,14 @@ type: software
 version: "1.0"
 date-released: "2026-11-18"
 license: CC-BY-4.0
+doi: "10.5281/zenodo.24349943"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.24349943"
+    description: "Concept DOI: all versions"
+  - type: doi
+    value: "10.5281/zenodo.24349944"
+    description: "Version 1.0"
 repository-code: "https://github.com/atoranzo/formal-audit-categorical-unification"
 authors:
   - family-names: "Toranzo Portela"
@@ -47,5 +55,6 @@ preferred-citation:
     - family-names: "Toranzo Portela"
       given-names: "Ángel José"
   year: 2026
+  doi: "10.5281/zenodo.24349944"
   publisher:
     name: "Zenodo"

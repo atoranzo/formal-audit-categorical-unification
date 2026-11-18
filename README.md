@@ -1,8 +1,11 @@
 # A Formal Audit of a Categorical Unification of Consciousness Theories: Structural Proxies, Formal Obstructions and a Positive Route
 
-**Ángel José Toranzo Portela** · Independent Researcher in Theoretical Physics and Cognitive Science
-Preprint and verification archive · version 1.0 · 18 November 2026 · not peer reviewed
-Repository: <https://github.com/atoranzo/formal-audit-categorical-unification>
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24349943.svg)](https://doi.org/10.5281/zenodo.24349943)
+
+**Ángel José Toranzo Portela** · Independent Researcher in Theoretical Physics and Cognitive Science\
+Preprint and verification archive · version 1.0 · 18 November 2026 · not peer reviewed\
+Repository: <https://github.com/atoranzo/formal-audit-categorical-unification>\
+Zenodo: version 1.0, DOI [10.5281/zenodo.24349944](https://doi.org/10.5281/zenodo.24349944); all versions, DOI [10.5281/zenodo.24349943](https://doi.org/10.5281/zenodo.24349943)
 
 This archive contains the paper and everything needed to check its machine-verified
 claims:
@@ -295,9 +298,10 @@ optimizer for the four-unit networks.
 
 Toranzo Portela, Á. J. (2026). *A Formal Audit of a Categorical Unification of
 Consciousness Theories: Structural Proxies, Formal Obstructions and a Positive Route*
-(version 1.0). Preprint and verification archive, Zenodo.
+(version 1.0). Preprint and verification archive, Zenodo. https://doi.org/10.5281/zenodo.24349944
 
-The DOI is the one shown on the Zenodo record.
+To cite all versions, use the concept DOI https://doi.org/10.5281/zenodo.24349943, which always resolves to
+the latest version.
 
 ## License
 
@@ -358,4 +362,4 @@ el guion que lo comprueba. Las etiquetas de estatus son [L] Lean sin Mathlib, [M
 Mathlib, [A] papel, [S] cálculo exacto y [N] numérico. El lema de conectividad de J, el
 emparedado del corte mínimo y la proposición de escalado están comprobados en Lean con
 Mathlib. Licencia: CC BY 4.0, salvo `paper/source/compositionalityarticle.cls`, que
-conserva la LPPL 1.3c.
+conserva la LPPL 1.3c. DOI de la versión 1.0: 10.5281/zenodo.24349944; de todas las versiones: 10.5281/zenodo.24349943.
