@@ -1,0 +1,11 @@
+'ViaFutura.exact_covariance_gives_Su' depends on axioms: [propext, Quot.sound]
+'ViaFutura.exact_covariance_components' depends on axioms: [propext, Quot.sound]
+'ViaFutura.order_all_pairs_collapse' depends on axioms: [propext, Quot.sound]
+'ViaFutura.order_all_pairs_general' depends on axioms: [propext]
+'ViaFutura.intervention_monotonicity_escapes' depends on axioms: [propext]
+'ViaFutura.equality_on_fibre_steps_collapses' does not depend on any axioms
+'ViaFutura.im_iff_edges' does not depend on any axioms
+'ViaFutura.monotone_on_reach' depends on axioms: [propext]
+'ViaFutura.constant_on_scc' depends on axioms: [propext]
+'ViaFutura.nonconstant_if_not_scc' depends on axioms: [propext, Classical.choice, Quot.sound]
+exit 0

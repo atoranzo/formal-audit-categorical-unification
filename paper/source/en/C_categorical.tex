@@ -1,0 +1,127 @@
+\section{The categorical unification thesis}\label{sec:categorica}
+\subsection{Base category}\label{sec:base}
+\begin{definition}[Finite open system with a blanket]
+An object is $X=(V,\rho,(\Sigma_v)_{v\in V},K)$, where:
+\begin{itemize}
+\item $V$ is a finite set of units, possibly empty;
+\item $\rho:V\to\{\mu,s,a,\eta\}$ assigns the internal, sensory, active and external roles;
+\item $\Sigma=\prod_v\Sigma_v$ is finite;
+\item $K\in\mathbf{FinStoch}(\Sigma,\Sigma)$ is a Markov kernel factorized over units, $K(x'\mid x)=\prod_vK_v(x'_v\mid x_{\mathrm{pa}(v)})$, with the blanket condition: no internal unit has external parents and no external unit has internal parents~\cite{Friston2013}.
+\end{itemize}
+The morphisms are the isomorphisms: bijections of units that preserve the roles, with recodings of the local states that transport $K$ exactly.
+\end{definition}
+$X\otimes Y$ is the disjoint union of units with the product kernel; the unit of the product is the empty system, which has no units, and the symmetry is the swap. $\mathbf{Open}$ is thus a \emph{symmetric monoidal groupoid} that projects onto $\mathbf{FinStoch}$, the Markov category of finite sets and stochastic matrices~\cite{Fritz2020}. The internal block $(\mu,a)$, with input $s$, is a parametrized kernel $\Sigma_\mu\times\Sigma_s\to\mathrm{Dist}(\Sigma_\mu\times\Sigma_a)$, that is, an open system with interface $(\Sigma_s,\Sigma_a)$ in the sense of lenses and of $\mathbf{Poly}$~\cite{Capucci2022,NiuSpivak2023}. Coupling it with the environment amounts to closing the loop.
+\begin{itemize}
+\item \emph{Quantum version:} the kernels are replaced by CPTP channels and the roles by a decomposition into system and environment fragments.
+\item \emph{Linear-Gaussian instance} $\mathbf{Open}_G$: an object with $n\ge0$ units, each with a role in $\{\mu,s,a,\eta\}$ as in $\mathbf{Open}$, is a pair $(A,E)$ of real $n\times n$ matrices, with dynamics $X_{t+1}=AX_t+\varepsilon_{t+1}$, independent noise $\varepsilon_{t+1}\sim N(0,E)$, spectral radius $\operatorname{spr}(A)<1$ and $E\succ0$. Its stationary covariance $P$ is the unique solution of $P=APA^\top+E$, so $P\succeq E$. The isomorphisms are permutations within each role, positive rescalings and sign changes, and $\otimes$ is the block-diagonal sum; its unit is the empty system ($n=0$). $J$ and the broadcast hubs do not depend on the roles; the roles enter the isomorphisms and the FEP-type projection, through $\rho$ and $I(\mu;\eta)$ (Proposition~\ref{prop:monoidal}).
+\end{itemize}
+\paragraph{Four-unit examples.} Sections~\ref{sec:categorica} and~\ref{sec:debil} use four systems of $\mathbf{Open}_G$ on four units, one for each graph $\Gamma$ among the ring (the cycle) $C_4$, the star $K_{1,3}$ (one unit joined to the other three), the path $P_4$, and the split system $2K_2$ (two disjoint edges): $A=0.2\,I+0.3\,M_\Gamma$, with $M_\Gamma$ the adjacency matrix of $\Gamma$, and $E=I$. Section~\ref{sec:networks} studies them numerically. In general, $P_n$ and $C_n$ denote the path and the cycle on $n$ units.
+
+\subsection{The theories as projection functors}\label{sec:proyecciones}
+\begin{proposition}\label{prop:funtor}
+An assignment $F:\mathrm{Ob}(\mathbf{Open})\to D$ defines a functor $\mathbf{Open}\to\mathrm{Disc}(D)$ if and only if it is invariant under isomorphism. The same holds for $\mathbf{Open}_G$.
+\end{proposition}
+\begin{proof}
+A functor into the discrete category $\mathrm{Disc}(D)$ sends every morphism $X\to Y$ to an identity, so $F(X)=F(Y)$ whenever $X\cong Y$. Conversely, if $F$ is invariant under isomorphism, sending every morphism $X\to Y$ to the identity of $F(X)=F(Y)$ preserves identities and composition.
+\end{proof}
+Invariance under isomorphism is the analog, for objects without a distinguished state, of the admissibility condition Adm of Definition~\ref{def:adm}, which is formulated for pointed causal models.
+
+Computable instances:
+\begin{itemize}
+\item $F_{\rm IIT}^J(X)=J(X)$, the Gaussian residual functional of Lemma~\ref{lem:J}, defined on $\mathbf{Open}_G$ with the conventions of Remark~\ref{rem:small} for systems with fewer than two units; $F_{\rm IIT}$ denotes an IIT-type projection in general, and $F_{\rm IIT}^J$ is its instance here. It is \emph{not} the $\Phi$ of IIT~3.0, which equals $0$ on strictly unidirectional systems~\cite{Oizumi2014}; $J>0$ on every system with at least two units and connected support (Lemma~\ref{lem:J}).
+\item $F_{\rm GNWT}(X)$: the set of broadcast hubs, that is, units adjacent to all the others in the undirected graph of the support of $A$; this is the reading that Lean formalizes. It is a structural stand-in for global availability; the nonlinear ignition~\cite{DehaeneChangeux2011} is not modeled. In the systems of Table~\ref{tab:C-1} the couplings are symmetric, and requiring coupling in both directions would give the same result. With directed couplings, the undirected reading counts as a hub a unit that receives from all the others and sends to none, the opposite of a global broadcast; as a stand-in for GNWT it is faithful only on symmetric supports. With directed couplings the demanding reading differs: the two-unit family of Section~\ref{sec:gauss} has no hub in that sense.
+\item $F_{\rm FEP}(X)=(\rho,\ p_X,\ I_{p_X}(\mu;\eta))$, where $p_X$ is a stationary distribution of $K$ (unique if $K$ is ergodic; Proposition~\ref{prop:monoidal}) and $I_{p_X}(\mu;\eta)$ is the mutual information between the internal and the external units under $p_X$. The bare predicate ``has a blanket'' is constant on $\mathbf{Open}$, because every object has a blanket by construction.
+\item $F_{\rm QD}(X)$: the redundancy profile $\delta\mapsto R_\delta$ of a pointer variable over a partition of $\eta$ into fragments~\cite{Zurek2009}, where $R_\delta$ is the number of disjoint fragments each of which carries at least a fraction $1-\delta$ of the information about the pointer variable.
+\item $F_{\rm AST}(X)$: the existence of an internal subsystem whose state carries information about an attentional gain. AST deals with the attribution of consciousness~\cite{GrazianoKastner2011}.
+\end{itemize}
+
+\begin{lemma}[Gaussian integration and connectivity]\label{lem:J}
+Let $X=(A,E)$ be a system of $\mathbf{Open}_G$ with $n\ge2$ units and stationary covariance $P$, and let
+\[
+J(A,E)=\min_\pi\min_{B\in\mathfrak B_\pi}\tfrac12\log\frac{\det\bigl(E+(A-B)P(A-B)^\top\bigr)}{\det E},
+\]
+where $\pi$ ranges over the bipartitions of the units (partitions into two nonempty blocks) and $\mathfrak B_\pi$ is the subspace of $n\times n$ matrices with no coefficients crossing $\pi$, that is, with $B_{vw}=0$ whenever $v$ and $w$ lie in different blocks. The minima are attained and $0\le J<+\infty$. Moreover, $J>0$ if and only if the undirected graph of the off-diagonal support of $A$ is connected.
+\end{lemma}
+\begin{proof}
+Let $M=(A-B)P(A-B)^\top\succeq0$. Then $\det(E+M)/\det E=\det(I+E^{-1/2}ME^{-1/2})\ge1+\mathrm{tr}(E^{-1}M)\ge1$, because $\det(I+Y)\ge1+\operatorname{tr}Y$ for $Y\succeq0$; hence $J\ge0$. Moreover, $\mathrm{tr}(E^{-1}M)\ge\lambda_{\min}(P)\lambda_{\max}(E)^{-1}\lVert A-B\rVert_F^2$, with $\lambda_{\min}(P)\ge\lambda_{\min}(E)>0$ because $P\succeq E$. So the objective is continuous and coercive in $B$, its infimum over $\mathfrak B_\pi$ is attained, and, since there are finitely many bipartitions, $J$ is attained and finite. Fix a bipartition $\pi$. If $A\notin\mathfrak B_\pi$, then for every $B\in\mathfrak B_\pi$ the norm $\lVert A-B\rVert_F$ is at least the norm of the crossing coefficients of $A$, which is positive, so the minimum over $B$ is positive. If $A\in\mathfrak B_\pi$, taking $B=A$ gives $0$. Hence $J=0$ if and only if $A\in\mathfrak B_\pi$ for some $\pi$, that is, if and only if some bipartition is crossed by no off-diagonal coefficient of $A$, which means that the undirected graph of the off-diagonal support is disconnected.
+\end{proof}
+\emph{Status.} \stA\ \stM. Besides the paper proof above, the lemma is checked in Lean with Mathlib for $n\ge2$. \texttt{QAudit.lemmaJ\_stationary} states it with the hypotheses above: $E\succ0$, and $P\succ0$ with $P=APA^\top+E$, taken as data. \texttt{QAudit.lemmaJ} proves the same equivalence for every positive definite $P$, without the stationarity equation, and \texttt{QAudit.J\_eq\_zero\_iff} states that $J=0$ exactly when the support is disconnected, so that the two together give $J\ge0$. The stationary covariance can also be constructed: if $\operatorname{spr}(A)<1$, the series $\sum_{j\ge0}A^jE(A^j)^\top$ converges (\texttt{QAuditScaling.serSummable\_of\_spr\_lt\_one}), and its sum is positive definite and solves $P=APA^\top+E$ (\texttt{QAuditBridge.stationary\_of\_spr}), so the lemma holds with it (\texttt{QAuditBridge.lemmaJ\_spr}); here $\operatorname{spr}$ is Mathlib's spectral radius of $A$ regarded as a complex matrix. The uniqueness of the stationary covariance is not formalized, and the theorems do not need it: they hold for every positive definite solution. In Lean the inner minimum is an infimum over $\mathfrak B_\pi$, whose attainment is a separate checked theorem (\texttt{QAudit.exists\_minimizer}), and \texttt{QAudit.exists\_J\_minimizer} gives a bipartition and a matrix $B$ at which $J$ itself is attained. The convention $J=+\infty$ for one unit (Remark~\ref{rem:small}) is not formalized: in Lean, $J=0$ when there is no bipartition, and the lemma is checked only for $n\ge2$.
+
+\begin{remark}[Systems with fewer than two units]\label{rem:small}
+Bipartitions exist only when there are at least two units, so Lemma~\ref{lem:J}, the min-cut sandwich (Theorem~\ref{thm:cheeger}) and the decomposition $I_{\rm pred}=I_{\rm cut}+J$ of Section~\ref{sec:via1} are stated for systems with $n\ge2$ units, where $J$ and the minimum cut $w_{\min}$ are finite. For the two remaining cases we fix the following conventions.
+\begin{itemize}
+\item \emph{One unit} ($n=1$). There is no bipartition, and we set $J=w_{\min}=\min\varnothing=+\infty$. The graph of the support, a single vertex, is connected, and the unit is vacuously adjacent to all the others, so it is a broadcast hub. Both presence predicates, $J>0$ and the existence of a hub, take the value $1$, and the equivalence of Lemma~\ref{lem:J} also holds for $n=1$.
+\item \emph{The empty system} ($n=0$), the unit of $\otimes$. It has no units and no bipartitions. The convention $\min\varnothing=+\infty$ is not applied to it: $J$ and $w_{\min}$ are not defined on the empty system, and the IIT-type projection sends it to an adjoined unit $e\notin[0,+\infty]$, the unit of the zero-product monoid of Section~\ref{sec:l2}. Its set of broadcast hubs is empty; Section~\ref{sec:l2}, where monoidality is stated, also sends it to $e$ under the GNWT-type projection. The empty system belongs to none of the classes defined below by conditions on $J$, $w_{\min}$ or hubs, and the bridge square and the filtration of Sections~\ref{sec:puentes} and~\ref{sec:l1} are considered on the full subcategory $\mathbf{Open}_G^{+}$ of nonempty systems.
+\end{itemize}
+Thus $F_{\rm IIT}^J$ takes values in $[0,+\infty]\sqcup\{e\}$: $J(X)\in[0,+\infty)$ if $X$ has at least two units, $+\infty$ if it has one, and $e$ if $X$ is empty. It is invariant under isomorphism, hence a functor by Proposition~\ref{prop:funtor}: an isomorphism acts by $A\mapsto TAT^{-1}$ and $E\mapsto TET^\top$, with $T$ a role-preserving permutation matrix with nonzero scalings, so it preserves the number of units, sends $P$ to $TPT^\top$ and $\mathfrak B_\pi$ to $\mathfrak B_{\pi'}$ for the permuted bipartition $\pi'$, and multiplies both determinants in the definition of $J$ by $\det(T)^2$.
+\end{remark}
+
+\begin{proposition}[Monoidal behavior]\label{prop:monoidal}
+For nonempty $X,Y$ one has $J(X\otimes Y)=0$, and $X\otimes Y$ has no broadcast hub (\texttt{tensor\_no\_universal}). The predictive information $I_{\rm pred}=\tfrac12\log\det P-\tfrac12\log\det E$ and the mutual information $I(\mu;\eta)$ are additive under $\otimes$ in $\mathbf{Open}_G$. In $\mathbf{Open}$, $I(\mu;\eta)$ is additive if $p_X$ is the unique stationary distribution of an ergodic (irreducible and aperiodic) kernel, a property that is preserved under $\otimes$, or if one stipulates $p_{X\otimes Y}=p_X\otimes p_Y$. Without aperiodicity it fails: two swap kernels $x\mapsto1-x$, one internal and the other external, each have a unique stationary distribution, but their product admits the stationary distribution $\tfrac12(\delta_{00}+\delta_{11})$, with $I(\mu;\eta)=\log2$ versus $0+0$.
+\end{proposition}
+\begin{proof}
+If $X$ and $Y$ are nonempty, $X\otimes Y$ has at least two units and its matrix $\mathrm{diag}(A_X,A_Y)$ has no coefficient crossing the bipartition into the units of $X$ and those of $Y$; taking $B=\mathrm{diag}(A_X,A_Y)$ gives $J(X\otimes Y)=0$. No unit of $X$ is adjacent to a unit of $Y$, so no unit is adjacent to all the others; \texttt{tensor\_no\_universal} checks this for the Boolean adjacency of the block sum of two nonempty graphs. In $\mathbf{Open}_G$ the stationary covariance and the noise covariance of $X\otimes Y$ are $\mathrm{diag}(P_X,P_Y)$ and $\mathrm{diag}(E_X,E_Y)$, so $\log\det P$ and $\log\det E$ are additive. The stationary law of $X\otimes Y$ is the product of those of $X$ and $Y$, so the internal and external units of $X$ are independent of those of $Y$, and $I(\mu;\eta)$ is additive, as mutual information is for independent pairs. In $\mathbf{Open}$, if $K_X$ and $K_Y$ are irreducible and aperiodic, then for all large $m$ the matrices $K_X^m$ and $K_Y^m$ have all entries positive, and so does $(K_X\otimes K_Y)^m=K_X^m\otimes K_Y^m$; hence $K_X\otimes K_Y$ is irreducible and aperiodic, its unique stationary distribution is $p_X\otimes p_Y$, and additivity follows as before. In the counterexample each swap fixes only the uniform distribution, while the product kernel exchanges the states $00$ and $11$ and therefore fixes $\tfrac12(\delta_{00}+\delta_{11})$, under which the internal and the external unit are equal and uniform.
+\end{proof}
+Thus the IIT- and GNWT-type projections, $J$ and the presence (or the number) of broadcast hubs, are not monoidal functors into the additive monoid $([0,+\infty],+,0)$, whatever value they take on the empty system: they vanish on the tensor ideal of Section~\ref{sec:via1}, which contains every product of nonempty systems, and they do not vanish on $K_{1,3}$, so $F(K_{1,3}\otimes K_{1,3})=0\ne F(K_{1,3})+F(K_{1,3})$. With the unit convention of Section~\ref{sec:l2} (the empty system goes to the unit and no nonempty system does), they are strong monoidal functors into the zero-product monoid of that section, and without it they are not. The extensive projections are monoidal functors into $(\mathbb R_{\ge0},+,0)$ in $\mathbf{Open}_G$, and in $\mathbf{Open}$ under the conditions of Proposition~\ref{prop:monoidal}. Every functor out of the groupoid preserves sequential composition; into an additive monoid, parallel composition is preserved by the extensive projections and not by the IIT- and GNWT-type projections. On processes, additive trajectory functionals, such as entropy production, are functors from the path category into $\mathbf B(\mathbb R,+)$, and state functions give coboundaries.
+
+\subsection{Translation between theories}\label{sec:traduccion}
+Since $F_i$ and $F_j$ land in different categories, a translation is a functor $\tau:D_i\to D_j$ (unrelated to the temporality component $\tau$ of Q) with $\tau\circ F_i=F_j$; with discrete codomains, the natural transformation is an equality.
+\begin{theorem}[\texttt{nat\_iff\_functional}]\label{thm:translation}
+Let $D_j$ be nonempty. Such a $\tau$ exists if and only if $F_j$ is constant on the fibres of $F_i$.
+\end{theorem}
+There is no translation from positive integration to broadcast (\texttt{no\_translation}: the ring and the star both have $J>0$ and differ in broadcast). Nor is there a translation in the reverse direction: the ring and the split system both lack a broadcast hub and differ in $J$ (by \texttt{values} and \texttt{nat\_iff\_functional}, with $J>0$ on the ring and $J=0$ on the split system by Lemma~\ref{lem:J}; this direction is not a separate compiled statement). The general translation is the relation $R_{ij}=\mathrm{im}\langle F_i,F_j\rangle$, a span $D_i\leftarrow\mathbf{Open}\to D_j$; the relation is single-valued exactly when $\tau$ exists.
+
+\subsection{Reconstruction: the limit}\label{sec:limite}
+For the discrete diagram $\mathfrak D=(D_i)_i$ one has $\lim\mathfrak D=\prod_iD_i$, and the cone $(\mathbf{Open},F_i)$ factors uniquely through it (\texttt{pairing\_unique}):
+\begin{equation}
+\begin{CD}
+D_{\rm IIT} @<{\pi_1}<< D_{\rm IIT}\times D_{\rm GNWT}\times D_{\rm FEP} @>{\pi_2}>> D_{\rm GNWT}\\
+@A{F_{\rm IIT}}AA @AA{F_\times=\langle F_{\rm IIT},F_{\rm GNWT},F_{\rm FEP}\rangle}A @AA{F_{\rm GNWT}}A\\
+\mathbf{Open} @= \mathbf{Open} @= \mathbf{Open}
+\end{CD}
+\end{equation}
+\begin{theorem}[Reconstruction; \texttt{reconstruction\_iff\_injective}]\label{thm:reconstruccion}
+$\mathbf{Open}$ can be recovered from its projections, up to isomorphism, if and only if the joint projection $F_\times$ is injective on isomorphism classes. There are blind spots:
+\begin{itemize}
+\item[(i)] with Boolean presence projections, the ring and the path have the same projection (\texttt{blind\_spot}) and are not isomorphic, because their degree multisets differ: $\{2,2,2,2\}$ versus $\{1,1,2,2\}$ (\texttt{blind\_spot\_multiset}; that the degree multiset is an isomorphism invariant is standard and is not formalized);
+\item[(ii)] with a finite number $m$ of continuous scalar projections on an open family of dimension $d>m$, some fibre has positive dimension, by Hurewicz's dimension-lowering theorem applied to a compact ball~\cite[Theorem~VI\,7]{HurewiczWallman1941}. That fibre is compact and of positive dimension, hence it contains a nondegenerate continuum. If the isomorphisms act with finite orbits, as in $\mathbf{Open}$, where the recodings of finite states form a finite group, the fibre therefore contains a continuum of classes. In $\mathbf{Open}_G$ the positive rescalings give orbits of dimension $n$, and $d$ must be counted in the space of classes. For $m=1$, Theorem~\ref{thm:continuum} gives more: on a relatively open convex set of dimension at least two, acted on by a finite group of relabelings, the fibre of a continuous invariant projection at \emph{every} interior value contains uncountably many classes.
+\end{itemize}
+\end{theorem}
+Thus $\mathbf{Open}$ is not the limit: it is the apex of a cone whose comparison with the limit loses information.
+
+\subsection{Bridge layer: a concrete bridge square}\label{sec:puentes}
+Let $G_{\rm IIT}(j)=[\,j>0\,]$ for $j\in[0,+\infty]$ and $G_{\rm GNWT}(h)=[\,h\ne\varnothing\,]$ for a set $h$ of hubs, with values in the poset $\mathbf 2=\{0<1\}$. On the full subcategory $\mathbf{Open}_G^{+}$ of nonempty systems (Remark~\ref{rem:small}), the bridge square is
+\begin{equation}
+\begin{CD}
+\mathbf{Open}_G^{+} @>{F_{\rm IIT}^J}>> [0,+\infty]\\
+@V{F_{\rm GNWT}}VV @VV{G_{\rm IIT}}V\\
+\mathcal P(V) @>{G_{\rm GNWT}}>> \mathbf 2
+\end{CD}
+\end{equation}
+On one-unit systems both paths give $1$ (Remark~\ref{rem:small}). The square commutes on the full subcategory $\{K_{1,3},2K_2\}$ (\texttt{square\_commutes\_on\_sub}) and does not commute on $C_4$ or on $P_4$ (\texttt{values}; \texttt{square\_fails} states the failure, with $C_4$ as witness). The values of $J$ are numerical (BFGS with restarts) and not a certificate. Their positivity and their vanishing follow from Lemma~\ref{lem:J}.
+
+\begin{table}[htbp]\centering
+\begin{tabular}{lcccc}
+\toprule
+system ($c=0.3$, $a=0.2$, $E=I$) & $J$ & $G_{\rm IIT}$ & $G_{\rm GNWT}$ & commutes?\\
+\midrule
+ring $C_4$ & $0.2213$ & 1 & 0 & no\\
+star $K_{1,3}$ & $0.1135$ & 1 & 1 & yes\\
+path $P_4$ & $0.1059$ & 1 & 0 & no\\
+split $2K_2$ & $0$ & 0 & 0 & yes\\
+\bottomrule
+\end{tabular}
+\caption{The bridge square on the four-unit systems $C_4$, $K_{1,3}$, $P_4$ and $2K_2$ of Section~\ref{sec:base}: values of $J$ (numerical) and of the presence bridges $G_{\rm IIT}$ and $G_{\rm GNWT}$, and whether the square commutes.}\label{tab:C-1}
+\end{table}
+
+\begin{theorem}[Bridge consistency; \texttt{bridge\_iff\_agree}]\label{thm:bridge}
+There exists a phenomenal assignment that factors through both bridges if and only if the square commutes on the whole domain. If it exists, it is unique, since it is $G_{\rm IIT}\circ F_{\rm IIT}$; the Lean statement does not include uniqueness, which is immediate.
+\end{theorem}
+If each theory deals with a different component, $\Psi=\langle G_j\circ d_j\rangle_j$ always exists, by the universal property of the product: this is the architecture of Q, in which each component has its own reduced input $d_j$ (Definition~\ref{def:phiQ}). What has content are the sufficiencies, joint admissibility and the processes (Definition~\ref{def:phiQ}).
+
+\subsection{What the thesis can claim}\label{sec:tesis}
+\begin{itemize}
+\item \textbf{Weak thesis (proved as a scheme):} every family of isomorphism-invariant assignments gives functors out of one and the same symmetric monoidal groupoid of open systems, and their joint projection exists and is unique (Proposition~\ref{prop:funtor}, \texttt{pairing\_unique}). It applies to stand-ins for the theories, not to their own invariants. $J$, the presence of a broadcast hub and the number of hubs are isomorphism invariants; the set of hubs itself is transported along isomorphisms, as a functor into finite sets and bijections. $F_{\rm QD}$ and $F_{\rm AST}$ are such assignments only when the pointer variable and the partition into fragments, and the attentional gain, are fixed in an invariant way. $F_{\rm FEP}$ is one if one takes the isomorphism class of $(\rho,p_X)$, or only $I_{p_X}(\mu;\eta)$. The weak thesis is cheap, because it holds for any family of admissible invariants, and it settles no empirical dispute.
+\item \textbf{Strong thesis (not proved):} the bridge laws are mutually consistent and sufficient for phenomenal structure. It amounts to two things: that the overlapping squares commute on the domain, which fails on $C_4$ and $P_4$ for the IIT- and GNWT-type presence bridges; and that the joint projection be sufficient, which is the content of the obligations of Q.
+\end{itemize}
+For the proxies studied here, the framework does not dissolve the conflict: it locates their disagreement in squares that do not commute, and whether the theories themselves disagree there is an empirical question. This is consistent with the IIT--GNWT adversarial collaboration, whose results ``align with some predictions of IIT and GNWT, while substantially challenging key tenets of both theories''~\cite[abstract]{Cogitate2025}.

@@ -1,0 +1,13 @@
+'IntentoSu.entails_Su_iff' depends on axioms: [propext]
+'IntentoSu.nonconstant_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'IntentoSu.saturated' does not depend on any axioms
+'IntentoSu.connected_forces_constant' does not depend on any axioms
+'IntentoSu.constant_suff' does not depend on any axioms
+'IntentoSu.oi_residual' depends on axioms: [propext, Classical.choice, Quot.sound]
+'IntentoSu.robust_iff_relational' does not depend on any axioms
+'IntentoSu.cm1_not_Su' depends on axioms: [propext]
+'IntentoSu.cm2_not_Su' depends on axioms: [propext]
+'IntentoSu.cm3_Su' does not depend on any axioms
+'IntentoSu.cm3_nonconstant' depends on axioms: [propext]
+'IntentoSu.cm4_not_rel' depends on axioms: [propext]
+exit 0

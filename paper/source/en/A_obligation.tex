@@ -1,0 +1,263 @@
+\section{The framework Q and the unity obligation}\label{sec:obligacion}
+This section fixes the object of study. Definitions~\ref{def:pcm}--\ref{def:orderB} state the candidate theory Q as far as it is specified: its realizations, its admissible descriptors, its descriptor $\Phi_Q$ and its domain $D_0$, its five components with their sufficiency obligations, the unity degree and the order clause. Definitions~\ref{hyp:LSS}--\ref{def:TL} state the hypotheses that the paper examines. The definitions state what Q asserts; they do not demonstrate it, and nothing in this paper refutes it. The results on an unselected descriptor below are proved here on paper \stA, and those of Section~\ref{sec:intento} are checked by the Lean kernel \stL.
+
+\subsection{Statement of the framework}\label{sec:enunciado}
+For a function $f$ on a set $D$, its \emph{kernel} is the equivalence relation $\ker f=\{(s,t)\in D\times D: f(s)=f(t)\}$, and its \emph{fibres} are the classes of $\ker f$.
+
+\begin{definition}[Realizations, pointed causal models and isomorphism]\label{def:pcm}
+The physical objects of Q and their organizational comparison are the following.
+\begin{enumerate}
+\item[(a)] A \emph{realization} is a bearer, that is, a physical system with a declared boundary and declared interfaces with its environment, together with its causal dynamics and its realized history over a time window of length $\Delta>0$ that ends at the instant of evaluation.
+\item[(b)] A \emph{pointed causal model} is a tuple $M=(N,(X_i)_{i\in N},(p_i)_{i\in N},x)$: a finite set $N$ of units; for each unit $i$ a set $X_i$ of states; for each unit a local update kernel $p_i$, which gives the law of the next state of unit $i$ as a function of the current state of all the units and is read with its interventional semantics (an intervention that sets some units replaces their kernels by constants and leaves the others unchanged); and a current state $x\in\prod_{i\in N}X_i$.
+\item[(c)] A \emph{grain} $\gamma$ is a declared rule that assigns to each realization $s$ of a given set a pointed causal model $M_\gamma(s)$: the bearer coarse-grained into units at a declared spatial and temporal resolution, with its current state. The grain is \emph{intrinsic} if $M_\gamma(s)$ depends, up to isomorphism, only on the intrinsic physical history of the bearer over the window.
+\item[(d)] An \emph{organizational isomorphism} $M\to M'$ is a bijection $\beta:N\to N'$ together with bijections $r_i:X_i\to X'_{\beta(i)}$ (local recodings) that transport every kernel and the current state exactly: the kernel of unit $\beta(i)$ in $M'$ is the image of the kernel of unit $i$ under the recodings (for finite state sets, $p'_{\beta(i)}(r_i(y)\mid r(z))=p_i(y\mid z)$ for every $y\in X_i$ and $z\in\prod_jX_j$, where $r(z)_{\beta(j)}=r_j(z_j)$), and $x'=r(x)$. Since the kernels are transported, so is their interventional semantics. Two realizations $s,t$ are \emph{isomorphic at grain $\gamma$}, written $s\cong_\gamma t$, if $M_\gamma(s)$ and $M_\gamma(t)$ are isomorphic. Identities, inverses and composites of organizational isomorphisms are organizational isomorphisms, so $\cong_\gamma$ is an equivalence relation; its classes are the \emph{isomorphism classes} at grain $\gamma$.
+\item[(e)] Fix finite units and finite state sets. The kernels are then given by a vector $\theta$ of transition probabilities, the \emph{kernel parameters}, in a finite-dimensional real vector space; the kernels of full support form a relatively open convex set, of dimension at least two as soon as some unit has at least two states. The pairs $g=(\beta,(r_i))$ of a permutation of the units and recodings compatible with it form a finite group $G$, which acts on pairs $(\theta,x)$ by permuting the coordinates of $\theta$ and the states; two pointed models with these units and state sets are isomorphic if and only if their pairs $(\theta,x)$ lie in one $G$-orbit.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}[Descriptors, admissibility and dependence base]\label{def:adm}
+Let $D$ be a set of realizations with a grain $\gamma$.
+\begin{enumerate}
+\item[(a)] A \emph{descriptor} on $D$ is a function $\Phi:D\to V$ into a set of values. It is a descriptor \emph{at grain $\gamma$} if it is computed from the pointed model, $\Phi(s)=\varphi(M_\gamma(s))$ for a function $\varphi$ on pointed causal models.
+\item[(b)] A descriptor at grain $\gamma$ is \emph{admissible} (condition \emph{Adm}) if it depends only on the isomorphism class of the pointed model: $s\cong_\gamma t\Rightarrow\Phi(s)=\Phi(t)$, that is, ${\cong_\gamma}\subseteq\ker\Phi$.
+\item[(c)] The \emph{dependence base} $B_\Phi$ of a descriptor is the data that its specification reads: the region of the bearer, its interfaces and the dynamical information that the computation needs, including the law of the inputs that the bearer receives over the window if the descriptor is \emph{law-level}, that is, computed from the law of the process rather than from the realized history (\emph{history-level}). A law-level descriptor also needs a declared rule that assigns a law to each realization. Since $\Phi$ is a function of $B_\Phi$, two realizations whose data in $B_\Phi$ coincide, under the same laws of nature, have the same value of $\Phi$.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}[The candidate theory Q]\label{def:phiQ}
+The \emph{candidate theory Q} consists of the following data and claims.
+\begin{enumerate}
+\item[(a)] \emph{Domain.} A set $D_0$ of realizations, the \emph{original domain}, on which the claims of Q are made. It is meant to contain episodes of conscious subjects; Q does not fix which realizations it contains, in particular whether it contains realizations without experience or artificial systems.
+\item[(b)] \emph{Descriptor.} A grain $\gamma$ on $D_0$ and a real-valued admissible descriptor $\Phi_Q:D_0\to\mathbb R$ at grain $\gamma$, the \emph{descriptor of Q}, meant as a measure of the integration of the bearer's causal structure. A specification of $\Phi_Q$ must fix the system boundary, the units, the state, the causal dynamics, the time scale, the partitions, the distance and the selection conventions; Q specifies neither $\Phi_Q$ nor $\gamma$. No functional used in this paper, in particular not the Gaussian functional $J$ of Lemma~\ref{lem:J}, is identified with $\Phi_Q$.
+\item[(c)] \emph{Components.} For each $s\in D_0$, a phenomenal tuple $\mathbf e(s)=(c(s),q(s),u(s),\tau(s),\sigma(s))$: the content, the quality, the unity, the temporality and the subjectivity (perspective) of the experience of $s$. The components are features of the total experience of $s$: realizations with the same total experience, under the same declaration of aspects (Definition~\ref{def:unity}), have the same components. They keep their phenomenal meaning; they are not defined from their physical inputs.
+\item[(d)] \emph{Reduced inputs.} $d_c=(W_{\rm GW},R_{\rm QD})$, the structured content of a global workspace~\cite{DehaeneChangeux2011} and the redundancy of the records of a pointer variable in the bearer's environment, in the sense of quantum Darwinism~\cite{Zurek2009}; $d_q=(\Phi_Q,\mathcal C)$, with $\mathcal C$ a description of the causal architecture at grain $\gamma$; $d_u=\Phi_Q$; $d_\tau=\mathcal D^\Delta$, a declared collection of finite-resolution dynamical descriptors over the window, such as the finite difference of $\Phi_Q$ over the window divided by $\Delta$ and declared relaxation and decoherence time scales, so that the temporality component is defined on the state extended by $\mathcal D^\Delta$; and $d_\sigma=(A,R)$, attentional and self-model descriptors and homeostatic and interoceptive descriptors. (This $R$ is unrelated to the relation $R$ of Section~\ref{sec:intento}.)
+\item[(e)] \emph{Sufficiency obligations.} For $x\in\{c,q,u,\tau,\sigma\}$,
+\[
+S_x:\qquad d_x(s)=d_x(t)\ \Longrightarrow\ x(s)=x(t)\qquad(s,t\in D_0).
+\]
+$S_u$ is the obligation~\eqref{eq:Su} of the Introduction. $S_x$ holds if and only if $x=h_x\circ d_x$ for a function $h_x$ on $d_x(D_0)$, and $h_x$ is then unique: set $h_x(d_x(s))=x(s)$, which is well defined exactly when $S_x$ holds. $S_u$ does not identify $u$ with $\Phi_Q$: equal descriptors require equal degrees, unequal descriptors do not require unequal degrees, and $S_u$ says nothing about the nonconstancy, monotonicity, continuity or injectivity of $h_u$. None of the five obligations is established.
+\end{enumerate}
+Q has further obligations that this paper does not treat: descent of the assignment along a physical equivalence $\sim_{\rm phys}$ constructed independently of Q (condition O: $s\sim_{\rm phys}t$ implies $\mathbf e(s)=\mathbf e(t)$), joint admissibility of the five components on one realization, and images of physical processes that respect identities and composition, which rest on premises about the type of the realizations and of the arrows (P$_{\rm branch}$: experience supervenes on the bearer's realized configuration, not on its reduced density operator; P$_{\rm arr}$: the arrows are streams of total experiential states).
+We call Q as defined here the \emph{original} Q, and its domain $D_0$, descriptor $\Phi_Q$, degree $u$ and obligations the original ones, to distinguish them from the test bench of Section~\ref{sec:gauss} and from the weakening of Section~\ref{sec:via-futura}.
+\end{definition}
+
+\begin{definition}[Episodes, coexperience and the unity degree]\label{def:unity}
+The phenomenal side of the unity component is described as follows.
+\begin{enumerate}
+\item[(a)] An \emph{episode} is a tuple $\mathcal E=(e,\omega,E,\mathsf I)$: an identifier $e$, a delimited time window $\omega$, a finite set $E$ of candidate experiential aspects and a declared individuation scheme $\mathsf I$ that fixes how aspects are counted. Each realization $s\in D_0$ comes with a declared episode, whose objects carry the index $s$.
+\item[(b)] The \emph{coexperience family} of an episode is the set $H_e\subseteq\mathcal P(E)\setminus\{\varnothing\}$ of the sets of aspects that are experienced jointly within $\omega$, that is, subsumed by a single experience, in the subsumptive sense of phenomenal unity, which is distinct from access unity~\cite{BayneChalmers2003}. It is downward closed: if $A\in H_e$ and $\varnothing\ne B\subseteq A$, then $B\in H_e$; this is a modelling commitment. The aspects \emph{present} in the episode are $P_e=\{x\in E:\{x\}\in H_e\}$, and $H_e\subseteq\mathcal P(P_e)$. A realization $s$ is \emph{conscious} if at least one of its declared aspects is present, $P_s\ne\varnothing$, and \emph{non-conscious} otherwise; $D_{\rm cons}$ and $D_\bot$ are the conscious and the non-conscious realizations of $D_0$.
+\item[(c)] For a declared bijection $f:E\to E'$ (a \emph{correspondence}) between the aspects of two episodes, $\mathcal E\equiv_f\mathcal E'$ means that $A\in H_e\Leftrightarrow f(A)\in H_{e'}$ for every nonempty $A\subseteq E$. Equality of structures is relative to the correspondence, and labelled equality and equality up to a correspondence are not interchanged.
+\item[(d)] The \emph{coexperience structure} of $s\in D_0$ is $\mathfrak U(s)=(E_s,H_s)$, and $\mathfrak U:D_0\to\mathfrak H$, with $\mathfrak H$ the set of such pairs, is the \emph{structural assignment}.
+\item[(e)] The \emph{unity degree} $u:D_0\to\mathbb R$, also written $u_{\rm orig}$, is the component $u$ of Definition~\ref{def:phiQ}. Its provisional target is synchronous coexperience: aspects belong to one joint experience within a delimited window. It is distinct from $\mathfrak U$. A degree needs a comparison relation and a statement of which differences it ignores. A \emph{comparison} is a function $\psi:\mathfrak U(D_0)\to\mathbb R$, and the premise
+\[
+B_\psi:\qquad u=\psi\circ\mathfrak U
+\]
+states that the degree is a function of the coexperience structure. $B_\psi$ is a hypothesis examined in this paper, not a claim of Q, and Q fixes no $\psi$ and no other comparison relation for its degree.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}[Order clause; stipulations A9--U and A14--U]\label{def:orderB}
+Q constrains the degree by an order clause and two stipulations.
+\begin{enumerate}
+\item[(a)] The \emph{order clause}, with a strict antecedent, is
+\[
+\mathrm B:\qquad \Phi_Q(s)<\Phi_Q(t)\ \Longrightarrow\ u(s)\le u(t)\qquad(s,t\in D_0).
+\]
+$S_u\wedge\mathrm B$ is equivalent to the non-strict implication $\Phi_Q(s)\le\Phi_Q(t)\Rightarrow u(s)\le u(t)$: given the latter, equal descriptors give $u(s)\le u(t)$ and $u(t)\le u(s)$, hence $S_u$, and $\mathrm B$ is a special case; conversely, $S_u$ covers the case of equality and $\mathrm B$ the strict case.
+\item[(b)] \emph{A9--U} is the stipulation of Q that the degree satisfies $S_u$ and $\mathrm B$, that is, $u=h_u\circ\Phi_Q$ with $h_u$ nondecreasing on $\Phi_Q(D_0)$. It allows plateaus; it requires neither variation of $u$, nor injectivity, nor strict monotonicity.
+\item[(c)] \emph{A14--U} is the stipulation of Q that fixes a rule assigning observables to the degree. Its adoption establishes neither a calibration of a measurement channel for $u$ nor a faithful identification of the degree.
+\end{enumerate}
+A9--U and A14--U are stipulations of Q; their labels are only names, and no other stipulation of Q is used in this paper. They are not derived from other premises of Q or of this paper, and stipulating them does not justify them: stipulating a restriction on the degree and deriving it from independently justified premises are different achievements. The obligations $S_u$ and $\mathrm B$ that A9--U stipulates remain to be justified on $D_0$.
+\end{definition}
+
+\paragraph{Hypotheses examined.} The following hypotheses are not claims of Q. None of them is adopted or justified in this paper; they are examined, and every result that uses one of them says so.
+
+\begin{definition}[Hypothesis LSS$_\Delta$: local supervenience with a finite window]\label{hyp:LSS}
+The experience occurring at the end of the window supervenes on the intrinsic physical history of the bearer over the window of length $\Delta$: two realizations whose bearers have duplicate intrinsic histories over their windows, at whatever place, time or environment, have the same total experience.
+\end{definition}
+If the grain $\gamma$ is intrinsic, realizations with duplicate intrinsic histories are isomorphic at grain $\gamma$, so the equalities of $u$ that LSS$_\Delta$ yields all hold between realizations isomorphic at grain $\gamma$, and, under Adm, between realizations with equal $\Phi_Q$.
+
+\begin{definition}[Hypothesis OI$_\gamma$: organizational invariance]\label{hyp:OI}
+If two realizations, one of which is conscious, are isomorphic at a grain $\gamma$ fine enough to capture their functional organization, they have the same total experience.
+\end{definition}
+This is Chalmers' principle of organizational invariance~\cite{Chalmers1995}, stated for the pointed causal models of Definition~\ref{def:pcm}. Since the components of Q are features of the total experience, OI$_\gamma$ gives $u(s)=u(t)$ whenever $s\cong_\gamma t$ and one of them is conscious (with the declaration of aspects transported along the isomorphism), and it makes each isomorphism class either wholly conscious or wholly non-conscious. Hence, under OI$_\gamma$, $u$ is constant on each isomorphism class at grain $\gamma$ contained in $D_{\rm cons}$, and on every isomorphism class if $u$ takes a single value on $D_\bot$, as it does under B$_\psi^{\rm pres}$ (Definition~\ref{hyp:pres}), where every non-conscious realization has the degree $u_\bot$. When we say below that OI$_\gamma$ makes the degree constant on isomorphism classes, the statement is meant in this sense.
+
+\begin{definition}[Hypothesis Rob: robustness of the domain]\label{hyp:Rob}
+There is a conscious realization $s_0\in D_0$ whose pointed model at grain $\gamma$ has finite units and finite state sets, with kernel parameters $\theta_0$ and current state $x_0$, and a convex set $P$ of kernel parameters for these units and state sets (Definition~\ref{def:pcm}(e)) that contains $\theta_0$, is relatively open in its affine hull and has dimension at least two, such that for every $\theta\in P$ the domain $D_0$ contains a conscious realization $s_\theta$ whose pointed model at grain $\gamma$ has these units and state sets, kernel parameters $\theta$ and current state $x_0$.
+\end{definition}
+The motivation of Rob is that small fluctuations of synaptic parameters do not abolish consciousness.
+
+\begin{definition}[Hypothesis UT: unity thesis]\label{hyp:UT}
+For every conscious realization $s\in D_0$, whose window is taken within one specious present, all the aspects present in $s$ are subsumed by one total experience: $P_s\in H_s$, hence $H_s=\mathcal P(P_s)\setminus\{\varnothing\}$.
+\end{definition}
+This is the unity thesis of Bayne and Chalmers~\cite{BayneChalmers2003} and of Bayne~\cite{Bayne2010}, stated for the episodes of Definition~\ref{def:unity}.
+
+\begin{definition}[Hypothesis B$_\psi^{\rm pres}$: degree of the present structure]\label{hyp:pres}
+$B_\psi$ holds, and $\psi(E,H)$ depends only on $H$: the degree is a function of the coexperience among the present aspects, so that the absence of a candidate aspect is not counted as disunity. We write $\psi(H)$ for $\psi(E,H)$ and $u_\bot=\psi(\varnothing)$ for the degree of a non-conscious realization.
+\end{definition}
+
+\begin{definition}[Hypothesis N: normalization]\label{hyp:N}
+Total coexperience has maximal degree, whatever the number of aspects: there is a value $u_{\max}$ with $u\le u_{\max}$ on $D_0$ such that $u(s)=u_{\max}$ for every conscious $s\in D_0$ with $H_s=\mathcal P(P_s)\setminus\{\varnothing\}$.
+\end{definition}
+
+\begin{definition}[Hypothesis: absence anchor]\label{hyp:anchor}
+$u(t)<u(s)$ for every non-conscious $t\in D_0$ and every conscious $s\in D_0$.
+\end{definition}
+
+\begin{definition}[Threshold law TL]\label{def:TL}
+Consciousness is a threshold property of $\Phi_Q$ on $D_0$: $\Phi_Q(t)<\Phi_Q(s)$ for every non-conscious $t\in D_0$ and every conscious $s\in D_0$.
+\end{definition}
+
+\paragraph{What Q leaves unspecified, and what is not adopted.} Q does not specify the descriptor $\Phi_Q$ (beyond Adm and real values), the original domain $D_0$, the grain $\gamma$, or the comparison relation of the degree (a $\psi$ as in Definition~\ref{def:unity}, or a substitute), nor the correspondences $f$ and the reading of $\mathcal C$ (unpointed wiring or pointed isomorphism class). These are decisions that Q has not taken, and this paper does not take them: its results hold for every choice that satisfies their stated hypotheses. None of LSS$_\Delta$, OI$_\gamma$, Rob, UT, $B_\psi$, B$_\psi^{\rm pres}$, N or the absence anchor is adopted or justified here; they are hypotheses examined. TL is not assumed either: Theorem~\ref{thm:threshold} shows under which hypotheses it is the content of A9--U.
+
+\subsection{What can be proved about an unselected descriptor}
+The results of this subsection are paper proofs \stA. The first says which equalities of the descriptor can be established while $\Phi_Q$ is not selected.
+
+\begin{proposition}[Provable descriptor equalities]\label{prop:provable}
+\stA\ Let $D$ be a set of realizations with a grain $\gamma$. For $s,t\in D$, $\Phi(s)=\Phi(t)$ holds for every admissible descriptor $\Phi$ on $D$ if and only if $s\cong_\gamma t$. The same holds when the pointed models have finite units and state sets and the admissible descriptors are required, in addition, to be real-valued and continuous in the kernel parameters.
+\end{proposition}
+\begin{proof}
+If $s\cong_\gamma t$, every admissible descriptor takes equal values at $s$ and $t$. If $s\not\cong_\gamma t$, the indicator of the isomorphism class of $M_\gamma(s)$ is admissible and separates $s$ from $t$. For the continuous case, let $M_1=M_\gamma(s)$, with parameters $\theta_1$ and current state $x_1$. Call two pointed models of the same \emph{shape} if there are bijections between their units and between the state sets of corresponding units; a pointed model of another shape than $M_1$ is not isomorphic to it. For a pointed model $M$ with parameters $\theta$ and current state $x$, put $f(M)=1$ if $M$ is not of the shape of $M_1$, and otherwise
+\[
+f(M)=\min_{\phi}\bigl(\lVert\phi_*\theta-\theta_1\rVert+\delta(\phi_*x,x_1)\bigr),
+\]
+where $\phi$ ranges over the finitely many bijections of units and state sets onto those of $M_1$, $\phi_*$ transports parameters and states, $\lVert\cdot\rVert$ is the Euclidean norm and $\delta$ is $0$ on equal states and $1$ otherwise. Composing with an organizational isomorphism permutes the set of the $\phi$, so $f$ is invariant under isomorphism; it is continuous in $\theta$ as a minimum of finitely many continuous functions; and $f(M)=0$ exactly when $\phi_*\theta=\theta_1$ and $\phi_*x=x_1$ for some $\phi$, that is, when $M\cong M_1$. Then $\Phi=f\circ M_\gamma$ is admissible, continuous in the kernel parameters, $\Phi(s)=0$ and $\Phi(t)>0$.
+\end{proof}
+Hence, as long as $\Phi_Q$ is not selected, the antecedent $\Phi_Q(s)=\Phi_Q(t)$ of $S_u$ can be established, from Adm alone, only for pairs isomorphic at grain $\gamma$; for a non-isomorphic pair it requires selecting and computing $\Phi_Q$, an obligation on the physical side.
+
+\begin{theorem}[Relational coverage]\label{thm:coverage}
+\stA\ Let $\Phi:D\to V$ be a function and $\approx$ an equivalence relation on $D$ with ${\approx}\subseteq\ker\Phi$. Every function $u$ on $D$ that is constant on the $\approx$-classes satisfies $S_\Phi:\ \Phi(s)=\Phi(t)\Rightarrow u(s)=u(t)$ if and only if ${\approx}=\ker\Phi$.
+\end{theorem}
+\begin{proof}
+If ${\approx}=\ker\Phi$, then $\Phi(s)=\Phi(t)$ gives $s\approx t$ and hence $u(s)=u(t)$. Conversely, if $\Phi(x)=\Phi(y)$ and $x\not\approx y$, the indicator of the $\approx$-class of $x$ is constant on the $\approx$-classes and takes the value $1$ at $x$ and $0$ at $y$, so it violates $S_\Phi$. Hence, if every such $u$ satisfies $S_\Phi$, then $\ker\Phi\subseteq{\approx}$, and equality follows.
+\end{proof}
+With ${\approx}={\cong_\gamma}$, which is contained in $\ker\Phi_Q$ by Adm, the theorem applies to the isomorphism groupoid used by LSS$_\Delta$ and OI$_\gamma$: these premises entail $S_u$ for every degree compatible with them if and only if every fibre of $\Phi_Q$ is a single isomorphism class. It is also the case of Theorem~\ref{thm:impl} below in which the relation $R$ is an equivalence relation contained in $\ker\Phi$.
+
+\begin{theorem}[Uncountably many classes in a fibre]\label{thm:continuum}
+\stA\ Let $P$ be a relatively open convex subset, of dimension at least two, of a finite-dimensional real affine space, let $\Phi:P\to\mathbb R$ be continuous, and let $c$ be an interior point of the interval $\Phi(P)$. Then the fibre $\Phi^{-1}(c)$ is uncountable. Consequently, if $\sim$ is an equivalence relation on $P$ whose classes have at most $m$ elements for a fixed finite $m$, for example the relation of lying in one orbit of a finite group $G$ acting on a set that contains $P$, with $m=|G|$, then $\Phi^{-1}(c)$ meets uncountably many classes of $\sim$; if $\Phi$ is constant on the classes, it contains uncountably many of them.
+\end{theorem}
+\begin{proof}
+Since $c$ is interior to $\Phi(P)$, there are $\theta_-,\theta_+\in P$ with $\Phi(\theta_-)<c<\Phi(\theta_+)$. Put $w=\theta_+-\theta_-\ne0$ and choose a vector $v$ of the direction space of the affine hull of $P$ that is not parallel to $w$, which exists because the dimension is at least two. The segment $\{\theta_-+\lambda w:\lambda\in[0,1]\}$ lies in $P$ by convexity and is compact, and $P$ is relatively open, so some neighbourhood of the segment in the affine hull lies in $P$. Since the curve $\gamma_\sigma(\lambda)=\theta_-+\lambda w+\sigma\lambda(1-\lambda)v$, $\lambda\in[0,1]$, is within $|\sigma|\,\lVert v\rVert/4$ of the segment, there is $\sigma_0>0$ such that $\gamma_\sigma$ lies in $P$ for $|\sigma|<\sigma_0$. By the intermediate value theorem, $\Phi\circ\gamma_\sigma$ takes the value $c$ at some $\lambda_\sigma\in(0,1)$; put $p_\sigma=\gamma_\sigma(\lambda_\sigma)$. If $p_\sigma=p_{\sigma'}$, then $(\lambda_\sigma-\lambda_{\sigma'})w+(\sigma\lambda_\sigma(1-\lambda_\sigma)-\sigma'\lambda_{\sigma'}(1-\lambda_{\sigma'}))v=0$; since $w$ and $v$ are linearly independent, $\lambda_\sigma=\lambda_{\sigma'}$ and then $\sigma=\sigma'$, because $\lambda_\sigma(1-\lambda_\sigma)>0$. Thus $\sigma\mapsto p_\sigma$ is injective on $(-\sigma_0,\sigma_0)$, and the fibre is uncountable. A countable union of classes with at most $m$ elements each is countable, so the fibre meets uncountably many classes; if $\Phi$ is constant on the classes, each class that meets the fibre is contained in it.
+\end{proof}
+
+\begin{proposition}[Form of any extension]\label{prop:extension}
+\stA\ Assume Rob, with $s_0$, $\theta_0$, $x_0$, $P$ and the realizations $s_\theta$ as there, and let $G$ be the finite group of Definition~\ref{def:pcm}(e) for the units and state sets of $s_0$. Suppose that $\theta\mapsto\Phi_Q(s_\theta)$ is continuous on $P$ and that $\Phi_Q(s_0)$ is an interior point of its range. Let $F=\{s\in D_0:\Phi_Q(s)=\Phi_Q(s_0)\}$ be the fibre through $s_0$.
+\begin{enumerate}
+\item[(i)] $F$ contains uncountably many pairwise non-isomorphic conscious realizations.
+\item[(ii)] $S_u$ on $F$ follows neither from the equalities of $u$ that OI$_\gamma$ yields nor from those that LSS$_\Delta$ yields at an intrinsic grain: some function on $D_0$ that is constant on the isomorphism classes at grain $\gamma$ violates $S_u$ on $F$.
+\item[(iii)] If a family $\Pi$ of premises of the form $u(a)=u(b)$ entails, together with the constancy of $u$ on isomorphism classes, $S_u$ on $F$, in the sense that every function on $D_0$ that satisfies these premises satisfies $S_u$ on $F$, then $\Pi$ contains uncountably many pairs $(a,b)$ of non-isomorphic realizations. In particular no countable family of case-by-case equalities suffices: a uniform principle equating the degree across non-isomorphic organizations is required.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+(i) By Rob the realizations $s_\theta$, $\theta\in P$, are conscious and lie in $D_0$. By Definition~\ref{def:pcm}(e), $s_\theta\cong_\gamma s_{\theta'}$ only if $(\theta',x_0)=g\cdot(\theta,x_0)$ for some $g\in G$, so the relation $s_\theta\cong_\gamma s_{\theta'}$ on $P$ has classes with at most $|G|$ elements. Theorem~\ref{thm:continuum}, applied to $\theta\mapsto\Phi_Q(s_\theta)$ and $c=\Phi_Q(s_0)$, gives uncountably many classes in the fibre.
+(ii) Let $u$ be the indicator of the isomorphism class of $s_0$. It is constant on the isomorphism classes, hence satisfies every equality that OI$_\gamma$ yields and, at an intrinsic grain, every equality that LSS$_\Delta$ yields (both hold only between isomorphic realizations). By (i) there is $t\in F$ with $t\not\cong_\gamma s_0$, and $u(t)=0\ne1=u(s_0)$.
+(iii) Suppose that only countably many pairs of $\Pi$ are non-isomorphic. Their realizations lie in countably many isomorphism classes, so by (i) there are two non-isomorphic realizations $s,t\in F$ whose classes contain no realization of such a pair. The indicator $u$ of the class of $s$ is constant on the isomorphism classes; it satisfies every premise of $\Pi$, since a pair of isomorphic realizations lies in one class and a non-isomorphic pair lies outside the class of $s$; and $u(s)=1\ne0=u(t)$ with $\Phi_Q(s)=\Phi_Q(t)$. So the premises do not entail $S_u$ on $F$, a contradiction.
+\end{proof}
+
+\begin{theorem}[Threshold reduction]\label{thm:threshold}
+\stA\ Let $D=D_{\rm cons}\sqcup D_\bot$ be a set of realizations divided into conscious and non-conscious ones, let $\Phi:D\to V$ take values in a strict total order $(V,<)$, and write $S$ and $\mathrm B$ for $S_u$ and the order clause with $\Phi$ in place of $\Phi_Q$.
+\begin{enumerate}
+\item[(i)] Let $u=u_{\max}$ on $D_{\rm cons}$ and $u=u_\bot$ on $D_\bot$, with $u_\bot<u_{\max}$. Then $S$ holds if and only if no fibre of $\Phi$ meets both $D_{\rm cons}$ and $D_\bot$.
+\item[(ii)] For $u$ as in (i), $\mathrm B$ holds if and only if $\Phi(t)\le\Phi(s)$ for every $s\in D_{\rm cons}$ and $t\in D_\bot$.
+\item[(iii)] For $u$ as in (i), $S\wedge\mathrm B$ holds if and only if $\Phi(t)<\Phi(s)$ for every $s\in D_{\rm cons}$ and $t\in D_\bot$, that is, if and only if consciousness is a threshold property of $\Phi$ on $D$ (for $\Phi=\Phi_Q$ and $D=D_0$, the threshold law TL).
+\item[(iv)] For $u$ as in (i), $\mathrm B$ alone allows at most one fibre of $\Phi$ that meets both $D_{\rm cons}$ and $D_\bot$, and the bound is attained.
+\item[(v)] For any $u:D\to\mathbb R$ that satisfies the absence anchor, $S\wedge\mathrm B$ implies $\Phi(t)<\Phi(s)$ for every $s\in D_{\rm cons}$ and $t\in D_\bot$. The converse fails in general.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+(i) $u$ takes two distinct values, so $S$ fails exactly when some $s\in D_{\rm cons}$ and $t\in D_\bot$ have $\Phi(s)=\Phi(t)$. (ii) Since $u_\bot<u_{\max}$, $u(s)>u(t)$ holds exactly when $s\in D_{\rm cons}$ and $t\in D_\bot$, so $\mathrm B$ fails exactly when some such pair has $\Phi(s)<\Phi(t)$; in a strict total order the negation of $\Phi(s)<\Phi(t)$ is $\Phi(t)\le\Phi(s)$. (iii) By (i) and (ii), $S\wedge\mathrm B$ holds exactly when $\Phi(t)\le\Phi(s)$ and $\Phi(t)\ne\Phi(s)$ for every such pair. (iv) If two such fibres had values $a<a'$, the first would contain some $s\in D_{\rm cons}$ and the second some $t\in D_\bot$, with $\Phi(s)<\Phi(t)$, against (ii). With $D=\{s,t\}$, $s$ conscious, $t$ non-conscious and $\Phi(s)=\Phi(t)$, $\mathrm B$ holds and there is exactly one such fibre. (v) If $\Phi(t)=\Phi(s)$, $S$ gives $u(t)=u(s)$; if $\Phi(s)<\Phi(t)$, $\mathrm B$ gives $u(s)\le u(t)$; both contradict the anchor, and totality leaves $\Phi(t)<\Phi(s)$. For the converse, two conscious realizations with equal $\Phi$ and different $u$, and a non-conscious one with smaller $\Phi$ and smaller $u$, satisfy the anchor and the separation and violate $S$.
+\end{proof}
+
+\paragraph{The degree under UT, B$_\psi^{\rm pres}$ and N \stA.} Under UT, every conscious $s\in D_0$ has $H_s=\mathcal P(P_s)\setminus\{\varnothing\}$, so N gives $u(s)=u_{\max}$; under B$_\psi^{\rm pres}$, every non-conscious $s$ has $H_s=\varnothing$ and $u(s)=\psi(\varnothing)=u_\bot$, and N gives $u_\bot\le u_{\max}$. So under these three hypotheses the degree on $D_0$ has the form of Theorem~\ref{thm:threshold}(i), except for the strict inequality $u_\bot<u_{\max}$, which they do not supply; when $D_0$ contains both conscious and non-conscious realizations, that inequality is the absence anchor. If $u_\bot=u_{\max}$, the degree is constant on $D_0$, and $S_u$ and $\mathrm B$ hold for every descriptor. Hence, under UT, B$_\psi^{\rm pres}$, N and the anchor, the non-degenerate content of A9--U on $D_0$ is exactly TL, by Theorem~\ref{thm:threshold}(iii); this reading needs a two-valued degree, that is, N together with the anchor. The refuting direction does not need N: by Theorem~\ref{thm:threshold}(v), $S_u$, $\mathrm B$ and the anchor already imply TL. Applying either statement to particular realizations would also require an independently justified attribution of absence of experience to the non-conscious ones, which is not available.
+
+\subsection{Dependency graph}\label{sec:grafo}
+\begin{figure}[htbp]
+\centering
+{\small\resizebox{\textwidth}{!}{$\begin{array}{ccccccccc}
+\text{\bf Definitions} && \text{\bf Physical results} && \text{\bf Psychophysical premises} && \text{\bf Sufficiencies} && \text{\bf Objects/processes}\\[2pt]
+\begin{array}{c}D_0,\ \Phi_Q,\ \gamma,\ \mathcal C,\\ f,\ \psi\ \text{(comparison of }u)\end{array}
+&\to&
+\begin{array}{c}\text{Adm, base }B_\Phi,\\ \text{continuum + Rob},\\ \text{provable}\\ \text{equalities}\end{array}
+&\to&
+\begin{array}{c}\text{LSS}_\Delta,\ \text{OI}_\gamma,\\ \text{UT},\ B_\psi,\ B_\psi^{\rm pres},\ \text{N},\\ \text{anchor},\ \text{TL}\end{array}
+&\to&
+\begin{array}{c}S_c,S_q,\mathbf{S_u}\ (\text{SEG}^{\ast}),\\ S_\tau,S_\sigma,\ \mathrm B\end{array}
+&\to&
+\begin{array}{c}\sim_{\rm phys},\ \mathrm O,\\ \text{P}_{\rm arr},\ \text{arrows},\\ \text{descent}\end{array}
+\end{array}$}}
+\caption{Dependency graph: definitions, physical results, psychophysical premises, sufficiencies, and objects and processes. The obligation $S_u$ is in bold. ${}^{\ast}$SEG is equivalent only to non-degenerate $S_u$, and only under $B_\psi$ (Definition~\ref{def:SEG} in Section~\ref{sec:mejor}).}
+\label{fig:graph}
+\end{figure}
+The items in the first column of Figure~\ref{fig:graph} are left unspecified by Q (Definitions~\ref{def:phiQ} and~\ref{def:unity}), so no proposition in the later columns that mentions them can be evaluated for $D_0$. The remaining dependencies are implications: factorization and functorial assembly are conditional results (Definition~\ref{def:phiQ}(e) and Section~\ref{sec:intento}). The last column lists the further obligations of Q that this paper does not treat (Definition~\ref{def:phiQ}). SEG is not a premise of the third column: it is non-degenerate $S_u$, under $B_\psi$, rewritten in testable form (Section~\ref{sec:mejor}). That is why it appears next to $S_u$, and identifying it does not close $S_u$.
+
+\subsection{The exact gap}\label{sec:laguna}
+\paragraph{(L0) A specification gap precedes the justification gap.} $\Phi_Q$, $D_0$, $\gamma$ and the comparison relation of the degree (a $\psi$, or a substitute) are not specified by Q (Definitions~\ref{def:phiQ} and~\ref{def:unity}). Hence $S_u$ is a schema, not a determinate proposition. Moreover, by Proposition~\ref{prop:provable}, as long as $\Phi_Q$ is not selected, the antecedent $\Phi_Q(s)=\Phi_Q(t)$ can be established only for pairs isomorphic at grain $\gamma$. For any non-isomorphic pair, $S_u$ cannot even be put to the test.
+
+\paragraph{(L1) The cross-class residual.} Under Adm and OI$_\gamma$ (not adopted), the degree is constant on each isomorphism class at grain $\gamma$ (in the sense stated after Definition~\ref{hyp:OI}). Then
+\begin{equation}
+S_u\iff u_{\rm orig}(s)=u_{\rm orig}(t)\ \text{for every non-isomorphic pair with } \Phi_Q(s)=\Phi_Q(t)
+\end{equation}
+(Theorem~\ref{thm:residuo}). With Rob and $\Phi_Q$ continuous in the kernel parameters, every fibre of $\Phi_Q$ whose value is interior to the range of $\Phi_Q$ on the neighbourhood of Rob contains uncountably many non-isomorphic classes (Theorem~\ref{thm:continuum} and Proposition~\ref{prop:extension}(i)). No isomorphism-type principle covers that residual (Theorem~\ref{thm:coverage}): a uniform principle equating the degree across non-isomorphic organizations is required (Proposition~\ref{prop:extension}(iii)).
+
+\paragraph{Why the available arguments do not close it.}
+\begin{itemize}
+\item Factorization ($u=h\circ\Phi_Q$) is equivalent to $S_u$ (Definition~\ref{def:phiQ}(e)), so it presupposes $S_u$.
+\item The route through an equivalence ${\approx}$ with $\ker\Phi_Q\subseteq{\approx}\subseteq\ker u$ and the route through transformations that cover the fibres and preserve $u$ are conditional. The minimal cover is $\ker\Phi_Q$ itself, and preserving $u$ on it is $S_u$.
+\item Supervenience (LSS$_\Delta$ at an intrinsic grain) and invariance under a change of measurement units (a recoding of states, hence an organizational isomorphism) equate the degree only within isomorphism classes at grain $\gamma$; so do stability, bisimulation and equality of uncalibrated observations when they are read as exact correspondences between unit-level models with their interventions. None of them goes beyond the isomorphism classes, so, by Theorem~\ref{thm:coverage}, none reaches the residual (L1).
+\item An observational route would use an observable $L$ with $L_s=K(u(s))$ for an injective $K$, together with the premise $J_0(s)=J_0(t)\Rightarrow L_s=L_t$, where $J_0(s)=J(\ell(s))$ is the Gaussian functional of Lemma~\ref{lem:J} evaluated at a linear-Gaussian law $\ell(s)$ assigned to $s$ by a declared rule, a candidate descriptor that is not $\Phi_Q$. Given the first two premises, the third is equivalent to the sufficiency $S_{J_0}$: $J_0(s)=J_0(t)\Rightarrow u(s)=u(t)$, since, $K$ being injective, $L_s=L_t$ holds exactly when $u(s)=u(t)$. Justifying it requires measuring $L$ across non-isomorphic realizations with equal $J_0$, that is, testing $S_{J_0}$; that does not prove it.
+\end{itemize}
+
+\subsection{Substantive attempt: what factorization premises can deliver}\label{sec:intento}
+All the independent defenses of a unity bridge that this paper examines have the form ``the degree depends only on $\kappa$'', for some feature $\kappa$ with a defense of its own: duplication (LSS$_\Delta$), pointed organization (OI$_\gamma$), coexperience structure ($B_\psi$), presence class (UT with B$_\psi^{\rm pres}$) or membership in a complex (the exclusion postulate of IIT~\cite{Oizumi2014}). Let $R$ be the relation ``having the same $\kappa$'' for the defended features, and let $\langle R\rangle$ be the equivalence it generates. We call a feature $\kappa$ \emph{aligned} with $\Phi_Q$ if equal $\kappa$ implies equal $\Phi_Q$, that is, if each class of $\kappa$ lies inside a fibre of $\Phi_Q$, and \emph{transversal} to $\Phi_Q$ otherwise, that is, if one and the same value of $\kappa$ occurs at different values of $\Phi_Q$; the pair $(\Phi_Q,\kappa)$ has \emph{product image} if every realized value of $\Phi_Q$ occurs together with every realized value of $\kappa$. All of the following statements are formalized and compiled in \texttt{IntentoSu.lean} \stL\ (Appendix~\ref{sec:archivos}); the short proofs given here follow the Lean proofs. In Lean, Theorems~\ref{thm:impl} and~\ref{thm:holgura} quantify over degrees with values in an arbitrary type, and their proofs use $\mathrm{Prop}$-valued class indicators; composing these with the map that sends true to $1$ and false to $0$ gives the statements for real-valued degrees, a step that is not compiled.
+
+\begin{theorem}[Entailment criterion; \texttt{entails\_Su\_iff}]\label{thm:impl}
+The premises ``$u$ agrees on $R$-related pairs'' entail $S_u$ for every compatible $u$ if and only if $\ker\Phi_Q\subseteq\langle R\rangle$.
+\end{theorem}
+\begin{proof}
+($\Leftarrow$) Every $u$ that respects $R$ is constant on the classes of $\langle R\rangle$, by induction on the chain. ($\Rightarrow$) The indicator function $x\mapsto[\langle R\rangle(t,x)]$ respects $R$. Applying $S_u$ to it on a pair with equal $\Phi_Q$ yields $\langle R\rangle(s,t)$.
+\end{proof}
+
+\begin{theorem}[Slack and saturation; \texttt{nonconstant\_iff}, \texttt{saturated}]\label{thm:holgura}
+These premises admit a nonconstant $u$ if and only if $\langle R\rangle$ is not total. If they entail $S_u$, every class of $\langle R\rangle$ is a union of fibres of $\Phi_Q$.
+\end{theorem}
+\begin{proof}
+If $\langle R\rangle$ is total, every $u$ that respects $R$ is constant, by the induction of Theorem~\ref{thm:impl}; if $\langle R\rangle(a,b)$ fails, the indicator of the class of $a$ respects $R$ and separates $a$ from $b$. If the premises entail $S_u$, Theorem~\ref{thm:impl} gives $\ker\Phi_Q\subseteq\langle R\rangle$, so $\Phi_Q(s')=\Phi_Q(s)$ and $\langle R\rangle(s,t)$ give $\langle R\rangle(s',t)$.
+\end{proof}
+
+\begin{theorem}[Co-occurrence dichotomy; \texttt{connected\_forces\_constant}, \texttt{constant\_suff}]\label{thm:dicotomia}
+Let $u=f\circ\kappa$. If $S_u$ holds and the relation ``equal $\kappa$ or equal $\Phi_Q$'' connects all of $D_0$, then $u$ is constant on $D_0$. Conversely, a constant $u$ satisfies $S_u$.
+\end{theorem}
+\begin{proof}
+Equal $\kappa$ gives equal $f\circ\kappa$, and equal $\Phi_Q$ gives equal $u$ by $S_u$; so $u$ is constant along every chain of the relation, and by hypothesis every two realizations of $D_0$ are joined by such a chain. The converse is immediate.
+\end{proof}
+This is an elementary fact about generated equivalences: a function that is constant along two kernels is constant along every chain of the equivalence they generate. A product joint image of $(\Phi_Q,\kappa)$ is a sufficient condition for connectivity, since any $a,b$ are then joined through a realization $c$ with $\Phi_Q(c)=\Phi_Q(a)$ and $\kappa(c)=\kappa(b)$; connectivity is weaker.
+
+\begin{theorem}[Residual under OI; \texttt{oi\_residual}]\label{thm:residuo}
+If isomorphic pairs have equal $u$, then $S_u$ is equivalent to the equality of $u$ on the non-isomorphic pairs with equal $\Phi_Q$.
+\end{theorem}
+\begin{proof}
+$S_u$ gives the equality on all pairs with equal $\Phi_Q$. Conversely, a pair with equal $\Phi_Q$ is either isomorphic, and then has equal $u$ by hypothesis, or not, and then has equal $u$ by assumption.
+\end{proof}
+
+\begin{theorem}[Robust form; \texttt{robust\_iff\_relational}]\label{thm:robusta}
+Suppose that there exists an injective representation of the coexperience structures, which is the case, for example, if they are countable. Then $S_u$ holds for every $u=\psi\circ\mathfrak U$ if and only if $\Phi_Q$ determines the coexperience structure, that is, the relational sufficiency $\ker\Phi_Q\subseteq\ker\mathfrak U$.
+\end{theorem}
+\begin{proof}
+If $\Phi_Q$ determines $\mathfrak U$, equal $\Phi_Q$ gives equal $\mathfrak U$ and hence equal $\psi\circ\mathfrak U$ for every $\psi$. Conversely, $S_u$ for $u=\psi_0\circ\mathfrak U$ with $\psi_0$ injective gives $\psi_0(\mathfrak U(s))=\psi_0(\mathfrak U(t))$, hence $\mathfrak U(s)=\mathfrak U(t)$, whenever $\Phi_Q(s)=\Phi_Q(t)$.
+\end{proof}
+Since Q fixes no $\psi$ (Definition~\ref{def:unity}), a proof of $S_u$ that uses no property of a specific $\psi$ is equivalent to proving that $\Phi_Q$ determines the coexperience structure.
+
+\paragraph{Countermodels (checked by the Lean kernel).}
+\begin{itemize}
+\item \textbf{CM1.} OI and Adm hold and $S_u$ fails: two classes with equal $\Phi_Q$ and different $u$.
+\item \textbf{CM2.} Transversal $\kappa$ with product image: $u=f\circ\kappa$ is nonconstant and $S_u$ fails.
+\item \textbf{CM3.} Segregation: if $\kappa$ is a function of $\Phi_Q$, then a nonconstant $u=\kappa$ satisfies $S_u$, with disconnected co-occurrence. This shows that the connectivity hypothesis of Theorem~\ref{thm:dicotomia} is necessary.
+\item \textbf{CM4.} Equal $\Phi_Q$ and different structures: with $\psi$ injective, $S_u$ fails.
+\end{itemize}
+
+\paragraph{Application to the defended features.}
+\begin{itemize}
+\item \emph{LSS$_\Delta$ and OI$_\gamma$ are aligned with $\Phi_Q$.} By Adm, their classes lie inside the fibres (for LSS$_\Delta$, at an intrinsic grain), so they give equality only within each class. The residual (L1) remains intact (Theorem~\ref{thm:residuo}, CM1).
+\item \emph{$B_\psi$ is transversal.} One and the same coexperience structure can occur with different values of $\Phi_Q$. Under OI, isomorphic realizations have the same total experience and hence the same structure, so $\langle\cong\cup\ker\mathfrak U\rangle=\ker\mathfrak U$, and by Theorem~\ref{thm:impl} the entailment requires $\Phi_Q$ to determine $\mathfrak U$ (Theorem~\ref{thm:robusta}). If the structures co-occur in a connected way across the levels of $\Phi_Q$, $S_u$ forces $u$ to be constant (Theorem~\ref{thm:dicotomia}).
+\item \emph{With UT and B$_\psi^{\rm pres}$}, the degree of a conscious realization is $\psi(\mathcal P(P_s)\setminus\{\varnothing\})$, a function of the set $P_s$ of present aspects. If the degree is moreover invariant under the admitted correspondences of aspects ($\psi$ takes equal values on structures related by $\equiv_f$ for an admitted $f$, the admitted correspondences forming a groupoid), it is a function of the presence class, the class of $P_s$ under the admitted correspondences: a correspondence $f$ with $f(P_s)=P_t$ gives $\mathcal E_s\equiv_f\mathcal E_t$, since $\varnothing\ne A\subseteq P_s$ if and only if $\varnothing\ne f(A)\subseteq P_t$. Then $\kappa$ is the presence class; without that invariance, $\kappa$ is the set of present aspects, and what follows holds likewise by Theorem~\ref{thm:dicotomia}. Under connected co-occurrence, $S_u$ is equivalent to the constancy of $u$ on $D_0$; in a domain of conscious episodes, that is the content of N restricted to $D_0$. A9--U admits plateaus and does not require variation (Definition~\ref{def:orderB}), and not adopting N is not denying it. Under these hypotheses, a defender of A9--U has to accept a constant $u$ on $D_0$ or, if a non-degenerate $S_u$ is sought, reject UT, reject B$_\psi^{\rm pres}$ or reject connectivity.
+\end{itemize}

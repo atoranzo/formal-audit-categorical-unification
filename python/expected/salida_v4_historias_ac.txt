@@ -1,0 +1,55 @@
+SymPy 1.14.0
+
+== (4a) Autocovarianzas: Gamma(0) = P, Gamma(1) = A P, Gamma(h) = 0 para h >= 2 ==
+OK   A^2 = 0, luego Gamma(h) = A^h P = 0 para h >= 2 (proceso 1-dependiente)
+  Gamma(1) = A P = [[0, c*s2], [0, 0]]
+
+== (4b) Factorizacion Sigma_T = L D L^T y determinante, T = 0..5 ==
+OK   T=0: Sigma_T = L_T Diag(P, E, ..., E) L_T^T
+OK   T=0: det L_T = 1
+OK   T=0: det Sigma_T = (s1 + c^2 s2) s2 (s1 s2)^0 = s2*(c**2*s2 + s1) > 0
+OK   T=1: Sigma_T = L_T Diag(P, E, ..., E) L_T^T
+OK   T=1: det L_T = 1
+OK   T=1: det Sigma_T = (s1 + c^2 s2) s2 (s1 s2)^1 = s1*s2**2*(c**2*s2 + s1) > 0
+OK   T=2: Sigma_T = L_T Diag(P, E, ..., E) L_T^T
+OK   T=2: det L_T = 1
+OK   T=2: det Sigma_T = (s1 + c^2 s2) s2 (s1 s2)^2 = s1**2*s2**3*(c**2*s2 + s1) > 0
+OK   T=3: Sigma_T = L_T Diag(P, E, ..., E) L_T^T
+OK   T=3: det L_T = 1
+OK   T=3: det Sigma_T = (s1 + c^2 s2) s2 (s1 s2)^3 = s1**3*s2**4*(c**2*s2 + s1) > 0
+OK   T=4: Sigma_T = L_T Diag(P, E, ..., E) L_T^T
+OK   T=4: det L_T = 1
+OK   T=4: det Sigma_T = (s1 + c^2 s2) s2 (s1 s2)^4 = s1**4*s2**5*(c**2*s2 + s1) > 0
+OK   T=5: Sigma_T = L_T Diag(P, E, ..., E) L_T^T
+OK   T=5: det L_T = 1
+OK   T=5: det Sigma_T = (s1 + c^2 s2) s2 (s1 s2)^5 = s1**5*s2**6*(c**2*s2 + s1) > 0
+  => Sigma_T definida positiva (x^T Sigma x = |D^(1/2) L^T x|^2 > 0 si x != 0), tambien con c = 0.
+
+== (4c) Ilustracion exacta: el par del punto (G6) (c = s1 = 1; s2 = 1 frente a 3) ==
+  par k=1 / k=3: KL_0 = -7/12 + log(6)/2 ; tasa por paso = -1/3 + log(3)/2
+OK     k=1/k=3, T=0: KL_T = KL_0 + T * tasa = 0.31254640 (finita)
+      cota de Pinsker TV <= sqrt(KL/2) = 0.395314
+OK     k=1/k=3, T=1: KL_T = KL_0 + T * tasa = 0.52851921 (finita)
+OK     k=1/k=3, T=2: KL_T = KL_0 + T * tasa = 0.74449202 (finita)
+      cota de Pinsker TV <= sqrt(KL/2) = 0.610120
+OK     k=1/k=3, T=3: KL_T = KL_0 + T * tasa = 0.96046483 (finita)
+OK     k=1/k=3, T=4: KL_T = KL_0 + T * tasa = 1.1764376 (finita)
+OK     k=1/k=3, T=5: KL_T = KL_0 + T * tasa = 1.3924105 (finita)
+      cota de Pinsker TV <= sqrt(KL/2) = 0.834389
+OK     k=1/k=3: tasa por paso > 0, luego KL_T -> infinito con T
+  par k=1 / k=4: KL_0 = -3/10 + log(sqrt(10)/2) ; tasa por paso = 1/2
+OK     k=1/k=4, T=0: KL_T = KL_0 + T * tasa = 0.15814537 (finita)
+      cota de Pinsker TV <= sqrt(KL/2) = 0.281199
+OK     k=1/k=4, T=1: KL_T = KL_0 + T * tasa = 0.65814537 (finita)
+OK     k=1/k=4, T=2: KL_T = KL_0 + T * tasa = 1.1581454 (finita)
+      cota de Pinsker TV <= sqrt(KL/2) = 0.760968
+OK     k=1/k=4, T=3: KL_T = KL_0 + T * tasa = 1.6581454 (finita)
+OK     k=1/k=4, T=4: KL_T = KL_0 + T * tasa = 2.1581454 (finita)
+OK     k=1/k=4, T=5: KL_T = KL_0 + T * tasa = 2.6581454 (finita)
+      cota de Pinsker TV <= sqrt(KL/2) = 1.15285  (no informativa; TV < 1 sigue valiendo por (ii))
+OK     k=1/k=4: tasa por paso > 0, luego KL_T -> infinito con T
+
+== Nota (no ejecutada): historias infinitas ==
+  Con A^2 = 0: X_{2,t} = eps_{2,t} i.i.d. N(0, s2) y X_{1,t} X_{2,t-1} = (c eps_{2,t-1} + eps_{1,t}) eps_{2,t-1} son i.i.d. en t; por la ley fuerte de los grandes numeros, c^, s2^ y s1^ (momentos muestrales) convergen c.s., luego k^ -> k c.s. bajo toda ley de F0.  Las leyes de historias infinitas con k != k' son mutuamente singulares: el resultado (iii) es especifico de ventanas finitas.
+
+Total de comprobaciones superadas: 33

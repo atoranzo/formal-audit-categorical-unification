@@ -1,0 +1,59 @@
+SymPy 1.14.0
+
+== (3a) Invariancia de (k, z) por isomorfismos positivos ==
+OK   k(D.theta) = k(theta)
+OK   z(D.theta, D x) = z(theta, x)
+
+== (3b) Completitud: igual (k, z) => isomorfos (positivo) ==
+OK   los dos modelos tienen igual k
+OK   los dos modelos tienen igual z
+OK   D = diag(sqrt(s1'/s1), sqrt(s2'/s2)) lleva (theta, x) a (theta', x')
+OK   accion libre: el estabilizador de theta es trivial (alpha = beta = 1)
+  => en la fibra {k = k0} las clases positivas estan en biyeccion con z en R^2.
+
+== (3c) Cambios de signo admisibles ==
+OK   c > 0, D = diag(-alpha, -beta): c' = alpha c / beta >= 0 (sigue en F0)
+OK   c > 0, cambio global de signo: z -> -z
+OK   c = 0, signos (+1, -1): c' = 0 y z -> (+1 z1, -1 z2)
+OK   c = 0, signos (-1, +1): c' = 0 y z -> (-1 z1, +1 z2)
+OK   c = 0, signos (-1, -1): c' = 0 y z -> (-1 z1, -1 z2)
+OK   |z|^2 invariante tambien por los cambios de signo admisibles
+
+== (3d) Cada fibra {J = J0} contiene un continuo de clases no isomorfas ==
+OK   theta0 = (sqrt(k0), 1, 1) esta en la fibra: k = k0
+OK   |z(theta0, (r, 0))| = r para todo r >= 0
+  |z| es invariante (con o sin signos): r != r' => clases distintas.  Como J0 -> k0 = e^(2 J0) - 1 es biyectiva, toda fibra {J = J0}, J0 >= 0, contiene las clases [theta0, (r, 0)], r >= 0: un continuo; y a lo sumo un continuo, pues las clases se inyectan en [0, inf) x R^2.
+
+== (3e) Historias: invariante z_{0:T} ==
+OK   z_{0:2} invariante por isomorfismos positivos
+  La completitud se prueba igual, componente a componente (mismo D para todo t); las clases de historias en la fibra estan en biyeccion con z_{0:T} en R^(2(T+1)).
+
+== (3f) Contramodelo: u = F(k, z) = |z|^2 (estado) y media de |z_t|^2 (historia) ==
+OK   u_F invariante por isomorfismos positivos (estado)
+OK   u_F invariante por el cambio global de signo (c > 0)
+OK   u_F invariante por isomorfismos positivos (historia T = 2)
+OK   theta0 = (1,1,1) y theta1 = (2,1,1/4) tienen k = 1
+OK   J(theta0) = J(theta1) = log(2)/2
+  u_F(theta0, (0,0)) = 0 ; u_F(theta0, (1,0)) = 1 ; u_F(theta1, (0,1/2)) = 1
+OK   misma ley y mismo J, distinto u_F: viola 'igual J => igual u'
+OK   leyes distintas en la misma fibra de J, distinto u_F
+OK   (theta1, (0, 0)) es isomorfo a (theta0, (0, 0)) y u_F coincide
+OK   historias T = 1 bajo theta0: u_F = 0 frente a 1/2
+
+== (3g) La violacion no es un artefacto de conjuntos nulos ==
+OK   E_theta |z|^2 = tr Cov(z) = 2 + k
+  Bajo toda ley de la fibra, z ~ N(0, diag(1+k, 1)); |z|^2 = (1+k) W1 + W2 con W1, W2 chi^2_1 independientes tiene ley continua: dos extracciones independientes dan u_F distinto c.s.
+OK   variante F2 = J(k) + |z|^2 - (2+k): E_theta F2 = J(k)
+  Variante: F2(k, z) = J(k) + |z|^2 - (2 + k) tiene media J bajo L_theta y viola igualmente S_J punto a punto: coincidir con J en media (nivel de ley) no da igualdad por episodio.
+
+== (3h) Nivel de ley: k es invariante completo de las leyes ==
+OK   igual k => existe D que lleva theta a theta' (leyes isomorfas)
+  => a nivel de ley la fibra {J = J0} es una sola clase: toda asignacion de nivel de ley invariante es h(k) = h(e^(2J) - 1) y S_J se cumple trivialmente en F0.  A nivel apuntado no.
+
+== (3i) Control finito: invariancia frente a IPS_K y S_J (valores en {0,1}) ==
+OK   invariantes (k, |z|^2): [(1, 0), (1, 1), (3, 0), (3, 1), (1, 0)]
+  asignaciones: 32; invariantes: 16; IPS_K: 4; S_J: 4; invariantes que violan S_J: 12
+OK   en F0, IPS_K (u depende solo de k) y S_J coinciden en las 32 asignaciones
+OK   la invariancia sola deja 12 asignaciones que violan S_J
+
+Total de comprobaciones superadas: 30

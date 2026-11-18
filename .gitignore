@@ -1,0 +1,15 @@
+# Lean/Lake build outputs and the Mathlib checkout (rebuilt with `lake exe cache get`)
+.lake/
+build/
+# LaTeX auxiliary files
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+# Python
+__pycache__/
+*.pyc
+.venv/
+# verification outputs (the verify scripts write them to a temporary directory)
+out_*.txt

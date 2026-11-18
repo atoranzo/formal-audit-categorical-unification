@@ -1,0 +1,5 @@
+'GaussConexion.plateau_product' does not depend on any axioms
+'GaussConexion.aligned_premise_iff' does not depend on any axioms
+'GaussConexion.n2_equiv' does not depend on any axioms
+'GaussConexion.f0_hub_readings' does not depend on any axioms
+exit 0

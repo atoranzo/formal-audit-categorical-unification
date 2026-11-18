@@ -1,0 +1,31 @@
+== Cuatro sistemas (c=0.3, a=0.2, E=I)
+ring   J=0.221293 cota_inf=0.153742 cota_sup=0.500000 I_pred=0.638824 I_cut=0.417531 sandwich=sí
+star   J=0.113499 cota_inf=0.082757 cota_sup=0.186662 I_pred=0.459446 I_cut=0.345948 sandwich=sí
+path   J=0.105871 cota_inf=0.082757 cota_sup=0.169743 I_pred=0.440231 I_cut=0.334360 sandwich=sí
+split  J=0.000000 cota_inf=0.000000 cota_sup=0.000000 I_pred=0.297732 I_cut=0.297732 sandwich=sí
+== Centro de fuerza c (estrella de 4, E=I): J >= 1/2 log(1+2c^2)
+c=0.1: J=0.010603 >= 0.009901: sí
+c=0.2: J=0.044930 >= 0.038481: sí
+c=0.3: J=0.113499 >= 0.082757: sí
+c=0.4: J=0.252894 >= 0.138816: sí
+== Sistemas aleatorios (n=4, E aleatoria definida positiva)
+aleatorio  0: wmin=0.0000 J=0.000000 [0.000000, 0.000000] sí
+aleatorio  1: wmin=0.3948 J=0.263670 [0.005016, 11.326341] sí
+aleatorio  2: wmin=0.1738 J=0.231319 [0.006584, 1.311798] sí
+aleatorio  3: wmin=0.0071 J=0.003681 [0.000299, 0.044759] sí
+aleatorio  4: wmin=0.1497 J=0.096626 [0.002904, 2.366241] sí
+aleatorio  5: wmin=0.0424 J=0.035441 [0.002236, 0.215928] sí
+aleatorio  6: wmin=0.0641 J=0.038275 [0.001008, 1.056129] sí
+aleatorio  7: wmin=0.1588 J=0.092712 [0.004115, 2.841497] sí
+aleatorio  8: wmin=0.0830 J=0.026345 [0.002745, 1.228062] sí
+aleatorio  9: wmin=0.0842 J=0.079866 [0.002178, 1.155543] sí
+aleatorio 10: wmin=0.0089 J=0.009240 [0.000321, 0.068223] sí
+aleatorio 11: wmin=0.0008 J=0.000749 [0.000022, 0.009377] sí
+== Producto tensorial: J(X⊗Y)=0 e I_pred aditiva
+J(X)=0.181508 J(Y)=0.104778 J(X⊗Y)=0.00e+00; I_pred(X)+I_pred(Y)=0.536674080102 I_pred(X⊗Y)=0.536674080102
+== Banda: grafos etiquetados conexos sin vértice universal (enumeración exacta)
+n=2: 0 grafos en la banda (esperado 0): sí
+n=3: 0 grafos en la banda (esperado 0): sí
+n=4: 15 grafos en la banda (esperado 15): sí
+n=5: 472 grafos en la banda (esperado 472): sí
+TODAS LAS COMPROBACIONES: sí

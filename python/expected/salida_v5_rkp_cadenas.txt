@@ -1,0 +1,61 @@
+SymPy 1.14.0
+
+== (5a) Covarianza estacionaria con conductor AR ==
+OK   P22 = s2 p, P12 = c a s2 p, P11 = s1 + c^2 s2 p, p = 1/(1-a^2)
+OK   det P = s2 p (s1 + c^2 s2)
+
+== (5b) Minimo exacto y unico: G = 1/2 log r(k, p) ==
+OK   f(x,y) = s1 s2 r(k,p) + s2 P11 (x - x*)^2 + (a - y)^2 (s1 P22 + x^2 det P)  (identidad)
+  s2 P11 > 0 y s1 P22 + x^2 det P > 0: minimo unico en x = x* = c P12/P11, y = a; min/det E = r(k, p), luego G = 1/2 log r(k, p).
+
+== (5c) Propiedades de r(k, p) ==
+OK   dr/dp = k(k+1)/(kp+1)^2 > 0
+OK   r(k, 1) = 1 + k
+OK   lim_{p->inf} r(k, p) = 2 + k
+OK   2 + k - r = (k+1)/(kp+1) > 0 (el supremo no se alcanza)
+OK   r - (1+k) = k (p-1)/(kp+1) >= 0 para p >= 1
+  r(k, .) continua y estrictamente creciente en [1, inf): rango exacto [1+k, 2+k).
+
+== (5d) p* y el enlace r(k, p*) = 1 + k' = r(k', 1) ==
+OK   r(k, p*) = 1 + k'
+OK   r(k', 1) = 1 + k'
+OK   p* - 1 = (k+1)(k'-k)/(k(k+1-k')): p* >= 1 sii k' >= k (con k' < k+1)
+  p* finito exige k' < k + 1; a* = sqrt(1 - 1/p*) en [0, 1) realiza p* en la familia.
+
+== (5e) Un enlace concreto de las cadenas de (G7) (calculo matricial exacto, no solo forma cerrada) ==
+  C: k = 1, p = 1, cociente = 2, r(k,p) = 2
+OK     C: cociente matricial exacto = r(k, p)
+  A: k = 1, p = 4/3, cociente = 15/7, r(k,p) = 15/7
+OK     A: cociente matricial exacto = r(k, p)
+  B: k = 8/7, p = 1, cociente = 15/7, r(k,p) = 15/7
+OK     B: cociente matricial exacto = r(k, p)
+  C y A comparten k = 1 (enlace IPS_K); A y B comparten r = 15/7 (enlace S).
+
+== (5f) Cadenas exactas de pasos < 1 ==
+OK     cadena 1/10 -> 7/2 en 4 pasos: todo p* >= 1 y r(k_i, p*) = r(k_{i+1}, 1) exacto
+OK       control finito: IPS_K + S unen los 9 nodos en una sola clase
+OK     cadena 1 -> 8/7 en 1 pasos: todo p* >= 1 y r(k_i, p*) = r(k_{i+1}, 1) exacto
+OK       control finito: IPS_K + S unen los 3 nodos en una sola clase
+OK     cadena 2 -> 13/2 en 5 pasos: todo p* >= 1 y r(k_i, p*) = r(k_{i+1}, 1) exacto
+OK       control finito: IPS_K + S unen los 11 nodos en una sola clase
+OK     cadena 1/1000 -> 10 en 10 pasos: todo p* >= 1 y r(k_i, p*) = r(k_{i+1}, 1) exacto
+OK       control finito: IPS_K + S unen los 21 nodos en una sola clase
+  Para 0 < k < K, n = floor(K-k)+1 y k_i = k + i(K-k)/n dan pasos (K-k)/n < 1; IPS_K (u = H(k)) y S (igual r => igual u) dan H(k_i) = H(k_{i+1}), luego H(k) = H(K).
+
+== (5g) Lectura alternativa IPS_K~, con la varianza estacionaria del conductor: k~ = c^2 P22/s1 = k p (punto (G7)) ==
+OK   r(k, p) con k = k~/p es 1 + k~ (k~/p + 1)/(k~ + 1)
+OK   dr/dp a k~ fijo = -k~^2/(p^2 (k~+1)) < 0
+OK   rango a k~ fijo: (1 + k~/(k~+1), 1 + k~]
+OK   k~ = 1: rango (3/2, 2]; r(p = 2) = 7/4 es interior, no un extremo
+OK   p' = k~'^2/(k~ k~' + k~ - k~') da r(k~', p') = 1 + k~ (enlace en la lectura k~)
+OK   p' - 1 = (k~'-k~)(k~'+1)/(k~ k~' + k~ - k~')
+OK   para 0 < k~ < 1: k~/(1-k~) >= k~(1+k~)
+
+== (5h) Extra: receptor con coeficiente interno alpha (conductor y receptor con memoria; final del punto (G7)) ==
+OK   f = s2 (s1 + c^2 detP/P11) + s2 P11 (x - x*)^2 + (a-y)^2 (s1 P22 + (alpha-x)^2 det P)
+  => G = 1/2 log(1 + c^2 Var(X2 | X1)/s1), Var(X2|X1) = det P/P11 (minimo unico en x = x*, y = a).
+OK   a = 0: P12 = 0 y G = 1/2 log(1 + k) para todo alpha
+  c = s1 = s2 = 1, a = 1/2: cociente 15/7 (alpha = 0) frente a 187/87 (alpha = 1/2); k = 1 en ambos
+OK   con a != 0, G depende de alpha mientras k no: IPS_K 'elimina' alpha por premisa
+
+Total de comprobaciones superadas: 32

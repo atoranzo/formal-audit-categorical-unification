@@ -1,0 +1,176 @@
+\section{The Gaussian laboratory}\label{sec:gauss}
+\providecommand{\stL}{\textsf{[L]}}\providecommand{\stA}{\textsf{[A]}}\providecommand{\stM}{\textsf{[M]}}\providecommand{\stS}{\textsf{[S]}}\providecommand{\stN}{\textsf{[N]}}
+This section defines the test bench of the paper: a two-unit linear-Gaussian family $F_0$, a family with a driver with memory that contains it, and, in Section~\ref{sec:networks}, four coupled networks of four units. On the two families the quantities studied are obtained in closed form and checked exactly; on the networks the values are numerical. The results are then connected with the theorems of Act~I. Each claim carries its status:
+\begin{itemize}
+\item \stL: compiled in Lean without Mathlib (exit~0; axioms in Appendix~\ref{sec:archivos});
+\item \stM: compiled in Lean with Mathlib, over real matrices (exit~0; only the standard axioms);
+\item \stA: proved on paper;
+\item \stS: verified exactly with SymPy~1.14 in the Gaussian model;
+\item \stN: numerical, without a certificate.
+\end{itemize}
+What holds on the test bench does not thereby hold in the original domain $D_0$ of Q (Definition~\ref{def:phiQ}). The functional $J$ of Lemma~\ref{lem:J} is an auxiliary functional of the law of the process, not a selected $\Phi_Q$. The sufficiency $S_J$ defined below is not $S_u$, and $J$ is nowhere identified with $\Phi_Q$.
+
+\subsection{The test bench}
+\begin{definition}[The restricted Gaussian family $F_0$]\label{def:gauss-F0}
+For $\theta=(c,s_1,s_2)$ with $c\ge0$ and $s_1,s_2>0$, let $A_\theta=\bigl(\begin{smallmatrix}0&c\\0&0\end{smallmatrix}\bigr)$ and $E_\theta=\mathrm{diag}(s_1,s_2)$. The \emph{system} $\theta$ is the two-unit process
+\[
+X_{t+1}=A_\theta X_t+\varepsilon_{t+1},\qquad (\varepsilon_t)_t\ \text{independent, each}\ N(0,E_\theta),
+\]
+that is, $X_{1,t+1}=cX_{2,t}+\varepsilon_{1,t+1}$ and $X_{2,t+1}=\varepsilon_{2,t+1}$: unit~2 is the \emph{driver} and unit~1 the \emph{receiver}. Since $A_\theta^2=0$, the spectral radius of $A_\theta$ is $0$, so $(A_\theta,E_\theta)$ is an object of $\mathbf{Open}_G$ (Section~\ref{sec:base}), and the process has a unique stationary law $L_\theta$, under which it is always taken. $F_0$ is the set of these systems, and we write $k=k(\theta)=c^2s_2/s_1$.
+\begin{enumerate}
+\item[(a)] A \emph{pointed model} of $F_0$ is a pair $(\theta,x)$ with $x\in\mathbb R^2$, a \emph{pointed state}, or a pair $(\theta,x_{0:T})$ with $x_{0:T}=(x_0,\dots,x_T)\in(\mathbb R^2)^{T+1}$, a \emph{pointed history} of length $T$.
+\item[(b)] An \emph{isomorphism} of pointed models is a change of coordinates $X\mapsto DX$, with $D=\mathrm{diag}(\alpha,\beta)$ and $\alpha,\beta\ne0$, that keeps the system in $F_0$. It sends $\theta$ to $(\alpha c/\beta,\ \alpha^2s_1,\ \beta^2s_2)$, which requires $\alpha c/\beta\ge0$, and each state $x_t$ to $Dx_t$. It is \emph{positive} if $\alpha,\beta>0$. These are the positive rescalings and sign changes of $\mathbf{Open}_G$ that fix each unit. (A permutation of the two units leaves $F_0$ unless $c=0$; for $c=0$ it would also identify $z$ with $(z_2,z_1)$ in (G3) below, and $|z|$ would remain invariant.)
+\item[(c)] On $F_0$ the functional $J$ of Lemma~\ref{lem:J} has a single bipartition, $\{1\}|\{2\}$, whose predictors are the diagonal matrices $B=\mathrm{diag}(b_1,b_2)$:
+\[
+J(\theta)=\min_{b_1,b_2\in\mathbb R}\ \tfrac12\log\frac{\det\bigl(E_\theta+(A_\theta-B)P_\theta(A_\theta-B)^\top\bigr)}{\det E_\theta},
+\]
+where $P_\theta$ is the stationary covariance. $J$ is a function of the law, and it is evaluated on a pointed model through its system. Logarithms are natural, and values are in nats.
+\item[(d)] For a function $u$ on a set of systems or pointed models, $S_J$ is the sufficiency of $J$ for $u$: $J(m)=J(m')\Rightarrow u(m)=u(m')$. It is the obligation $S_u$ of Definition~\ref{def:phiQ}(e), with $J$ in place of $\Phi_Q$ and the test bench in place of $D_0$.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}[The family with a driver with memory]\label{def:gauss-Fmem}
+For $c\ge0$, $s_1,s_2>0$ and $a,a_{22}\in(-1,1)$, consider the process $X_{t+1}=AX_t+\varepsilon_{t+1}$ with
+\[
+A=\begin{pmatrix}a&c\\0&a_{22}\end{pmatrix},\qquad E=\mathrm{diag}(s_1,s_2),
+\]
+that is, $X_{1,t+1}=aX_{1,t}+cX_{2,t}+\varepsilon_{1,t+1}$ and $X_{2,t+1}=a_{22}X_{2,t}+\varepsilon_{2,t+1}$. The coefficient $a_{22}$ is the self-coupling of the driver, its memory, and $a$ is that of the receiver. The spectral radius of $A$ is $\max(|a|,|a_{22}|)<1$, and the process is taken under its stationary law. The \emph{family with a driver with memory}, $F_{\rm mem}$, consists of the systems with $a=0$, indexed by $(c,s_1,s_2,a_{22})$; $F_0$ is its subfamily with $a_{22}=0$. We keep $k=c^2s_2/s_1$ and put
+\[
+p=\frac1{1-a_{22}^2}\ \ge1,\qquad r(k,p)=1+\frac{kp(k+1)}{kp+1};
+\]
+$p$ is the stationary variance of the driver in units of its innovation variance, and every $p\ge1$ is realized, by $a_{22}=\sqrt{1-1/p}$. Pointed models, isomorphisms, $J$ and $S_J$ are as in Definition~\ref{def:gauss-F0}, for the systems of this family. Systems with $a\ne0$ are used only at the end of (G7).
+\end{definition}
+
+\subsection{Exact results on the test bench}
+There were $126$ exact checks in four scripts for the items (G1)--(G7) below, and $30$ more for the connections (i)--(v) of the next subsection, $156$ in all, with no failures; the scripts are listed in Appendix~\ref{sec:archivos}.
+
+\paragraph{(G1) Exact value.} Since $A_\theta^2=0$, the stationary process is $X_t=\varepsilon_t+A_\theta\varepsilon_{t-1}$, and $P_\theta=E_\theta+A_\theta E_\theta A_\theta^\top=\mathrm{diag}(s_1+c^2s_2,\ s_2)$ is the unique symmetric solution of the Lyapunov equation $P=A_\theta PA_\theta^\top+E_\theta$. With $B=\mathrm{diag}(b_1,b_2)$ and $P_{11}=s_1+c^2s_2$,
+\begin{equation}
+\det\bigl(E_\theta+(A_\theta-B)P_\theta(A_\theta-B)^\top\bigr)-s_2P_{11}=b_1^2s_2P_{11}\,(1+b_2^2)+b_2^2s_1s_2 ,
+\end{equation}
+a sum of nonnegative terms that vanishes only at $b_1=b_2=0$. Hence $J=\tfrac12\log(P_{11}/s_1)=\tfrac12\log(1+k)$, with a unique minimizer, $B=0$. The objective is not jointly convex: with $c=s_1=s_2=1$, the Hessian of the residual determinant has determinant $-16$ at $(b_1,b_2)=(1,1)$, and that of $\tfrac12\log$ of the ratio, $-4/343$. Uniqueness follows from the identity, not from convexity. For example, with $c=s_1=1$, $J=\tfrac12\log2$ if $s_2=1$ and $J=\log2$ if $s_2=3$; with $(c,s_1,s_2)=(1.3,\,0.7,\,1.9)$, $J=0.86023$ nats, that is, $1.24106$ bits. \stS
+
+\paragraph{(G2) Scale.} Under $X_i\mapsto\alpha_iX_i$ with $\alpha_i>0$, the system $(c,s_1,s_2)$ becomes $(\alpha_1c/\alpha_2,\ \alpha_1^2s_1,\ \alpha_2^2s_2)$. Then $k$ and $J$ are invariant, and so is the whole objective of (G1), whereas $c^2s_2$ is only covariant: it is multiplied by $\alpha_1^2$. The normalization $Z_i=X_i/\sqrt{s_i}$ gives identity noise, coupling $\sqrt k$ and stationary covariance $\mathrm{diag}(1+k,1)$. The correspondence $J\leftrightarrow k$ is bijective, with $k=e^{2J}-1$. \stS
+
+\paragraph{(G3) Pointed models.} For positive isomorphisms, the pair $(k,z)$, with $z=(x_1/\sqrt{s_1},\,x_2/\sqrt{s_2})$, is a complete invariant of pointed states, and the action is free. With the sign changes, $z$ is identified with $-z$ if $c>0$, and with $(\pm z_1,\pm z_2)$ if $c=0$; $|z|$ remains invariant. Each fibre $\{J=J_0\}$ contains a continuum of non-isomorphic pointed classes, indexed by $|z|$ and, for histories, by $z_{0:T}=(z_0,\dots,z_T)$. At the level of laws, by contrast, each fibre is a single class, because $k$ is a complete invariant of the systems. \stS, with the following written proof \stA.
+\begin{proof}[Proof of (G3)]
+A positive isomorphism $D=\mathrm{diag}(\alpha,\beta)$ sends $(c,s_1,s_2)$ to $(\alpha c/\beta,\alpha^2s_1,\beta^2s_2)$ and $x$ to $(\alpha x_1,\beta x_2)$, so $k$ and $z$ are unchanged. Conversely, if $(\theta,x)$ and $(\theta',x')$ have the same $k$ and the same $z$, then $D=\mathrm{diag}\bigl(\sqrt{s_1'/s_1},\sqrt{s_2'/s_2}\bigr)$ sends $s_1,s_2$ to $s_1',s_2'$, sends $c$ to the unique $c'\ge0$ with $c'^2s_2'/s_1'=k$, and sends $x=(\sqrt{s_1}z_1,\sqrt{s_2}z_2)$ to $x'$. If $D$ fixes $\theta$, then $\alpha^2s_1=s_1$ and $\beta^2s_2=s_2$ with $\alpha,\beta>0$, so $\alpha=\beta=1$: the action is free. A sign change keeps $\alpha c/\beta\ge0$; if $c>0$ this requires $\alpha\beta>0$, and the only extra identification is $z\mapsto-z$; if $c=0$ all signs are allowed. In every case $|z|$ is invariant. By (G2), $\{J=J_0\}=\{k=k_0\}$ with $k_0=e^{2J_0}-1$, and the pointed states $\bigl((\sqrt{k_0},1,1),(\rho,0)\bigr)$, $\rho\ge0$, lie in that fibre and have $|z|=\rho$, so they are pairwise non-isomorphic. For histories the same $D$ acts at every time, so $z_{0:T}$ is complete for positive isomorphisms. Finally, two systems with the same $k$ are related by the $D$ above, so $k$ is a complete invariant of the systems, and each fibre of $J$ consists of one class of laws.
+\end{proof}
+
+\paragraph{(G4) Countermodel.} Let $u=|z|^2=x_1^2/s_1+x_2^2/s_2$, or the mean of $|z_t|^2$ for histories. It is invariant and constant on each class, and it violates $S_J$. With $\theta_0=(1,1,1)$, the states $x=(0,0)$ and $x=(1,0)$ have the same law and give $u=0$ and $u=1$. The violation does not depend on null sets: under every law in the fibre, $z\sim N(0,\mathrm{diag}(1+k,1))$ by (G2), so $|z|^2$ has a continuous law and two independent draws differ almost surely. It is a formal function and does not attribute phenomenal unity to synthetic states. \stS
+
+\paragraph{(G5) IPS$_K$ is $S_J$.} By (G3), invariance under isomorphisms only yields $u=F(k,z)$, not $u=H(k)$. Dependence on $k$ alone is a separate premise.
+\begin{definition}[Premise IPS$_K$]\label{def:IPS}
+Let $u$ be a function on a set $M$ of systems or pointed models of $F_0$ or of $F_{\rm mem}$, and let $k(m)$ be the value of $k=c^2s_2/s_1$ for the system of $m\in M$. The premise \emph{IPS$_K$} for $u$ is that $u$ depends only on $k$: $u=H\circ k$ on $M$ for some function $H$, or equivalently $k(m)=k(m')\Rightarrow u(m)=u(m')$ for all $m,m'\in M$.
+\end{definition}
+IPS$_K$ is a premise of the form ``the degree depends only on $\kappa$'' of Section~\ref{sec:intento}, with $\kappa=k$; it is examined here, not adopted. On $F_0$, $J=\tfrac12\log(1+k)$ and $k\mapsto\tfrac12\log(1+k)$ is injective (G2), so $J(m)=J(m')$ if and only if $k(m)=k(m')$, and IPS$_K$ is equivalent to $S_J$. In this narrow family the premise coincides with $S_J$. Being equivalent is not being circular, but neither does it supply an independent justification: justifying IPS$_K$ is justifying $S_J$. Finite check: on the five pointed models $(\theta_0,(0,0))$, $(\theta_0,(1,0))$, $(\theta_3,(0,0))$, $(\theta_3,(1,0))$ and $(\theta_1,(0,0))$, with $\theta_3=(\sqrt3,1,1)$ and $\theta_1=(2,1,\tfrac14)$, of which only the first and the last are isomorphic, there are $32$ assignments of values in $\{0,1\}$; $16$ of them are invariant; exactly the same $4$ satisfy IPS$_K$ and $S_J$; and $12$ are invariant and violate $S_J$. \stS
+
+\paragraph{(G6) Finite windows.} The realized window of a system does not determine $J$.
+\begin{proposition}[Finite-window non-identifiability]\label{prop:windows}
+Let $T\ge0$, and for $\theta\in F_0$ let $\mu_\theta^T$ be the law of the window $(X_0,\dots,X_T)$ under the stationary law $L_\theta$.
+\begin{enumerate}
+\item[(i)] $\mu_\theta^T=N(0,\Sigma_T)$ on $\mathbb R^{2(T+1)}$, with $\Sigma_T=\mathcal L_T\,\mathrm{diag}(P_\theta,E_\theta,\dots,E_\theta)\,\mathcal L_T^\top$, where $\mathcal L_T$ is the block lower-triangular matrix with blocks $(\mathcal L_T)_{t0}=A_\theta^t$, $(\mathcal L_T)_{tj}=A_\theta^{t-j}$ for $1\le j\le t\le T$ and $0$ for $j>t$; and $\det\Sigma_T=(s_1+c^2s_2)\,s_2\,(s_1s_2)^T>0$.
+\item[(ii)] For all $\theta,\theta'\in F_0$, the laws $\mu_\theta^T$ and $\mu_{\theta'}^T$ are mutually absolutely continuous.
+\item[(iii)] If $k(\theta)\ne k(\theta')$, no measurable function $f$ on $\mathbb R^{2(T+1)}$ satisfies both $f=J(\theta)$ $\mu_\theta^T$-almost surely and $f=J(\theta')$ $\mu_{\theta'}^T$-almost surely.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+\stA\ (i) Iterating the recursion gives $X_t=A_\theta^tX_0+\sum_{j=1}^tA_\theta^{t-j}\varepsilon_j$, so $(X_0,\dots,X_T)=\mathcal L_T\,(X_0,\varepsilon_1,\dots,\varepsilon_T)$. Under $L_\theta$, $X_0\sim N(0,P_\theta)$ by (G1), and $X_0$, a function of the innovations up to time $0$, is independent of $\varepsilon_1,\dots,\varepsilon_T$, which are independent $N(0,E_\theta)$. Hence the window is centred Gaussian with covariance $\Sigma_T$. The diagonal blocks of $\mathcal L_T$ are identities, so $\det\mathcal L_T=1$ and $\det\Sigma_T=\det P_\theta\,(\det E_\theta)^T$; since $P_\theta,E_\theta\succ0$ and $\mathcal L_T$ is invertible, $\Sigma_T\succ0$. (ii) A Gaussian law with positive definite covariance has an everywhere positive density with respect to Lebesgue measure, so its null sets are exactly the Lebesgue-null sets, and two such laws have the same null sets. (iii) By (G2), $k(\theta)\ne k(\theta')$ gives $J(\theta)\ne J(\theta')$. If $f$ were such a function, the set $\{f\ne J(\theta)\}$ would be $\mu_\theta^T$-null, hence $\mu_{\theta'}^T$-null by (ii). Then the disjoint events $\{f=J(\theta)\}$ and $\{f=J(\theta')\}$ would both have $\mu_{\theta'}^T$-probability $1$, which is impossible.
+\end{proof}
+The factorization of $\Sigma_T$, the equality $\det\mathcal L_T=1$ and the value of $\det\Sigma_T$ were checked exactly for $T=0,\dots,5$ \stS; the proof above is general in $T$. For example, $\theta=(1,1,1)$ and $\theta'=(1,1,3)$ have $J=\tfrac12\log2$ and $J=\log2$ (G1). Only the innovation variance of the driver, which feeds the receiver, differs; the coupling $c$ and the receiver's own noise $s_1$ are the same, and no measurable function of any finite window returns $J$ almost surely under both laws. In the terms of Definition~\ref{def:adm}(c), $J$ is a law-level descriptor that no finite realized window determines. The proposition holds only for finite windows. On infinite histories $k$ is recovered almost surely by the strong law of large numbers, since the pairs $(X_{1,t+1},X_{2,t})=(c\varepsilon_{2,t}+\varepsilon_{1,t+1},\ \varepsilon_{2,t})$ are independent and identically distributed in $t$; this standard argument is not carried out here.
+
+\paragraph{(G7) Driver with memory.} On $F_{\rm mem}$ (Definition~\ref{def:gauss-Fmem}) the stationary covariance has $P_{22}=s_2p$, $P_{12}=ca_{22}s_2p$, $P_{11}=s_1+c^2s_2p$ and $\det P=s_2p\,(s_1+c^2s_2)$. With $B=\mathrm{diag}(b_1,b_2)$ and $b_1^*=cP_{12}/P_{11}$,
+\begin{equation}
+\det\bigl(E+(A-B)P(A-B)^\top\bigr)=s_1s_2\,r(k,p)+s_2P_{11}\,(b_1-b_1^*)^2+(a_{22}-b_2)^2\bigl(s_1P_{22}+b_1^2\det P\bigr).
+\end{equation}
+Hence $J=\tfrac12\log r(k,p)$, with a unique minimizer at $B^*=\mathrm{diag}(b_1^*,a_{22})$. Moreover $\partial r/\partial p=k(k+1)/(kp+1)^2>0$, $r(k,1)=1+k$ and $2+k-r(k,p)=(k+1)/(kp+1)>0$, so at fixed $k>0$, $r(k,\cdot)$ has exact range $[1+k,2+k)$ on $p\ge1$. For $0<k\le k'<k+1$, the value $p_*=k'/(k(k+1-k'))$ satisfies $p_*\ge1$ and $r(k,p_*)=1+k'=r(k',1)$. \stS
+\begin{proposition}[Conditional constancy]\label{prop:gauss-chains}
+Let $u$ be a function on the systems of $F_{\rm mem}$ with $c>0$. If $u$ satisfies IPS$_K$ (Definition~\ref{def:IPS}) and $S_J$, then $u$ is constant.
+\end{proposition}
+\begin{proof}
+\stA\ By IPS$_K$, $u=H\circ k$. Let $0<k\le k'<k+1$. Take a system $\theta$ with $k(\theta)=k$ and $p=p_*$, and a system $\theta'$ with $k(\theta')=k'$ and $a_{22}=0$; both exist, because $c>0$, $s_1$, $s_2$ and $a_{22}=\sqrt{1-1/p_*}$ can be chosen freely. By (G7), $J(\theta)=\tfrac12\log r(k,p_*)=\tfrac12\log r(k',1)=J(\theta')$, so $S_J$ gives $H(k)=u(\theta)=u(\theta')=H(k')$. Given $0<k<K$, put $n=\lfloor K-k\rfloor+1$ and $k_i=k+i(K-k)/n$ for $i=0,\dots,n$; consecutive values differ by $(K-k)/n<1$, so $H(k)=H(k_1)=\dots=H(K)$. Hence $H$ is constant on $(0,\infty)$, and so is $u$.
+\end{proof}
+Writing $(k,p)$ for a system with these values of $k$ and $p$, each link uses the premise once, between $(k,1)$ and $(k,p_*)$, and $S_J$ once, between $(k,p_*)$ and $(k',1)$: finite chains of steps smaller than one connect every pair of positive values of $k$, and four such chains were checked exactly \stS. In words: if the whole positive-coupling family lay in the domain of the degree, with $u$ attributed to its members, and the premise IPS$_K$ made $u$ depend only on $k$, then $S_J$ would force $u$ to be constant on that family. It is a conditional result, not a refutation of Q: neither Q nor this paper supplies a requirement that the degree vary on that family (A9--U allows plateaus, Definition~\ref{def:orderB}). It warns against introducing a bridge premise as if it were neutral: together with $S_J$, IPS$_K$ forces the constancy, which $S_J$ alone does not force ($u=J$ satisfies $S_J$ and is not constant).
+
+IPS$_K$ also discards the internal coefficients. With a white driver ($a_{22}=0$), $J=\tfrac12\log(1+k)$ for every receiver coefficient $a\in(-1,1)$. If $a\ne0$ and $a_{22}\ne0$, $J$ depends on $a$ at fixed $k$: with $c=s_1=s_2=1$ and $a_{22}=\tfrac12$, the determinant ratio $e^{2J}$ is $15/7$ with $a=0$ and $187/87$ with $a=\tfrac12$. IPS$_K$ makes $u$ ignore $a$ even though $J$ does not ignore it, and that content is added by the premise. \stS\ The script of (G7) also checks the reading of the premise with the stationary variance of the driver in place of its innovation variance, $\tilde k=c^2P_{22}/s_1=kp$: at fixed $\tilde k$, $r$ decreases strictly in $p$, with range $(1+\tilde k/(\tilde k+1),\,1+\tilde k]$ on $p\ge1$ \stS.
+
+\subsection{Connections with the theorems of Act~I}
+\paragraph{(i) Commutation on $\{K_{1,3},2K_2\}$.} The undirected support of $F_0$ is $K_2=K_{1,1}$, the one-leaf star, if $c>0$, and two isolated units, $2K_1$, if $c=0$. With the undirected reading of broadcast, which is the one that Lean formalizes, $F_0$ falls entirely in the central and disconnected-support levels of the filtration (Section~\ref{sec:l1}), and the bridge square commutes on $F_0$: $c>0$ gives $G_{\rm IIT}=G_{\rm GNWT}=1$, and $c=0$ gives $0$ for both. This is covered by \texttt{n2\_equiv} \stL, which equates, for two units, connectivity and having a universal vertex, and by $J>0\iff c>0$ \stS. It is the two-unit analog of \texttt{square\_commutes\_on\_sub}, which deals with the four-unit star and split system.
+
+The tensor product of two members of $F_0$ with $c,c'>0$ has support $2K_2$, the split system of Table~\ref{tab:C-1}. Its $J$ is $0$: the predictor $B=A$ does not cross the cut $\{1,2\}|\{3,4\}$ and leaves the residual $E$ \stS. Nor does it have a hub (\texttt{tensor\_no\_universal}) \stL. Thus $F_0$ and $F_0\otimes F_0$ realize, with closed-form values, the two types of system on which the square commutes.
+
+\emph{A clarification on broadcast.} In the systems of Table~\ref{tab:C-1} the couplings are symmetric, and the undirected reading coincides with the demanding one, which requires coupling in both directions. On $F_0$ with $c>0$ they differ: the undirected support has a universal vertex, but no unit is coupled in both directions (\texttt{f0\_hub\_readings}) \stL. With the demanding reading, $F_0$ with $c>0$ would already be in the band at $n=2$, and the square would fail on all of $F_0$ with $c>0$. With the directed sender reading, by contrast, the driver $X_2$ influences the other unit and is a hub, so $F_0$ is not in the band. The statements of this paper use the undirected reading (Section~\ref{sec:proyecciones}).
+
+\paragraph{(ii) The band $P_n$, $n\ge4$, and the sandwich.} $F_0$ cannot witness the discrepancy. For $n=2$ and $n=3$, connectivity and having a universal vertex coincide (\texttt{n2\_equiv}, \texttt{n3\_equiv}) \stL; for $n=1$ it is trivial. So the band begins at $n=4$. It is occupied by $P_n$ for every $n\ge4$ (\texttt{path\_reach\_from\_zero}, \texttt{path\_no\_universal}) \stL, with $J>0$ by Lemma~\ref{lem:J} \stA\ \stM.
+
+What $F_0$ does provide is an exact check of the min-cut sandwich (Theorem~\ref{thm:cheeger}), which is proved on paper and checked in Lean with Mathlib \stA\ \stM. $w_{\min}$ and the two bounds depend on the representative, not only on the class: $J$ is invariant and $w_{\min}$ is not. In the representative $\theta=(c,s_1,s_2)$, $w_{\min}=c^2$ and, for $c>0$,
+\begin{equation}
+\tfrac12\log\bigl(1+c^2/\kappa_E\bigr)\ \le\ J=\tfrac12\log(1+k)\ <\ \tfrac12\,\frac{\lambda_{\max}(P)}{\lambda_{\min}(E)}\,c^2 .
+\end{equation}
+For $c>0$, the lower bound is attained if and only if $s_2\le s_1$ (for $c=0$ both sides vanish). If $s_2>s_1$, the slack is $k-c^2/\kappa_E=c^2(s_2^2-s_1^2)/(s_1s_2)$ \stS. On the member $\theta=(\tfrac12,1,1)$ the exact value $J=\tfrac12\log\tfrac54$, and with it the attainment of the lower bound, is also checked in Lean with Mathlib (\texttt{QAudit.Audit.J\_ex\_eq}) \stM. Since equality holds on the whole subfamily $s_1/s_2=\kappa_E\ge1$, for each value of $\kappa_E$, the constant of the lower bound cannot be improved in general. In the normalized representative ($E=I$, coupling $\sqrt k$) the bound is exact for every $\theta$. The values of $J$ on $P_4$ and $C_4$ remain numerical \stN: there is no verified closed form in the band.
+
+\paragraph{(iii) Predictive additivity versus the zero-product monoid (Line~2).} On $F_0$,
+\begin{equation}
+I_{\rm pred}=\tfrac12\log(\det P/\det E)=\tfrac12\log(1+k)=J,
+\end{equation}
+so $I_{\rm cut}=0$. The best disconnected predictor is $B=0$, which captures nothing, because $E+APA^\top=P$: all the predictive information is integration. On $F_{\rm mem}$, with memory in the driver, $I_{\rm pred}=\tfrac12\log\bigl(p(1+k)\bigr)$ and
+\begin{equation}
+I_{\rm cut}=\tfrac12\log\frac{p(1+k)}{r(k,p)},\qquad \frac{p(1+k)}{r(k,p)}-1=\frac{(p-1)\bigl(1+kp(1+k)\bigr)}{1+kp(k+2)} ,
+\end{equation}
+which vanishes if and only if $p=1$. The separable part is the driver's own memory \stS.
+
+For $X,Y\in F_0$ with $c,c'>0$,
+\begin{equation}
+I_{\rm pred}(X\otimes Y)=J(X)+J(Y)>0,\qquad J(X\otimes Y)=0=J(X)\circledast J(Y),
+\end{equation}
+and moreover $I_{\rm cut}(X\otimes Y)-I_{\rm cut}(X)-I_{\rm cut}(Y)=J(X)+J(Y)$ \stS. This is an exact instance of the decomposition of Section~\ref{sec:via1}:
+\begin{itemize}
+\item $I_{\rm pred}$ is strong monoidal into $(\mathbb R_{\ge0},+,0)$;
+\item $J$ is strong monoidal into the zero-product monoid, whose operation and whose abstract criterion are in Lean (\texttt{zmul\_assoc}, \texttt{strong\_monoidal\_zero}) \stL;
+\item the cut defect is all the information of $X\otimes Y$.
+\end{itemize}
+Lean proves the abstract form. Besides strict unit laws for the tensor and the requirement that only the unit be empty, which hold at least on isomorphism classes, the hypotheses of \texttt{strong\_monoidal\_zero} on the projection are three: the empty system goes to the adjoined unit, every nonempty object receives a value (with a single unit, $J=+\infty$ by convention) and every product of two nonempty objects has value $0$. That $J$ satisfies the third, $J(X\otimes Y)=0$, is Proposition~\ref{prop:monoidal} \stA. It also follows from \texttt{QAudit.J\_eq\_zero\_iff} \stM, because a product of two nonempty systems has disconnected support; that step is proved on paper and not formalized with Mathlib, and Lean without Mathlib checks only the analogous fact for hubs, that a product has none (\texttt{tensor\_no\_universal}) \stL. It is checked here on $F_0\otimes F_0$ \stS.
+
+\paragraph{(iv) Triviality or discarding in free-energy selection (Line~3).} There are three levels, and each one gives an answer.
+\begin{itemize}
+\item \emph{Law.} The stationary law of each $\theta$ is unique, and each fibre of $J$ is a single class of laws (G3). Every invariant $u$ that depends only on the law is a function of $k$, hence of $J$. At that level $S_J$ is trivial and there is nothing to select. But the degree $u_{\rm orig}$ of Q is assigned to realizations, each with its realized history over a window (Definitions~\ref{def:pcm}(a) and~\ref{def:unity}): a reference to parameters of the law must be compatible with that episode-level assignment, and the realized history and the law of the process are different objects (history-level and law-level descriptors, Definition~\ref{def:adm}(c)). Triviality at the level of laws does not reach $u_{\rm orig}$.
+\item \emph{Pointed state.} Take the free energy of a state to be its surprisal $-\log p_\theta(z)$, which is the bound that variational free energy attains when the recognition density is exact. Its unique minimizer is the mode, $z=0$ \stS. That set is null under every law of the family, so selecting it discards all realizations almost surely. On isomorphism classes, or for every invariant $u$, each fibre of $J$ restricted to $\{z=0\}$ has a single element and $S_J$ holds for every $u$ (\texttt{restriction\_vacuous}) \stL, but at the cost of changing the domain. On the representatives $(\theta,0)$, which form a continuum in each fibre, a non-invariant $u$ can violate it: with $\theta_0=(1,1,1)$ and $\theta_1=(2,1,\tfrac14)$, both with $k=1$, $u=s_2$ takes the values $1$ and $\tfrac14$. The values at the section give the factor $h\equiv0$, while $u=|z|^2>0$ almost surely. By \texttt{section\_factor\_iff} \stL, the section does not give a factor, because $S_J$ fails (G4).
+\item \emph{History.} The history of minimum surprisal, $x_{0:T}=0$, is null under every law, because $\Sigma_T\succ0$ (Proposition~\ref{prop:windows}): selecting it also discards all realizations almost surely.
+\end{itemize}
+At all three levels, free-energy selection is trivial or discarding, as Line~3 states (Section~\ref{sec:l3}).
+
+\emph{A separate, conditional result.} A degree that supervenes on the finite window meets a law-level descriptor as follows.
+\begin{proposition}[Plateau]\label{prop:gauss-plateau}
+Let $\Lambda$ be a set of laws of a process, let $\mathcal H$ be the set of its windows (histories over a window of fixed finite length), write $\operatorname{supp}L\subseteq\mathcal H$ for the support of the law of the window under $L\in\Lambda$, and let $D=\{(h,L)\in\mathcal H\times\Lambda:\ h\in\operatorname{supp}L\}$, so that every history admissible under a law is realized with that law. Let $\Phi(h,L)=F(L)$ be a law-level descriptor and $u(h,L)=U(h)$ a degree that depends only on the history. Then $S$: $\Phi(a)=\Phi(b)\Rightarrow u(a)=u(b)$ for $a,b\in D$ holds if and only if, for every value $v$ of $F$, $U$ is constant on $H_v=\bigcup_{F(L)=v}\operatorname{supp}L$. In particular, if all the laws of $\Lambda$ have the same support, $S$ holds only if $u$ is constant on $D$.
+\end{proposition}
+\begin{proof}
+\stA\ Two realizations $(h,L)$ and $(h',L')$ with $F(L)=F(L')=v$ have the same $\Phi$, so $S$ requires $U(h)=U(h')$ for all $h,h'\in H_v$. Conversely, if $U$ is constant on each $H_v$, two realizations with $\Phi=v$ have their histories in $H_v$ and hence the same $u$. If all the supports equal one set $H$, then $H_v=H$ for every value $v$, and every realization has its history in $H$.
+\end{proof}
+On $F_0$, with windows of length $T$, all the laws $\mu_\theta^T$ have the full support $\mathbb R^{2(T+1)}$ (Proposition~\ref{prop:windows}), so $D$ is the product $\mathbb R^{2(T+1)}\times F_0$ of histories and laws. If $u$ supervenes on the finite window, as LSS$_\Delta$ (Definition~\ref{hyp:LSS}) would give if the window were the intrinsic history of a bearer, and all laws are realized, then $S_J$ forces $u$ to be constant. \texttt{plateau\_product} \stL\ formalizes only that consequence, on the product domain and in the direction ``$S$ implies constancy'', not the biconditional of the proposition: two co-occurrence steps, first same law and then same window. It is a case of the co-occurrence dichotomy of Theorem~\ref{thm:dicotomia}, with $\kappa$ the window. It is not a universal dichotomy between history-level descriptors and plateaus: without a common support, $S$ links two histories only when both lie in one set $H_v$, and $U$ must be constant on each component of the equivalence generated by these links but may differ between components. If, for example, the supports are pairwise disjoint and $F$ is injective, the history determines the law, and $S$ requires $U$ to be constant on each support but imposes nothing across supports, so a law-level descriptor coexists with $S$ and with a degree that is not globally constant \stA. That the support is full is Proposition~\ref{prop:windows}: $\Sigma_T\succ0$, with the written proof \stA\ and the exact check for $T\le5$ \stS.
+
+\paragraph{(v) The constancy proofs as instances of the Lean theorems.} The two constancy results of this section are instances of \texttt{connected\_forces\_constant} \stL\ (Theorem~\ref{thm:dicotomia}).
+\begin{itemize}
+\item In the chains of Proposition~\ref{prop:gauss-chains}, $\kappa=k$ and the descriptor is $J$ on $F_{\rm mem}$. Co-occurrence links $k$ with $k'$ whenever $k\le k'<k+1$.
+\item In the plateau of Proposition~\ref{prop:gauss-plateau}, $\kappa$ is the finite window, and the common support makes co-occurrence connected.
+\end{itemize}
+IPS$_K$, aligned with $J$ by a bijection, is $S_J$ reformulated (\texttt{aligned\_premise\_iff}) \stL, just as SEG (Definition~\ref{def:SEG}) is non-degenerate $S_u$ reformulated (\texttt{segd\_iff}) \stL. Neither of these premises is an independent justification, and neither of the constancy results refutes Q. Table~\ref{tab:E-1} summarizes the laboratory.
+
+\begin{table}[htbp]\centering\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.38\textwidth}>{\raggedright\arraybackslash}p{0.38\textwidth}>{\raggedright\arraybackslash}p{0.14\textwidth}}
+\toprule
+Fact in $F_0$ & Theorem it instantiates & Status\\
+\midrule
+$J=\tfrac12\log(1+k)$, with a unique minimizer & Lemma~\ref{lem:J}: $J>0$ if and only if the support is connected & \stS\\
+Support $K_{1,1}$ or $2K_1$; $F_0\otimes F_0$ has support $2K_2$ & commutation on $\{K_{1,3},2K_2\}$ (two-unit analog) & \stL\ and \stS\\
+No band with $n\le3$ & band $P_n$, $n\ge4$ & \stL\\
+Lower bound attained if $s_2\le s_1$ & sandwich by $w_{\min}$ & \stA, \stM\ and \stS\\
+$I_{\rm pred}=J$, $I_{\rm cut}=0$; additivity and $J(X\otimes Y)=0$ & Line~2: zero-product monoid & \stS\ and \stL\\
+Fibres of laws consist of one class; the mode and the zero history have measure zero & Line~3: trivial selection or discarding & \stS\ and \stL\\
+IPS$_K$ is equivalent to $S_J$ & entailment criterion; SEG and non-degenerate $S_u$ & \stS\ and \stL\\
+Chains and Plateau & co-occurrence dichotomy & \stS, \stA\ and \stL\\
+\bottomrule
+\end{tabular}
+\caption{Summary of the Gaussian laboratory: each fact in $F_0$, the theorem it instantiates, and its status.}\label{tab:E-1}
+\end{table}
+
+\paragraph{Limits.} Three things are not checked here: closed forms of $J$ for families with three or more units, so that none is verified in the band (Section~\ref{sec:networks}); readings of the premise through dependence measures other than $k$ and $\tilde k$, such as a transfer entropy; and the recovery of $k$ from infinite histories mentioned after Proposition~\ref{prop:windows}.

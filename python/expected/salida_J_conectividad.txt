@@ -1,0 +1,9 @@
+ring   rho(A)=0.800  J≈2.212930e-01  partición mínima=[0, 1]
+[ok] ring: J > 0 (soporte conexo)
+star   rho(A)=0.720  J≈1.134987e-01  partición mínima=[3]
+[ok] star: J > 0 (soporte conexo)
+path   rho(A)=0.685  J≈1.058709e-01  partición mínima=[0]
+[ok] path: J > 0 (soporte conexo)
+split  rho(A)=0.500  J≈0.000000e+00  partición mínima=[0, 1]
+[ok] split: J = 0 (soporte disconexo)
+TODAS LAS COMPROBACIONES: sí

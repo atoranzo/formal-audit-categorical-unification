@@ -1,0 +1,8 @@
+'QAuditScaling.Audit.spr_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAuditScaling.Audit.range_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAuditScaling.Audit.partA_nonvacuous' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAuditScaling.Audit.partB_nonvacuous' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAuditScaling.Audit.Jt_junk' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAuditScaling.Audit.not_summableAt_A1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAuditScaling.Audit.not_monotone_on_Ici' depends on axioms: [propext, Classical.choice, Quot.sound]
+exit 0

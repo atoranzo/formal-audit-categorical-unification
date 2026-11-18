@@ -1,0 +1,13 @@
+[ok] (1) S = c[(1-a^2)P + c^2 W P W^T + E] + c (A P A^T + E - P)  (generic 3x3, exact)
+[ok] (2) unique symmetric Lyapunov solution (symbolic c)
+[ok] (2) Q'(c) = A Q'(c) A^T + S(c)  (exact, symbolic c)
+[ok] (2) S(c) = c[(1-a^2)P + c^2 W P W^T + E]  (exact, symbolic c)
+[ok] (3) P4: J(aI + cW) strictly increasing in c on a 6-point grid  0.00163, 0.01540, 0.04449, 0.09249, 0.16818, 0.29806
+[ok] (3) C4: J(aI + cW) strictly increasing in c on a 6-point grid  0.00213, 0.02011, 0.05799, 0.11953, 0.21101, 0.33917
+[ok] (3) P5: J(aI + cW) strictly increasing in c on a 6-point grid  0.00141, 0.01327, 0.03815, 0.07862, 0.14094, 0.24729
+[ok] (3) C5: J(aI + cW) strictly increasing in c on a 6-point grid  0.00213, 0.02011, 0.05803, 0.11991, 0.21345, 0.35072
+[ok] (3) aleat0: J(aI + cW) strictly increasing in c on a 6-point grid  0.00182, 0.01713, 0.04931, 0.10343, 0.19438, 0.39037
+[ok] (3) aleat1: J(aI + cW) strictly increasing in c on a 6-point grid  0.00430, 0.04132, 0.13162, 0.31969, 0.66452, 1.14329
+[ok] (3) aleat2: J(aI + cW) strictly increasing in c on a 6-point grid  0.00173, 0.02719, 0.13624, 0.41022, 0.89857, 1.47070
+[ok] (3) aleat3: J(aI + cW) strictly increasing in c on a 6-point grid  0.00025, 0.00243, 0.00727, 0.01562, 0.02885, 0.04994
+TODAS LAS COMPROBACIONES: sí

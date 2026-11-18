@@ -1,0 +1,10 @@
+'QAudit.connected_iff_forall_cross' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAudit.lemmaJ' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAudit.J_eq_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAudit.lemmaJ_stationary' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAudit.sandwich_lower' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAudit.sandwich_upper' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAudit.sandwich' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAudit.exists_minimizer' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAudit.exists_J_minimizer' depends on axioms: [propext, Classical.choice, Quot.sound]
+exit 0

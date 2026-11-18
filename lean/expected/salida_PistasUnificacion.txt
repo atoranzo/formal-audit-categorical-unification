@@ -1,0 +1,11 @@
+'Pistas.universal_connected' does not depend on any axioms
+'Pistas.n3_equiv' does not depend on any axioms
+'Pistas.n4_count' does not depend on any axioms
+'Pistas.path_reach_from_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Pistas.path_no_universal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Pistas.tensor_no_universal' depends on axioms: [propext]
+'Pistas.section_factor_iff' does not depend on any axioms
+'Pistas.purity_gives_Su' does not depend on any axioms
+'Pistas.witness_breaks_purity' does not depend on any axioms
+'Pistas.connected_domain_trivial' does not depend on any axioms
+exit 0

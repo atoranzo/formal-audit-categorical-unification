@@ -1,0 +1,17 @@
+P4 c=0.05 rho=0.281 J=0.002612
+P4 c=0.10 rho=0.362 J=0.010537
+P4 c=0.15 rho=0.443 J=0.024065
+P4 c=0.20 rho=0.524 J=0.043740
+P4 c=0.25 rho=0.605 J=0.070485
+P4 c=0.30 rho=0.685 J=0.105871
+P4 c=0.35 rho=0.766 J=0.152704
+P4: J estrictamente creciente en c en la malla: sí
+C4 c=0.05 rho=0.300 J=0.005231
+C4 c=0.10 rho=0.400 J=0.021202
+C4 c=0.15 rho=0.500 J=0.048785
+C4 c=0.20 rho=0.600 J=0.089562
+C4 c=0.25 rho=0.700 J=0.145980
+C4 c=0.30 rho=0.800 J=0.221293
+C4 c=0.35 rho=0.900 J=0.318402
+C4: J estrictamente creciente en c en la malla: sí
+RESULTADO: sí

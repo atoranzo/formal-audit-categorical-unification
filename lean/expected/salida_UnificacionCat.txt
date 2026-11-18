@@ -1,0 +1,12 @@
+'UnificacionCat.pairing_unique' does not depend on any axioms
+'UnificacionCat.nat_iff_functional' depends on axioms: [propext, Classical.choice, Quot.sound]
+'UnificacionCat.bridge_iff_agree' does not depend on any axioms
+'UnificacionCat.reconstruction_iff_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'UnificacionCat.values' does not depend on any axioms
+'UnificacionCat.square_fails' does not depend on any axioms
+'UnificacionCat.no_translation' does not depend on any axioms
+'UnificacionCat.square_commutes_on_sub' does not depend on any axioms
+'UnificacionCat.blind_spot' does not depend on any axioms
+'UnificacionCat.blind_spot_multiset' does not depend on any axioms
+'UnificacionCat.blanket_vs_broadcast' does not depend on any axioms
+exit 0

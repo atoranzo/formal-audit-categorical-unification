@@ -1,0 +1,23 @@
+== (1) Monotonía de Loewner de P_t (mínimo autovalor de P_t2 - P_t1)
+P4      rho=0.685  min eig(dP)=3.380e-06  sí
+C4      rho=0.800  min eig(dP)=4.664e-04  sí
+P5      rho=0.720  min eig(dP)=1.441e-04  sí
+C5      rho=0.800  min eig(dP)=9.502e-04  sí
+P6      rho=0.741  min eig(dP)=6.012e-05  sí
+aleat0  rho=0.850  min eig(dP)=-8.134e-16  sí
+aleat1  rho=0.665  min eig(dP)=9.904e-08  sí
+aleat2  rho=0.605  min eig(dP)=6.799e-05  sí
+aleat3  rho=0.597  min eig(dP)=1.481e-04  sí
+aleat4  rho=0.117  min eig(dP)=-9.333e-15  sí
+== (2)-(3) J(tA) creciente y w_min(tA) = t^2 w_min(A)
+P4      conexo=True  J(tA)=0.00391, 0.01818, 0.04432, 0.08576, 0.15127, 0.27500  estrictamente creciente=sí  w_min escala t^2=sí
+C4      conexo=True  J(tA)=0.00574, 0.02667, 0.06490, 0.12464, 0.21357, 0.34131  estrictamente creciente=sí  w_min escala t^2=sí
+P5      conexo=True  J(tA)=0.00355, 0.01645, 0.03995, 0.07673, 0.13367, 0.24575  estrictamente creciente=sí  w_min escala t^2=sí
+C5      conexo=True  J(tA)=0.00574, 0.02668, 0.06494, 0.12502, 0.21608, 0.35479  estrictamente creciente=sí  w_min escala t^2=sí
+P6      conexo=True  J(tA)=0.00335, 0.01551, 0.03758, 0.07190, 0.12418, 0.22476  estrictamente creciente=sí  w_min escala t^2=sí
+aleat0  conexo=True  J(tA)=0.00003, 0.00016, 0.00037, 0.00069, 0.00116, 0.00238  estrictamente creciente=sí  w_min escala t^2=sí
+aleat1  conexo=True  J(tA)=0.00389, 0.01976, 0.05101, 0.10487, 0.20680, 0.54660  estrictamente creciente=sí  w_min escala t^2=sí
+aleat2  conexo=True  J(tA)=0.00318, 0.02076, 0.07308, 0.15942, 0.27814, 0.47386  estrictamente creciente=sí  w_min escala t^2=sí
+aleat3  conexo=True  J(tA)=0.00028, 0.00130, 0.00323, 0.00640, 0.01152, 0.02019  estrictamente creciente=sí  w_min escala t^2=sí
+aleat4  conexo=True  J(tA)=0.00377, 0.01764, 0.04296, 0.08160, 0.13582, 0.20796  estrictamente creciente=sí  w_min escala t^2=sí
+TODAS LAS COMPROBACIONES: sí

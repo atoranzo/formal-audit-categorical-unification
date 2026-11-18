@@ -1,0 +1,3 @@
+J(0.33) = 0.104082704907937
+J(0.38) = 0.0997015975026888
+J decrece al reforzar los acoplamientos con la diagonal fija: sí

@@ -1,0 +1,3 @@
+'QAuditScaling.AuditInterval.C_ordConnected' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAuditScaling.AuditInterval.C_interval_containing_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+exit 0

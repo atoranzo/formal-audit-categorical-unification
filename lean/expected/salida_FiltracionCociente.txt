@@ -1,0 +1,11 @@
+'FiltracionCociente.noncomm_locus' depends on axioms: [propext]
+'FiltracionCociente.commute_off_band' depends on axioms: [propext]
+'FiltracionCociente.zmul_assoc' does not depend on any axioms
+'FiltracionCociente.strong_monoidal_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FiltracionCociente.factors_through_collapse' depends on axioms: [propext]
+'FiltracionCociente.restriction_vacuous' does not depend on any axioms
+'FiltracionCociente.seg_implies_Su' does not depend on any axioms
+'FiltracionCociente.segd_iff' does not depend on any axioms
+'FiltracionCociente.seg_is_Su' does not depend on any axioms
+'FiltracionCociente.pullback_determined' does not depend on any axioms
+exit 0

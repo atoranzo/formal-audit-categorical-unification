@@ -1,0 +1,32 @@
+[ok] C0 P = A P A^T + E
+[ok] C0 f(0,0)/det E = 1 + k
+[ok] C0 f - f(0,0) = x^2 s2 p (1+y^2) + y^2 s1 s2  (p = s1 + c^2 s2)
+[ok] C1 w_min = c^2
+[ok] C1 s2 < s1: lower-bound argument w_min/kappa_E equals k (bound attained)
+[ok] C1 s2 = s1: lower-bound argument equals k
+     s2 > s1: k - w_min/kappa_E = c**2*d*(d + 2*s1)/(s1*(d + s1))
+[ok] C1 s2 > s1: k - w_min/kappa_E = c^2 d (2 s1 + d)/(s1 (s1 + d)) > 0 (strict for c > 0)
+[ok] C1 s2 <= s1: upper-bound argument - k >= 0
+[ok] C1 s2 > s1: upper-bound argument >= c^2 s2/s1 = k (lambda_max(P) >= s2)
+[ok] C1 log(1+t) < t for t > 0 (derivative t/(1+t) > 0, value 0 at 0)
+[ok] C1 exact rational grid (216 points): w/kappa <= k <= UB-argument, equality iff s2 <= s1
+[ok] C2 I_pred = 1/2 log(det P/det E) = 1/2 log(1+k) = J
+[ok] C2 B = 0: E + A P A^T = P, so I_0 = 0 and I_cut = I_pred - J = 0
+[ok] C3 Lyapunov has a unique symmetric solution
+[ok] C3 det P = s2 p (s1 + c^2 s2)
+[ok] C3 residual at B* = diag(x*, a) equals s1 s2 r(k,p)
+[ok] C3 identity f = s1 s2 r + s2 P11 (x - x*)^2 + (a - y)^2 (s1 P22 + x^2 det P)
+[ok] C3 p(1+k)(kp+1) - (1 + kp(k+2)) = (p-1)(1 + kp(1+k))
+[ok] C3 r (kp+1) = 1 + kp(k+2)
+[ok] C3 I_cut argument p(1+k)/r - 1 = (p-1)(1+kp(1+k))/(1+kp(k+2)): zero iff p = 1
+[ok] C4 P(X(x)Y) = blockdiag(P_X, P_Y) solves Lyapunov
+[ok] C4 I_pred(X(x)Y) = 1/2 log(1+k) + 1/2 log(1+k') (additive)
+[ok] C4 bipartition {1,2}|{3,4}: A has no crossing coefficient, so B = A is admissible
+[ok] C4 residual with B = A is E: det ratio 1, so J(X(x)Y) = 0 (J >= 0 always)
+[ok] C4 undirected support is 2K_2 = {12, 34}
+[ok] C4 no universal vertex in 2K_2
+[ok] C4 cut defect: I_cut(X(x)Y) - I_cut(X) - I_cut(Y) = J(X) + J(Y)  [I_cut(X)=I_cut(Y)=0]
+[ok] C5 surprisal gradient vanishes only at z = 0
+[ok] C5 surprisal Hessian = Sigma_z^{-1} > 0 (unique minimum, the mode)
+[ok] C5 E|z|^2 = tr Sigma_z = 2 + k > 0, while the section value is |0|^2 = 0
+TODAS LAS COMPROBACIONES: sí

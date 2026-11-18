@@ -1,0 +1,51 @@
+cff-version: 1.2.0
+message: "If you use this preprint or its verification archive, please cite it as below."
+title: "A Formal Audit of a Categorical Unification of Consciousness Theories: Structural Proxies, Formal Obstructions and a Positive Route"
+type: software
+version: "1.0"
+date-released: "2026-11-18"
+license: CC-BY-4.0
+repository-code: "https://github.com/atoranzo/formal-audit-categorical-unification"
+authors:
+  - family-names: "Toranzo Portela"
+    given-names: "Ángel José"
+    affiliation: "Independent Researcher in Theoretical Physics and Cognitive Science"
+abstract: >-
+  A formal audit, by the author of the candidate theory Q, of how far a categorical
+  unification of theories of consciousness (IIT, GNWT, attention schema theory) and of
+  frameworks brought to bear on it (FEP, quantum Darwinism) can go, for structural proxies
+  of the theories, with the unity-sufficiency obligation of Q as test case, in three acts:
+  negative delimitation, a Gaussian laboratory (exact in two units, numerical in four), and
+  a positive route through intervention monotonicity, which is a declared weakening of the
+  order clause of Q, not its unity sufficiency. Results are labelled by evidence: Lean 4
+  proofs, paper proofs, exact computation (SymPy and exact integer enumeration) and
+  numerical illustration. Q is neither
+  demonstrated nor refuted. The archive contains the paper, six Lean 4 files checked
+  without Mathlib, a Lean 4 project with Mathlib that checks three analytic results on J
+  (the connectivity lemma, the min-cut sandwich and the scaling proposition), eleven
+  Python scripts with their expected outputs, and verification scripts.
+keywords:
+  - "category theory"
+  - "applied category theory"
+  - "consciousness"
+  - "unity of consciousness"
+  - "integrated information theory"
+  - "global neuronal workspace theory"
+  - "free-energy principle"
+  - "bridge laws"
+  - "formal verification"
+  - "Lean 4"
+  - "Mathlib"
+  - "SymPy"
+  - "linear-Gaussian systems"
+  - "Markov categories"
+preferred-citation:
+  type: article
+  status: preprint
+  title: "A Formal Audit of a Categorical Unification of Consciousness Theories: Structural Proxies, Formal Obstructions and a Positive Route"
+  authors:
+    - family-names: "Toranzo Portela"
+      given-names: "Ángel José"
+  year: 2026
+  publisher:
+    name: "Zenodo"

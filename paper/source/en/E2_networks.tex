@@ -1,0 +1,28 @@
+\subsection{Four-unit coupled networks}\label{sec:networks}
+The two-unit family cannot exhibit the band (connection (ii) above). The four-unit networks of Section~\ref{sec:base}, used in Sections~\ref{sec:categorica} and~\ref{sec:debil}, can, and they test the bounds of Act~I numerically. For a graph $\Gamma\in\{C_4,K_{1,3},P_4,2K_2\}$ on four units, with adjacency matrix $M_\Gamma$, the network is the system of $\mathbf{Open}_G$ with
+\[
+X_{t+1}=AX_t+\varepsilon_{t+1},\qquad A=0.2\,I+0.3\,M_\Gamma,\qquad E=I:
+\]
+self-coupling $a=0.2$, symmetric couplings $c=0.3$ on the edges of $\Gamma$, and identity noise. The eigenvalues of $A$ are $0.2+0.3\lambda$ with $\lambda$ an eigenvalue of $M_\Gamma$; for these four graphs $|\lambda|\le2$, so the spectral radius of $A$ is at most $0.8<1$. $J$ is the functional of Lemma~\ref{lem:J}: for each of the seven bipartitions of the four units, the objective is minimized over the predictors that do not cross it by local optimization (BFGS) with restarts, and the least value found is reported. Table~\ref{tab:networks} reports $J$, the two sides of the min-cut sandwich (Theorem~\ref{thm:cheeger}), and the decomposition $I_{\rm pred}=I_{\rm cut}+J$ of Section~\ref{sec:via1}.
+\begin{table}[htbp]\centering\small
+\begin{tabular}{lccccc}
+\toprule
+network & $J$ & lower bound & upper bound & $I_{\rm pred}$ & $I_{\rm cut}$\\
+\midrule
+ring $C_4$ & $0.221293$ & $0.153742$ & $0.500000$ & $0.638824$ & $0.417531$\\
+star $K_{1,3}$ & $0.113499$ & $0.082757$ & $0.186662$ & $0.459446$ & $0.345948$\\
+path $P_4$ & $0.105871$ & $0.082757$ & $0.169743$ & $0.440231$ & $0.334360$\\
+split $2K_2$ & $0$ & $0$ & $0$ & $0.297732$ & $0.297732$\\
+\bottomrule
+\end{tabular}
+\caption{Four-unit networks ($a=0.2$, $c=0.3$, $E=I$): the integration functional $J$, the lower and upper bounds of the min-cut sandwich, and the predictive and cut information, in nats. Values from local optimization with restarts (\texttt{pistas\_numerico.py}); a second, independent optimizer, which is not archived, reproduced $J$ to seven digits. \stN}
+\label{tab:networks}
+\end{table}
+
+What the table shows, and with which status:
+\begin{itemize}
+\item The sandwich holds on all four networks, and on twelve random four-unit systems with random noise covariance, eleven of them with connected support (in the remaining one, the first drawn, the random mask removed every off-diagonal coupling, so $J=0$ and both bounds vanish) (sparse Gaussian couplings and $E=GG^\top+\tfrac12I$ with Gaussian $G$, drawn from a fixed seed) \stN; it is proved on paper and checked in Lean with Mathlib (Theorem~\ref{thm:cheeger}; \texttt{QAudit.sandwich}) \stA\ \stM.
+\item The star has a broadcast hub of strength $c$ in both directions, so $J\ge\tfrac12\log(1+2c^2/\kappa_E)$ (Theorem~\ref{thm:laxa}(d)). For the star with $E=I$ and $c\in\{0.1,0.2,0.3,0.4\}$, $J=0.010603$, $0.044930$, $0.113499$ and $0.252894$, above the bounds $0.009901$, $0.038481$, $0.082757$ and $0.138816$ \stN.
+\item The split system $2K_2$ is a tensor product: $J=0$ while $I_{\rm pred}$ is additive, as in the exact two-unit computation of connection (iii) above. In the tensor product of a two-unit system ($\Gamma=K_2$, $c=0.4$) and a three-unit path ($\Gamma=P_3$, $c=0.3$), built in the same way with $a=0.2$ and $E=I$, $J(X\otimes Y)=0$ while $J(X)=0.181508$ and $J(Y)=0.104778$, and $I_{\rm pred}(X\otimes Y)=I_{\rm pred}(X)+I_{\rm pred}(Y)$ to twelve digits \stN.
+\item The ring and the path are in the band: connected, without a hub, with $J>0$. This is where the presence bridges of IIT and GNWT type disagree (\texttt{square\_fails}, \texttt{values}) \stL, while the star and the split system are where they agree (\texttt{square\_commutes\_on\_sub}) \stL.
+\end{itemize}

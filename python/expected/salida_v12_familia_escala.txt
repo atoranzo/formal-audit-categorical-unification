@@ -1,0 +1,62 @@
+SymPy 1.14.0
+
+== (1a) Covarianza estacionaria ==
+OK   ecuacion de Lyapunov P = A P A^T + E: solucion simetrica unica
+OK   P = diag(s1 + c^2 s2, s2)
+OK   A nilpotente: A^2 = 0, luego P = E + A E A^T (serie finita)
+OK   P definida positiva (s1 + c^2 s2 > 0, s2 > 0)
+
+== (1b) Determinante residual para B = diag(x, y) ==
+det = s2*(c**2*s2*x**2*y**2 + c**2*s2*x**2 + c**2*s2 + s1*x**2*y**2 + s1*x**2 + s1*y**2 + s1)
+OK   det(E+(A-B)P(A-B)^T) = s2 p + s2 p x^2 + s1 s2 y^2 + s2 p x^2 y^2
+OK   coincide con s2 p + s2 [x^2 p (1+y^2) + y^2 s1] (forma del punto (G1))
+
+== (1c) Minimo global y unico en x = y = 0 ==
+OK   f(x,y) - f(0,0) = x^2 * s2 p (1+y^2) + y^2 * s1 s2  (identidad)
+OK   coeficientes s2 p (1+y^2) > 0 y s1 s2 > 0 para todo y real
+  => f(x,y) >= f(0,0) con igualdad si y solo si x = 0 e y = 0; log es estrictamente creciente, asi que el minimizador de J es el mismo.
+OK   el objetivo no es convexo conjuntamente: det Hess(f)(1,1) = -16 < 0 con c=s1=s2=1
+OK   tampoco el objetivo logaritmico: det Hess(J-objetivo)(1,1) = -4/343 < 0
+
+== (1d) Valor de J ==
+OK   min det / det E = p / s1 = 1 + k, con k = c^2 s2 / s1
+  J = 1/2 log(1 + k),  k = c^2 s2 / s1
+
+== (1e) Extra: conductor blanco con coeficiente interno del receptor a (vease el punto (G7)) ==
+OK   Lyapunov con receptor a: solucion unica
+OK   Pa = diag((s1 + c^2 s2)/(1 - a^2), s2)
+OK   fa(x,y) - s2(s1 + c^2 s2) = s2[(a-x)^2 Pa11 (1+y^2) + y^2 s1]
+  Con |a| < 1, Pa11 > 0: minimo unico en x = a, y = 0; J = 1/2 log(1+k), independiente de a.
+
+== (1f) Valores numericos del punto (G1) de la Seccion 5 ==
+OK   (G1): c = s1 = 1, s2 = 1 -> J = log(2)/2
+OK   (G1): c = s1 = 1, s2 = 3 -> J = log(2)
+  (c,s1,s2) = (1.3, 0.7, 1.9): k = 3211/700, 1+k = 3911/700
+  J = 0.86023401985605472313 nats = 1.2410553544503082285 bits
+OK   (G1): J = 0.86023 nats (5 decimales)
+OK   (G1): J = 1.24106 bits (5 decimales)
+
+== (2) Invariancia de k por reescalado X1' = alpha X1, X2' = beta X2 (alpha, beta > 0) ==
+OK   A' = D A D^-1 = [[0, alpha c / beta], [0, 0]]
+OK   E' = D E D = diag(alpha^2 s1, beta^2 s2)
+OK   P' = D P D resuelve la ecuacion de Lyapunov de (A', E')
+OK   k' = c'^2 s2' / s1' = k
+OK   N = c^2 s2 es covariante: N' = alpha^2 N (no invariante)
+OK   para todo B diagonal: D (A - B) D^-1 = A' - B
+OK   cociente det(E'+(A'-B)P'(A'-B)^T)/det E' = cociente original, para todo (x, y)
+  => J es invariante, y tambien el objetivo entero (no solo su minimo).
+
+== (2b) Cambios de signo ==
+OK   con alpha, beta reales no nulos k' = k igualmente (cuadrados)
+  c' = alpha c / beta; si c > 0, c' >= 0 exige alpha beta > 0 (la familia pide c >= 0): solo el cambio global de signo (alpha, beta < 0) permanece en la familia; si c = 0, cualquier combinacion de signos.
+
+== (2c) Normalizacion Z_i = X_i / sqrt(s_i) ==
+OK   ruido normalizado: Cov(eta) = I
+OK   acoplamiento normalizado: A_Z = [[0, sqrt(k)], [0, 0]] (c >= 0)
+OK   Cov(Z) estacionaria = diag(1 + k, 1) (solo depende de k)
+
+== Biyeccion k <-> J ==
+OK   dJ/dk = 1/(2(1+k)) > 0: J estrictamente creciente en k >= 0
+OK   inversa unica k = exp(2J) - 1
+
+Total de comprobaciones superadas: 31

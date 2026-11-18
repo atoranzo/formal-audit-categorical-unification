@@ -1,0 +1,10 @@
+'QAuditBridge.J_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAuditBridge.supportGraph_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAuditBridge.wmin_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAuditBridge.Jt_pos_of_connected' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAuditBridge.sandwich_along_scaling' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAuditBridge.stationary_of_spr' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAuditBridge.lemmaJ_spr' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAuditBridge.sandwich_spr' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAuditBridge.J_pos_iff_wmin_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+exit 0
