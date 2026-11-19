@@ -1,3 +1,7 @@
 J(0.33) = 0.104082704907937
 J(0.38) = 0.0997015975026888
 J decrece al reforzar los acoplamientos con la diagonal fija: sí
+autovalores de S en c = 0.33: -0.028076 y 4.156849; det S = -0.116708 < 0 (exacto): sí
+autovalores de S en c = 0.38: -0.009787 y 4.833641; det S = -0.047307 < 0 (exacto): sí
+S es indefinida en c = 0.33 y en c = 0.38: sí
+TODAS LAS COMPROBACIONES: sí

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Verify the six Lean 4 files of this archive.
+# Verify the seven Lean 4 files of this archive (Lean 4 core, without Mathlib).
 # For each file: no forbidden construct (sorry, admit, native_decide, axiom or opaque
 # declarations, unsafe code, implemented_by/extern, debug options such as skipKernelTC),
 # compilation with exit code 0, and the printed axioms equal to expected/salida_<file>.txt.
@@ -20,7 +20,7 @@ case "$version" in
 esac
 status=0
 OUT=$(mktemp -d "${TMPDIR:-/tmp}/verify_lean.XXXXXX")
-for f in IntentoSu UnificacionCat PistasUnificacion FiltracionCociente ViaFutura GaussConexion; do
+for f in IntentoSu UnificacionCat PistasUnificacion FiltracionCociente ViaFutura GaussConexion CondicionalQ; do
   if grep -nE '\bsorry\b|\badmit\b|native_decide|^[[:space:]]*((private|protected|noncomputable)[[:space:]]+)*(axiom|opaque)[[:space:]]|skipKernelTC|debug\.|\bunsafe\b|implemented_by|@\[extern' "$f.lean"; then
     echo "FAIL  $f.lean: forbidden construct"; status=1; continue
   fi

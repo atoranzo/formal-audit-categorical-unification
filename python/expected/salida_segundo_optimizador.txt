@@ -1,0 +1,6 @@
+== Segundo optimizador de la tabla 6 (c=0.3, a=0.2, E=I; semilla 1811, 12 reinicios): J por red
+  ring   conservado=0.2212930  alterno=0.2212930  BFGS=0.2212930  archivado=0.2212930  coincide a siete decimales: sí  el esquema alterno no aumenta el objetivo: sí
+  star   conservado=0.1134987  alterno=0.1134987  BFGS=0.1134987  archivado=0.1134987  coincide a siete decimales: sí  el esquema alterno no aumenta el objetivo: sí
+  path   conservado=0.1058709  alterno=0.1058709  BFGS=0.1058709  archivado=0.1058709  coincide a siete decimales: sí  el esquema alterno no aumenta el objetivo: sí
+  split  conservado=0.0000000  alterno=0.0000000  BFGS=0.0000000  archivado=0.0000000  coincide a siete decimales: sí  el esquema alterno no aumenta el objetivo: sí
+TODAS LAS COMPROBACIONES: sí

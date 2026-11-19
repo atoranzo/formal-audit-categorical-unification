@@ -8,7 +8,7 @@ This section defines the test bench of the paper: a two-unit linear-Gaussian fam
 \item \stS: verified exactly with SymPy~1.14 in the Gaussian model;
 \item \stN: numerical, without a certificate.
 \end{itemize}
-What holds on the test bench does not thereby hold in the original domain $D_0$ of Q (Definition~\ref{def:phiQ}). The functional $J$ of Lemma~\ref{lem:J} is an auxiliary functional of the law of the process, not a selected $\Phi_Q$. The sufficiency $S_J$ defined below is not $S_u$, and $J$ is nowhere identified with $\Phi_Q$.
+What holds on the test bench does not thereby hold in the original domain $D_0$ of Q (Definition~\ref{def:phiQ}). The functional $J$ of Lemma~\ref{lem:J} is an auxiliary functional of the law of the process, not a selected $\Phi_Q$ and not the $\Phi$ of IIT~3.0. The sufficiency $S_J$ defined below is not $S_u$, and $J$ is nowhere identified with $\Phi_Q$.
 
 \subsection{The test bench}
 \begin{definition}[The restricted Gaussian family $F_0$]\label{def:gauss-F0}
@@ -162,7 +162,7 @@ Fact in $F_0$ & Theorem it instantiates & Status\\
 \midrule
 $J=\tfrac12\log(1+k)$, with a unique minimizer & Lemma~\ref{lem:J}: $J>0$ if and only if the support is connected & \stS\\
 Support $K_{1,1}$ or $2K_1$; $F_0\otimes F_0$ has support $2K_2$ & commutation on $\{K_{1,3},2K_2\}$ (two-unit analog) & \stL\ and \stS\\
-No band with $n\le3$ & band $P_n$, $n\ge4$ & \stL\\
+No band with $n\le3$ (undirected reading of the hub) & band $P_n$, $n\ge4$ & \stL\\
 Lower bound attained if $s_2\le s_1$ & sandwich by $w_{\min}$ & \stA, \stM\ and \stS\\
 $I_{\rm pred}=J$, $I_{\rm cut}=0$; additivity and $J(X\otimes Y)=0$ & Line~2: zero-product monoid & \stS\ and \stL\\
 Fibres of laws consist of one class; the mode and the zero history have measure zero & Line~3: trivial selection or discarding & \stS\ and \stL\\

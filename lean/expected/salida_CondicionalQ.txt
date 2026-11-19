@@ -1,0 +1,29 @@
+'CondicionalQ.suff_of_cover' does not depend on any axioms
+'CondicionalQ.coverage_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CondicionalQ.aligned_cover_iff' does not depend on any axioms
+'CondicionalQ.pointed_reading_kernel' does not depend on any axioms
+'CondicionalQ.Sq_pointed' does not depend on any axioms
+'CondicionalQ.rel_suff_all_psi' does not depend on any axioms
+'CondicionalQ.cover_structures' does not depend on any axioms
+'CondicionalQ.robust_iff_relational' does not depend on any axioms
+'CondicionalQ.single_psi_example' depends on axioms: [propext]
+'CondicionalQ.order_cover_B_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CondicionalQ.order_cover_SuB_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CondicionalQ.order_cover_Su_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CondicionalQ.chain_eqv_iff' does not depend on any axioms
+'CondicionalQ.theorem19_from_order' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CondicionalQ.suff_and_B_iff_nonstrict' does not depend on any axioms
+'CondicionalQ.suff_iff_factor' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CondicionalQ.factor_unique_on_image' does not depend on any axioms
+'CondicionalQ.orderB_iff_monotone_factor' does not depend on any axioms
+'CondicionalQ.suffB_iff_monotone_factor' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CondicionalQ.im_Su_iff_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CondicionalQ.im_B_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CondicionalQ.descent_componentwise' does not depend on any axioms
+'CondicionalQ.descent_of_suff' depends on axioms: [Quot.sound]
+'CondicionalQ.descent_needs_invariance' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CondicionalQ.descent_exact_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CondicionalQ.descent_iff_factor' depends on axioms: [Quot.sound]
+'CondicionalQ.conditional_discharge' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CondicionalQ.conditional_discharge_nonvacuous' depends on axioms: [propext]
+exit 0

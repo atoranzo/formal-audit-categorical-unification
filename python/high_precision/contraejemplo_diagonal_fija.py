@@ -6,8 +6,15 @@ A(c) = D + c W, D = diag(-23/100, 31/100), W = [[0,-19/100],[-83/100,0]],
 E = [[461/100,259/100],[259/100,146/100]] (positive definite).
 With two units there is one bipartition; B = diag(x, y). J(c) = 1/2 log min_{x,y} f_c(x,y)/det E,
 f_c = det(E + (A-B) P (A-B)^T), P = stationary covariance (exact rational).
-The global minimum is located among the real critical points (f is a coercive polynomial),
-found by exact elimination (resultant) and 50-digit root finding.
+f_c, the residual determinant, is a coercive polynomial in (x, y), and the objective is an
+increasing function of it. Its global minimum is located among its real critical points, found
+by exact elimination (resultant) and 50-digit root finding; what is not certified is that the
+root finding, with its residual filter |df/dy| < 1e-25, finds all of them.
+The script also computes, exactly, the matrix S = W Q A^T + A Q W^T + 2c E of the proof of part (b)
+of the Proposition on monotonicity under scaling, with Q = c^2 P(c), at c = 0.33 and c = 0.38,
+and prints its eigenvalues: det S < 0 (exact), so S has eigenvalues of both signs (it is
+indefinite), unlike the case of a scalar diagonal covered by that proposition. Printed messages:
+'autovalores de S en c = ...' = eigenvalues of S at c = ..., 'es indefinida' = is indefinite.
 Run: python3 -I contraejemplo_diagonal_fija.py"""
 import sympy as sp
 
@@ -51,8 +58,30 @@ def J_exact(c):
     return sp.N(sp.log(best / E.det()) / 2, 15)
 
 
+def S_exact(c):
+    """S = W Q A^T + A Q W^T + 2c E with Q = c^2 P(c), exactly (rational entries)."""
+    A = D + c * W
+    Q = c ** 2 * lyap(A)
+    S = W * Q * A.T + A * Q * W.T + 2 * c * E
+    assert all(entry.is_Rational for entry in S) and S == S.T
+    return S
+
+
 c1, c2 = sp.Rational(33, 100), sp.Rational(38, 100)
 J1, J2 = J_exact(c1), J_exact(c2)
 print("J(0.33) =", J1)
 print("J(0.38) =", J2)
-print("J decrece al reforzar los acoplamientos con la diagonal fija:", "sí" if J1 > J2 else "NO")
+decrece = bool(J1 > J2)
+print("J decrece al reforzar los acoplamientos con la diagonal fija:", "sí" if decrece else "NO")
+indefinida = True
+for c in (c1, c2):
+    S = S_exact(c)
+    tr, det = S.trace(), S.det()            # exact rationals
+    disc = sp.sqrt(tr ** 2 - 4 * det)
+    lo, hi = sp.N((tr - disc) / 2, 30), sp.N((tr + disc) / 2, 30)
+    indefinida &= bool(det < 0)
+    print(f"autovalores de S en c = {float(c):.2f}: {float(lo):.6f} y {float(hi):.6f}; "
+          f"det S = {float(det):.6f} < 0 (exacto): {'sí' if det < 0 else 'NO'}")
+print("S es indefinida en c = 0.33 y en c = 0.38:", "sí" if indefinida else "NO")
+print("TODAS LAS COMPROBACIONES:", "sí" if (decrece and indefinida) else "NO")
+raise SystemExit(0 if (decrece and indefinida) else 1)

@@ -25,7 +25,7 @@ for s in v12_familia_escala.py v3_modelos_apuntados.py v4_historias_ac.py v5_rkp
 done
 run exact escalado_diagonal_escalar.py numeric
 run high_precision contraejemplo_diagonal_fija.py numeric
-for s in J_conectividad.py pistas_numerico.py banda_monotonia.py monotonia_escalado.py; do
+for s in J_conectividad.py pistas_numerico.py segundo_optimizador.py banda_monotonia.py monotonia_escalado.py; do
   run numeric "$s" numeric
 done
 echo "script outputs: $OUT"

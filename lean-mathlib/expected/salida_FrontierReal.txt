@@ -1,0 +1,32 @@
+'QAuditFrontier.chain_iff_reflTransGen' does not depend on any axioms
+'QAuditFrontier.im_iff_edges' does not depend on any axioms
+'QAuditFrontier.monotone_on_reach' does not depend on any axioms
+'QAuditFrontier.constant_on_scc' does not depend on any axioms
+'QAuditFrontier.nonconstant_if_not_scc' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAuditFrontier.escape_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAuditFrontier.im_iff_edges_real' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAuditFrontier.monotone_on_reach_real' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAuditFrontier.constant_on_scc_real' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAuditFrontier.nonconstant_if_not_scc_real' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAuditFrontier.frontier_real' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAuditFrontier.escape_iff_real' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAuditFrontier.nonconstant_uniform' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAuditFrontier.frontier_c_uniform_real' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAuditFrontier.chainIm_to_chain' does not depend on any axioms
+'QAuditFrontier.chain_to_chainIm' does not depend on any axioms
+'QAuditFrontier.frontier_paper_form' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAuditFrontier.escape_paper_form' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAuditFrontier.empty_domain_convention' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAuditFrontier.mono_pos' does not depend on any axioms
+'QAuditFrontier.b_transitive_antisymmetric' does not depend on any axioms
+'QAuditFrontier.b_needs_transitivity' depends on axioms: [propext]
+'QAuditFrontier.b_needs_antisymmetry' does not depend on any axioms
+'QAuditFrontier.c_ne_of_two_values' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAuditFrontier.codis_no_strict_pair' does not depend on any axioms
+'QAuditFrontier.c_ne_without_strict_pair' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAuditFrontier.c_fails_discrete_order' does not depend on any axioms
+'QAuditFrontier.Example.edge_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAuditFrontier.Example.reach_from_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAuditFrontier.Example.nonvacuous' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QAuditFrontier.Example.pi_degree' depends on axioms: [propext, Classical.choice, Quot.sound]
+exit 0

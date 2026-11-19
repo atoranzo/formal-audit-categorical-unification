@@ -5,3 +5,4 @@ import QAuditAnalytic.Bridge
 import QAuditAnalytic.Interval
 import QAuditAnalytic.ExamplesLemmaJ
 import QAuditAnalytic.ExamplesScaling
+import QAuditAnalytic.FrontierReal
