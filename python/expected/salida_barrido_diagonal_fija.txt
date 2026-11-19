@@ -1,0 +1,24 @@
+[ok] grid of c: 0.005 to 0.600 with step 0.005, 120 points; A(c) is stable at every point (Jury criterion, exact)
+[ok] P(c) = A P A^T + E, solved exactly, is positive definite at every point (P11 > 0 and det P > 0)
+[ok] the minimum over y lies inside the grid of y at every point, and g has one local minimum on that grid
+[ok] J(0.33) = 0.1040827049 and J(0.38) = 0.0997015975: within 1e-10 of the values certified by certificado_diagonal_fija.py
+[ok] J decreases on the grid only on one run of consecutive steps, from c = 0.340 to c = 0.380 (8 of the 119 steps)
+[ok] J increases on every other step: on the 67 steps before the run, from c = 0.005, and on the 44 steps after it, up to c = 0.600; J(0.40) = 0.106126 > J(0.38) = 0.099702
+     local maximum of J between c = 0.335 and c = 0.345: c = 0.3423, J = 0.105058
+     local minimum of J between c = 0.375 and c = 0.385: c = 0.3814, J = 0.099676
+[ok] these extrema lie between the neighbouring points of the grid, at the ends of the run
+[ok] S is indefinite (det S < 0, exact) at every point from c = 0.005 to c = 0.395 (79 points), and positive definite (det S > 0, tr S > 0, exact) at every point from c = 0.400 to c = 0.600 (41 points)
+[ok] S is indefinite on a wider range of c than the decrease: [0.005, 0.395] contains [0.340, 0.380], and J increases on 70 of its 78 steps
+     c      J(A(c))    eigenvalues of S (from its exact trace and determinant)
+     0.10   0.012721   -0.011255 and 1.221422
+     0.20   0.048464   -0.030322 and 2.469082
+     0.30   0.095332   -0.033558 and 3.758964
+     0.33   0.104083   -0.028076 and 4.156849
+     0.35   0.104668   -0.022235 and 4.425408
+     0.38   0.099702   -0.009787 and 4.833641
+     0.40   0.106126   +0.001197 and 5.109665
+     0.45   0.176305   +0.039149 and 5.814714
+     0.50   0.240956   +0.093846 and 6.543896
+     0.60   0.339719   +0.261321 and 8.090177
+checks passed: 9 of 9
+TODAS LAS COMPROBACIONES: sí

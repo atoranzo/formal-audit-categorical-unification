@@ -2,10 +2,10 @@ cff-version: 1.2.0
 message: "If you use this preprint or its verification archive, please cite it as below."
 title: "A Formal Audit of a Categorical Unification of Consciousness Theories: Structural Proxies, Formal Obstructions and a Positive Route"
 type: software
-version: "1.1"
+version: "1.2"
 date-released: "2026-11-19"
 license: CC-BY-4.0
-# Version 1.1 receives its own DOI when it is released. Until then the DOI given for the
+# Version 1.2 receives its own DOI when it is released. Until then the DOI given for the
 # current version is the concept DOI, which resolves to the latest version.
 doi: "10.5281/zenodo.24349943"
 identifiers:
@@ -15,6 +15,9 @@ identifiers:
   - type: doi
     value: "10.5281/zenodo.24349944"
     description: "Version 1.0"
+  - type: doi
+    value: "10.5281/zenodo.24361411"
+    description: "Version 1.1"
 repository-code: "https://github.com/atoranzo/formal-audit-categorical-unification"
 authors:
   - family-names: "Toranzo Portela"
@@ -33,9 +36,9 @@ abstract: >-
   demonstrated nor refuted. The archive contains the paper, seven Lean 4 files checked
   without Mathlib, a Lean 4 project with Mathlib of eight modules that checks three analytic
   results on J (the connectivity lemma, the min-cut sandwich and the scaling proposition) and
-  the exact frontier of intervention monotonicity with real-valued degrees, twelve Python
-  scripts with their expected outputs, and verification scripts. Version 1.1; the changes
-  from version 1.0 are listed in CHANGES.md.
+  the exact frontier of intervention monotonicity with real-valued degrees, fifteen Python
+  scripts with their expected outputs, and verification scripts. Version 1.2; the changes
+  from versions 1.0 and 1.1 are listed in CHANGES.md.
 keywords:
   - "category theory"
   - "applied category theory"
@@ -59,7 +62,7 @@ preferred-citation:
     - family-names: "Toranzo Portela"
       given-names: "Ángel José"
   year: 2026
-  # Concept DOI (resolves to the latest version); the DOI of version 1.1 is assigned on release.
+  # Concept DOI (resolves to the latest version); the DOI of version 1.2 is assigned on release.
   doi: "10.5281/zenodo.24349943"
   publisher:
     name: "Zenodo"

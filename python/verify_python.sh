@@ -20,12 +20,14 @@ run() {  # $1 = directory, $2 = script, $3 = mode (exact | numeric)
     echo "FAIL  $d/$s: output differs from $exp"; status=1
   fi
 }
-for s in v12_familia_escala.py v3_modelos_apuntados.py v4_historias_ac.py v5_rkp_cadenas.py gauss_conexiones.py; do
+for s in v12_familia_escala.py v3_modelos_apuntados.py v4_historias_ac.py v5_rkp_cadenas.py gauss_conexiones.py \
+         certificado_diagonal_fija.py anillo_frente_camino.py; do
   run exact "$s" exact
 done
 run exact escalado_diagonal_escalar.py numeric
 run high_precision contraejemplo_diagonal_fija.py numeric
-for s in J_conectividad.py pistas_numerico.py segundo_optimizador.py banda_monotonia.py monotonia_escalado.py; do
+for s in J_conectividad.py pistas_numerico.py segundo_optimizador.py banda_monotonia.py monotonia_escalado.py \
+         barrido_diagonal_fija.py; do
   run numeric "$s" numeric
 done
 echo "script outputs: $OUT"

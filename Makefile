@@ -3,7 +3,7 @@
 #   make verify SKIP_MATHLIB=1   the same, without the Lean project with Mathlib
 #   make checksums               only the SHA-256 sums of the files (SHA256SUMS)
 #   make verify-lean             only the seven Lean files without Mathlib
-#   make verify-python           only the twelve Python scripts
+#   make verify-python           only the fifteen Python scripts
 #   make verify-mathlib          only the Lean project with Mathlib (eight modules)
 #   make pdf                     rebuild the paper as build/paper/main.pdf
 #   make clean                   remove build/

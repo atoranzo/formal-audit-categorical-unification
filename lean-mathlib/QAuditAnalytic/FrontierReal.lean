@@ -36,14 +36,18 @@ reachability between realized classes is the same in both (`chainIm_to_chain`,
 the digraph on `im κ`.
 
 The order hypotheses above are sufficient conditions. Part (b) uses only transitivity and
-antisymmetry (`b_transitive_antisymmetric`), and neither can be dropped
-(`b_needs_transitivity`, `b_needs_antisymmetry`). Part (c) in its `≠` form uses only two
-distinct values `w₀ ≠ w₁` with `w₀ ≤ w₁` and reflexivity at them (`c_ne_of_two_values`; also
-`c_ne_without_strict_pair`, in a preorder without a strict pair), and it fails in the discrete
-order on two values, where no two distinct values are comparable (`c_fails_discrete_order`; the
-general case is the same one-line argument and is not compiled here). No minimality is claimed
-beyond these statements. The section `Example` checks non-vacuity on a three-class intervention
-digraph.
+antisymmetry (`b_transitive_antisymmetric`), and neither can simply be dropped
+(`b_needs_transitivity`, `b_needs_antisymmetry`), but only antisymmetry is necessary for (b) to
+hold in every digraph: (b) holds in every digraph exactly when no cycle of `≤` passes through two
+distinct values (`b_iff_closure_antisymm`, `antisymm_of_closure_antisymm`), as for the reflexive
+and antisymmetric relation `succ3`, which is not transitive (`succ3_props`, `b_holds_succ3`).
+Part (c) in its `≠` form uses only two distinct values `w₀ ≠ w₁` with `w₀ ≤ w₁` and reflexivity
+at them (`c_ne_of_two_values`; also `c_ne_without_strict_pair`, in a preorder without a strict
+pair), and these hypotheses are also necessary for it to hold in every digraph, loops included
+(`c_ne_iff_two_values`); it fails in the discrete order on two values, where no two distinct
+values are comparable (`c_fails_discrete_order`; the general case follows from
+`c_ne_iff_two_values`). No minimality is claimed beyond these statements. The section `Example`
+checks non-vacuity on a three-class intervention digraph.
 
 What is not proved here. Part (c) gives the existence of a mathematical function that satisfies
 `IM` and separates two classes. It does not identify that function with the unity degree `u`
@@ -331,7 +335,8 @@ theorem empty_domain_convention (T : Empty → Empty → Prop) (Φ : Empty → �
 The parts are proved above for degrees in a type with a relation `≤` (a), in a partial order
 (b) and in a preorder with two values `w₀ < w₁` (c). These are sufficient conditions. The
 statements below show what the proofs of (b) and (c) use and that some hypotheses cannot be
-dropped; they do not show that any set of hypotheses is the least one. -/
+dropped; they do not show that any set of hypotheses is the least one. The next section gives the
+exact conditions on the order under which (b), and (c) in its `≠` form, hold in every digraph. -/
 
 /-- Monotone along nonempty paths, for a merely transitive relation `le`. -/
 theorem mono_pos {K W : Type} (le : W → W → Prop) (htr : ∀ a b c, le a b → le b c → le a c)
@@ -462,6 +467,101 @@ theorem c_fails_discrete_order :
   intro h
   exact absurd (key false h) (by decide)
 
+/-! ## Which order hypotheses are necessary
+
+For a relation `le` on the values, (b) holds in every digraph exactly when the
+reflexive–transitive closure of `le` is antisymmetric, that is, when no cycle of `le` passes
+through two distinct values (`b_iff_closure_antisymm`). Hence antisymmetry is necessary
+(`antisymm_of_closure_antisymm`), while transitivity is not (`b_holds_succ3`). Part (c) in its `≠`
+form holds in every digraph, loops included, exactly when there are two distinct values
+`w₀ ≠ w₁` with `le w₀ w₀`, `le w₁ w₁` and `le w₀ w₁`, the hypotheses of `c_ne_of_two_values`
+(`c_ne_iff_two_values`). -/
+
+/-- A function monotone along the edges maps paths of `E` to paths of `le`. -/
+theorem chain_map {K W : Type} (le : W → W → Prop) (E : K → K → Prop) (f : K → W)
+    (h : ∀ a b, E a b → le (f a) (f b)) :
+    ∀ k k', Chain E k k' → Chain le (f k) (f k') := by
+  intro k k' hc
+  induction hc with
+  | refl => exact Chain.refl _
+  | @step y z _ hE ih => exact Chain.step ih (h y z hE)
+
+/-- The exact condition for (b): (b) holds in every digraph if and only if the
+reflexive–transitive closure of `le` is antisymmetric, that is, if no cycle of `le` passes through
+two distinct values. -/
+theorem b_iff_closure_antisymm {W : Type} (le : W → W → Prop) :
+    (∀ (K : Type) (E : K → K → Prop) (f : K → W), (∀ a b, E a b → le (f a) (f b)) →
+        ∀ k k', Chain E k k' → Chain E k' k → f k = f k') ↔
+      (∀ a b, Chain le a b → Chain le b a → a = b) := by
+  constructor
+  · intro hb a b hab hba
+    exact hb W le id (fun _ _ h => h) a b hab hba
+  · intro hcl K E f hf k k' h1 h2
+    exact hcl _ _ (chain_map le E f hf k k' h1) (chain_map le E f hf k' k h2)
+
+/-- The exact condition for (b) implies antisymmetry: antisymmetry is necessary for (b) to hold
+in every digraph. -/
+theorem antisymm_of_closure_antisymm {W : Type} (le : W → W → Prop)
+    (hcl : ∀ a b, Chain le a b → Chain le b a → a = b) :
+    ∀ a b, le a b → le b a → a = b := fun a b h1 h2 =>
+  hcl a b (Chain.step (Chain.refl a) h1) (Chain.step (Chain.refl b) h2)
+
+/-- The relation on `Fin 3` with `a ≤ b` if and only if `a = b` or `b = a + 1`. -/
+def succ3 (a b : Fin 3) : Prop := a = b ∨ a.val + 1 = b.val
+instance : DecidableRel succ3 := fun a b => by unfold succ3; infer_instance
+
+/-- `succ3` is reflexive and antisymmetric, and it is not transitive. -/
+theorem succ3_props :
+    (∀ a, succ3 a a) ∧ (∀ a b, succ3 a b → succ3 b a → a = b) ∧
+      ¬ (∀ a b c, succ3 a b → succ3 b c → succ3 a c) := by
+  refine ⟨fun a => Or.inl rfl, by decide, ?_⟩
+  intro htr
+  exact absurd (htr 0 1 2 (by decide) (by decide)) (by decide)
+
+/-- Along a path of `succ3` the value does not decrease. -/
+theorem succ3_chain_val {a b : Fin 3} (h : Chain succ3 a b) : a.val ≤ b.val := by
+  induction h with
+  | refl => exact le_refl _
+  | @step y z _ hs ih =>
+    rcases hs with e | e
+    · rw [← e]; exact ih
+    · omega
+
+/-- Transitivity is not necessary for (b): with the reflexive and antisymmetric relation `succ3`,
+which is not transitive (`succ3_props`), (b) holds in every digraph. -/
+theorem b_holds_succ3 : ∀ (K : Type) (E : K → K → Prop) (f : K → Fin 3),
+    (∀ a b, E a b → succ3 (f a) (f b)) → ∀ k k', Chain E k k' → Chain E k' k → f k = f k' :=
+  (b_iff_closure_antisymm succ3).2 fun _ _ h1 h2 =>
+    Fin.ext (le_antisymm (succ3_chain_val h1) (succ3_chain_val h2))
+
+/-- The digraph on `Bool` with a loop at each vertex and the edge `false → true`. -/
+def Eloop2 : Bool → Bool → Prop := fun a b => a = b ∨ (a = false ∧ b = true)
+
+/-- The exact condition for (c) in its `≠` form: it holds in every digraph, loops included, if and
+only if there are two distinct values `w₀ ≠ w₁` with `le w₀ w₀`, `le w₁ w₁` and `le w₀ w₁`, the
+hypotheses of `c_ne_of_two_values`. The digraph `Eloop2` shows the necessity. -/
+theorem c_ne_iff_two_values {W : Type} (le : W → W → Prop) :
+    (∀ (K : Type) (E : K → K → Prop) (k k' : K), ¬ Chain E k' k →
+        ∃ f : K → W, (∀ a b, E a b → le (f a) (f b)) ∧ f k ≠ f k') ↔
+      ∃ w₀ w₁ : W, le w₀ w₀ ∧ le w₁ w₁ ∧ le w₀ w₁ ∧ w₀ ≠ w₁ := by
+  constructor
+  · intro hc
+    have key : ∀ z, Chain Eloop2 true z → z = true := by
+      intro z h
+      induction h with
+      | refl => rfl
+      | @step y w _ hE ih =>
+        subst ih
+        rcases hE with e | ⟨e1, -⟩
+        · exact e.symm
+        · exact absurd e1 (by decide)
+    obtain ⟨f, hf, hne⟩ :=
+      hc Bool Eloop2 false true (fun h => absurd (key false h) (by decide))
+    exact ⟨f false, f true, hf false false (Or.inl rfl), hf true true (Or.inl rfl),
+      hf false true (Or.inr ⟨rfl, rfl⟩), hne⟩
+  · rintro ⟨w₀, w₁, h00, h11, h01, hne⟩ K E k k' hnot
+    exact c_ne_of_two_values le h00 h11 h01 hne E k k' hnot
+
 /-! ## Non-vacuity: a three-class intervention digraph
 
 One bearer with four realizations `0, 1, 2, 3`, a real descriptor `Φ s = s`, interventions
@@ -571,6 +671,13 @@ end QAuditFrontier
 #print axioms QAuditFrontier.codis_no_strict_pair
 #print axioms QAuditFrontier.c_ne_without_strict_pair
 #print axioms QAuditFrontier.c_fails_discrete_order
+#print axioms QAuditFrontier.chain_map
+#print axioms QAuditFrontier.b_iff_closure_antisymm
+#print axioms QAuditFrontier.antisymm_of_closure_antisymm
+#print axioms QAuditFrontier.succ3_props
+#print axioms QAuditFrontier.succ3_chain_val
+#print axioms QAuditFrontier.b_holds_succ3
+#print axioms QAuditFrontier.c_ne_iff_two_values
 #print axioms QAuditFrontier.Example.edge_iff
 #print axioms QAuditFrontier.Example.reach_from_two
 #print axioms QAuditFrontier.Example.nonvacuous

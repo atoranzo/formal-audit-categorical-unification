@@ -25,6 +25,13 @@
 'QAuditFrontier.codis_no_strict_pair' does not depend on any axioms
 'QAuditFrontier.c_ne_without_strict_pair' depends on axioms: [propext, Classical.choice, Quot.sound]
 'QAuditFrontier.c_fails_discrete_order' does not depend on any axioms
+'QAuditFrontier.chain_map' does not depend on any axioms
+'QAuditFrontier.b_iff_closure_antisymm' does not depend on any axioms
+'QAuditFrontier.antisymm_of_closure_antisymm' does not depend on any axioms
+'QAuditFrontier.succ3_props' depends on axioms: [propext]
+'QAuditFrontier.succ3_chain_val' depends on axioms: [propext, Quot.sound]
+'QAuditFrontier.b_holds_succ3' depends on axioms: [propext, Quot.sound]
+'QAuditFrontier.c_ne_iff_two_values' depends on axioms: [propext, Classical.choice, Quot.sound]
 'QAuditFrontier.Example.edge_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
 'QAuditFrontier.Example.reach_from_two' depends on axioms: [propext, Classical.choice, Quot.sound]
 'QAuditFrontier.Example.nonvacuous' depends on axioms: [propext, Classical.choice, Quot.sound]

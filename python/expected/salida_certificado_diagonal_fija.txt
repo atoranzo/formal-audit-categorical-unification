@@ -1,0 +1,37 @@
+[ok] c = 0.33: Jury criterion |det A| < 1 and |tr A| < 1 + det A (spr(A) < 1)
+[ok] c = 0.33: P = A P A^T + E and P symmetric, exactly (spr(A) = 0.340123)
+[ok] c = 0.33: P > 0 (P11 > 0 and det P > 0)
+[ok] c = 0.33: f is a quadratic in x
+[ok] c = 0.33: f2(y) = P11 E22 + det(P) (A22 - y)^2 >= P11 E22 > 0 (exact identity)
+[ok] c = 0.33: deg N = deg f2 + 2 = 4, positive leading coefficients (g -> +inf)
+[ok] c = 0.33: h = N' f2 - N f2' has degree 5
+[ok] c = 0.33: Sturm sequence: h has exactly 1 real zero, simple (gcd(h, h') = 1)
+[ok] c = 0.33: SymPy Poly.count_roots: 1 real zero
+[ok] c = 0.33: Poly.intervals isolates one simple real zero
+[ok] c = 0.33: isolating interval [a, b] of width below 1e-40, h(a) h(b) < 0, one zero in (a, b) by the Sturm sequence
+[ok] c = 0.33: on [a, b], N >= N_lo > 0 and f2 >= f2_lo > 0 (rational interval arithmetic)
+[ok] c = 0.33: UB = g(y_r) = f(x*(y_r), y_r) is attained (exact), and LB <= UB
+[ok] c = 0.33: width of the interval of J <= (UB - LB)/(2 LB) < 1e-40 (exact)
+     minimizer: x = 0.143941992, y = 0.230609263
+     J(A(0.33)) in [0.10408270490793657722, 0.10408270490793657722], width at most 6.0e-41
+[ok] c = 0.33: J = 0.1040827049... to ten decimals and 0.104083 to six, as printed in the paper
+[ok] c = 0.38: Jury criterion |det A| < 1 and |tr A| < 1 + det A (spr(A) < 1)
+[ok] c = 0.38: P = A P A^T + E and P symmetric, exactly (spr(A) = 0.349309)
+[ok] c = 0.38: P > 0 (P11 > 0 and det P > 0)
+[ok] c = 0.38: f is a quadratic in x
+[ok] c = 0.38: f2(y) = P11 E22 + det(P) (A22 - y)^2 >= P11 E22 > 0 (exact identity)
+[ok] c = 0.38: deg N = deg f2 + 2 = 4, positive leading coefficients (g -> +inf)
+[ok] c = 0.38: h = N' f2 - N f2' has degree 5
+[ok] c = 0.38: Sturm sequence: h has exactly 1 real zero, simple (gcd(h, h') = 1)
+[ok] c = 0.38: SymPy Poly.count_roots: 1 real zero
+[ok] c = 0.38: Poly.intervals isolates one simple real zero
+[ok] c = 0.38: isolating interval [a, b] of width below 1e-40, h(a) h(b) < 0, one zero in (a, b) by the Sturm sequence
+[ok] c = 0.38: on [a, b], N >= N_lo > 0 and f2 >= f2_lo > 0 (rational interval arithmetic)
+[ok] c = 0.38: UB = g(y_r) = f(x*(y_r), y_r) is attained (exact), and LB <= UB
+[ok] c = 0.38: width of the interval of J <= (UB - LB)/(2 LB) < 1e-40 (exact)
+     minimizer: x = 0.055341303, y = 0.074376369
+     J(A(0.38)) in [0.099701597502688759378, 0.099701597502688759378], width at most 1.3e-41
+[ok] c = 0.38: J = 0.0997015975... to ten decimals and 0.099702 to six, as printed in the paper
+[ok] the decrease J(A(0.33)) > J(A(0.38)) is certified: LB(0.33) > UB(0.38), exactly (relative margin in the residual determinant 0.8801%)
+checks passed: 31 of 31
+TODAS LAS COMPROBACIONES: sí

@@ -3,10 +3,10 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24349943.svg)](https://doi.org/10.5281/zenodo.24349943)
 
 **Ángel José Toranzo Portela** · Independent Researcher in Theoretical Physics and Cognitive Science\
-Preprint and verification archive · version 1.1 · 19 November 2026 · not peer reviewed\
+Preprint and verification archive · version 1.2 · 19 November 2026 · not peer reviewed\
 Repository: <https://github.com/atoranzo/formal-audit-categorical-unification>\
-Zenodo: all versions (concept DOI, which resolves to the latest version), DOI [10.5281/zenodo.24349943](https://doi.org/10.5281/zenodo.24349943); version 1.0, DOI [10.5281/zenodo.24349944](https://doi.org/10.5281/zenodo.24349944); the DOI of version 1.1 is assigned when it is released\
-Changes from version 1.0: [`CHANGES.md`](CHANGES.md)
+Zenodo: all versions (concept DOI, which resolves to the latest version), DOI [10.5281/zenodo.24349943](https://doi.org/10.5281/zenodo.24349943); version 1.0, DOI [10.5281/zenodo.24349944](https://doi.org/10.5281/zenodo.24349944); version 1.1, DOI [10.5281/zenodo.24361411](https://doi.org/10.5281/zenodo.24361411); the DOI of version 1.2 is assigned when it is released\
+Changes from versions 1.0 and 1.1: [`CHANGES.md`](CHANGES.md)
 
 This archive contains the paper and everything needed to check its machine-verified
 claims:
@@ -16,11 +16,15 @@ claims:
 - a Lean 4 project with Mathlib, of eight modules: three analytic results on the Gaussian
   integration functional J (the connectivity lemma, the min-cut sandwich and the scaling
   proposition) and, new in version 1.1, the exact frontier of intervention monotonicity
-  (Theorem 51) with real-valued degrees, in `FrontierReal.lean`;
-- twelve Python scripts (exact SymPy computations, exact enumerations and numerical
+  (Theorem 51) with real-valued degrees, in `FrontierReal.lean`, which in version 1.2 also
+  states which order hypotheses of parts (b) and (c) of the theorem are necessary;
+- fifteen Python scripts (exact SymPy computations, exact enumerations and numerical
   illustrations) with their expected outputs, among them `segundo_optimizador.py`, new in
   version 1.1: the second check of the four-unit networks that version 1.0 cited without
-  archiving it;
+  archiving it, and three scripts new in version 1.2: `certificado_diagonal_fija.py` and
+  `anillo_frente_camino.py`, exact certificates of the decrease of J in Remark 53 and of
+  J(C_4) > J(P_4), and `barrido_diagonal_fija.py`, which checks on a grid in c that this
+  decrease is local [N];
 - three scripts that rerun everything and compare the results, and a master script,
   `verify_all.sh` (or `make verify`), that first checks the SHA-256 sums of all files and
   then runs the three.
@@ -85,15 +89,16 @@ The argument has three acts.
      collapse. It is not S_u, nor an obligation of Q, but a declared weakening of Q's order
      clause to a class of interventions on one system, and it has not been shown to be the
      only reformulation that escapes.
-   - Its exact frontier (Theorem 51): degrees are forced to be constant exactly on the
-     strongly connected components of an intervention digraph on the realized classes. This
-     is a statement about mathematical degrees; the function that separates two components is
-     a mathematical construction, not identified with the unity degree u of Q.
+   - Its exact frontier (Theorem 51): degrees of the form f∘κ that satisfy intervention
+     monotonicity are forced to be constant exactly on the strongly connected components of
+     an intervention digraph on the realized classes. This is a statement about mathematical
+     degrees; the function that separates two components is a mathematical construction, not
+     identified with the unity degree u of Q.
    - In the band it can be instantiated with J in place of the descriptor Φ_Q, which is not
      justified: for at least two units, J increases strictly under uniform scaling of a
      connected dynamics, and
      under scaling of the couplings with a fixed scalar self-coupling (checked in Lean with
-     Mathlib). Numerically, J can decrease if the fixed self-coupling is not scalar.
+     Mathlib). J can decrease if the fixed self-coupling is not scalar (certified exactly).
 
 Q is neither demonstrated nor refuted.
 
@@ -120,7 +125,9 @@ What is checked with Mathlib: the connectivity lemma (J > 0 if and only if the s
 connected, for at least two units), the min-cut sandwich exactly as stated, with extreme
 eigenvalues, both parts of the scaling proposition, and the three parts of the exact frontier
 of intervention monotonicity (Theorem 51) with real-valued degrees, as instances of statements
-for degrees in an arbitrary order whose hypotheses are sufficient conditions on that order.
+for degrees in an arbitrary order whose hypotheses are sufficient conditions on that order,
+and, new in version 1.2, the exact conditions on that order under which parts (b) and (c) of
+Theorem 51, the latter in its ≠ form, hold in every digraph.
 What remains a paper proof includes the hub bound, the additivity of predictive information
 and the categorical scheme of Section 3. The conditional theorem of Section 2.8 is a paper
 proof whose abstract form is checked in Lean without Mathlib, with values in arbitrary types
@@ -131,7 +138,7 @@ real numbers are an instance that is not compiled).
 
 ```
 README.md                 this file
-CHANGES.md                changes from version 1.0
+CHANGES.md                changes from versions 1.0 and 1.1
 LICENSE                   license of the archive (CC BY 4.0)
 SHA256SUMS                checksums of every other file
 verify_all.sh             runs every check below, in order, and prints a summary
@@ -162,11 +169,15 @@ lean-mathlib/             Lean 4 project with Mathlib v4.24.0
 python/
   requirements.txt
   exact/                  SymPy scripts: Gaussian families and their connections [S]; the
-                          identity of the scaling proposition [S], with grids in c [N]
-  high_precision/         the fixed-diagonal counterexample (50-digit roots) [N] and the
-                          matrix S of Remark 53, exactly, with det S < 0 [S]
+                          identity of the scaling proposition [S], with grids in c [N]; the
+                          certificates of the decrease of J in Remark 53 and of
+                          J(C_4) > J(P_4) [S]
+  high_precision/         the fixed-diagonal counterexample, by 50-digit roots [N] (exact/
+                          certifies the decrease [S]), and the matrix S of Remark 53,
+                          exactly, with det S < 0 [S]
   numeric/                four-unit networks and their second check, exact band counts for
-                          n = 2..5 [S], and monotonicity grids [N]
+                          n = 2..5 [S], monotonicity grids [N], and the grid in c of
+                          Remark 53 (the decrease of J is local) [N]
   expected/               expected output of each script
   compare_outputs.py      comparison used by verify_python.sh
   verify_python.sh
@@ -187,9 +198,9 @@ connectivity, which these comments call Lemma J), `thm:cheeger` is Theorem 36 (t
 sandwich), `prop:scaling` is Proposition 52 (monotonicity under scaling), and `thm:frontier`
 is Theorem 51 (the exact frontier of intervention monotonicity), in Section 6.2 (`sec:im`),
 whose display (13) is `eq:im`. The comments of `lean/CondicionalQ.lean` cite Theorems 15, 19
-and 23 and Definitions 3 and 5 by their printed numbers, which are those of version 1.1 and of
-version 1.0 alike. Every result numbered 26 or more in version 1.0 has a number one higher in
-version 1.1, and every table numbered 3 or more as well (`CHANGES.md` lists them).
+and 23 and Definitions 3 and 5 by their printed numbers, which are those of versions 1.0, 1.1
+and 1.2 alike. Every result numbered 26 or more in version 1.0 has a number one higher in
+versions 1.1 and 1.2, and every table numbered 3 or more as well (`CHANGES.md` lists them).
 
 ## How to verify
 
@@ -255,9 +266,10 @@ build, about 7 GB of disk, of which about 0.3 GB in Mathlib's cache directory,
 `~/.cache/mathlib` by default); `lake-manifest.json` pins Mathlib to v4.24.0 (commit
 `f897ebcf`). The script refuses forbidden constructs, builds the project, recompiles each of
 the eight modules and compares the printed axioms with `lean-mathlib/expected/`. The last
-line must be `ALL MATHLIB CHECKS PASSED`. The eight modules print 104 `#print axioms`
-reports: 92 list `propext`, `Classical.choice` and `Quot.sound`, and the other twelve, all in
-`FrontierReal.lean`, list no axioms (eleven) or `propext` alone (one).
+line must be `ALL MATHLIB CHECKS PASSED`. The eight modules print 111 `#print axioms`
+reports: 93 list `propext`, `Classical.choice` and `Quot.sound`, and the other eighteen, all
+in `FrontierReal.lean`, list no axioms (fourteen), `propext` alone (two) or `propext` and
+`Quot.sound` (two).
 
 ### Python (several minutes)
 
@@ -313,8 +325,8 @@ so the journal logo is neither needed nor included.
 - **Numerics.** The values of J on the four-unit networks come from local optimization: before
   rounding, each is an upper bound for J, not a certified minimum, and a printed value can fall
   below J by up to half a unit in its last digit. The conclusions drawn from them follow from
-  proved results, except the decrease of J in Remark 53, which rests on a root finding whose
-  completeness is not certified. The lines `[ok] … J > 0 (soporte conexo)` printed by
+  proved results, except the decrease of J in Remark 53, which no paper proof implies: it
+  rests on an exact certificate. The lines `[ok] … J > 0 (soporte conexo)` printed by
   `python/numeric/J_conectividad.py` only check that the computed values, which are upper
   bounds, are consistent with the connectivity lemma; that J > 0 on a connected support is the
   lemma itself (Lemma 29), not a computed value.
@@ -345,9 +357,14 @@ pre-submission review that led to version 1.1 (its adversarial verification, the
 theorem of Section 2.8 and its Lean file, the Lean module with real-valued degrees for
 Theorem 51 and the archived second check of Table 6) was also done by agents of the same
 assistant. Their agreement is not an independent validation, and there has been no
-independent human review. During the research the author also used another AI system in
-exploratory conversations; that material was treated as unverified input, and no result of
-the paper depends on it.
+independent human review. The corrections and improvements of version 1.2 come from an
+adversarial verification, by agents of the same assistant, of a reading of version 1.1 that
+the author made in conversations with Claude (Anthropic) outside Claude Code; that reading
+was treated as unverified input, and the assistant applied the corrections and improvements,
+with no independent human review. During the research the author also used Claude, outside
+Claude Code, in exploratory conversations; that material was treated as unverified input,
+and no result of the paper depends on it. No AI system other than Anthropic's Claude was
+used.
 
 What is machine-checked is stated by the labels above: every [L] and [M] statement is checked
 by the Lean kernel, in its logical form only, and every [S] statement by exact computation.
@@ -358,11 +375,12 @@ was not archived; it is not independent, and it is now archived (`CHANGES.md`).
 
 Toranzo Portela, Á. J. (2026). *A Formal Audit of a Categorical Unification of
 Consciousness Theories: Structural Proxies, Formal Obstructions and a Positive Route*
-(version 1.1). Preprint and verification archive, Zenodo. https://doi.org/10.5281/zenodo.24349943
+(version 1.2). Preprint and verification archive, Zenodo. https://doi.org/10.5281/zenodo.24349943
 
-The DOI above is the concept DOI, which always resolves to the latest version. Version 1.1
+The DOI above is the concept DOI, which always resolves to the latest version. Version 1.2
 receives its own DOI when it is released; version 1.0 has the DOI
-https://doi.org/10.5281/zenodo.24349944.
+https://doi.org/10.5281/zenodo.24349944, and version 1.1 the DOI
+https://doi.org/10.5281/zenodo.24361411.
 
 ## License
 
@@ -418,15 +436,15 @@ Tiene tres actos:
    puede instanciarse tomando J en lugar del descriptor de Q, cosa que no se justifica: con
    al menos dos unidades, J crece estrictamente bajo escalado uniforme de una dinámica de
    soporte conexo, o al escalar acoplamientos de soporte conexo con autoacoplamiento escalar
-   fijo (comprobado en Lean con Mathlib). Numéricamente, J puede decrecer si el autoacoplamiento
-   fijo no es escalar.
+   fijo (comprobado en Lean con Mathlib). J puede decrecer si el autoacoplamiento fijo no es
+   escalar (certificado de forma exacta).
 
 Q no queda demostrada ni refutada.
 
 Para verificarlo todo, desde la raíz del archivo: `bash verify_all.sh` (o `make verify`).
 El guion comprueba primero las sumas SHA-256 de todos los ficheros y después ejecuta
-`lean/verify_lean.sh` (siete ficheros de Lean sin Mathlib), `python/verify_python.sh` (doce
-guiones) y `lean-mathlib/verify_mathlib.sh` (ocho módulos con Mathlib); su
+`lean/verify_lean.sh` (siete ficheros de Lean sin Mathlib), `python/verify_python.sh`
+(quince guiones) y `lean-mathlib/verify_mathlib.sh` (ocho módulos con Mathlib); su
 última línea debe ser `ALL CHECKS PASSED`. Con `SKIP_MATHLIB=1` se omite la parte de
 Mathlib, que descarga cerca de 1 GB y necesita unos 7 GB de disco; el resumen lo indica y
 la última línea es entonces `ALL CHECKS THAT RAN PASSED (skipped: Lean-with-Mathlib)`.
@@ -440,8 +458,9 @@ monotonía bajo intervenciones con grados reales están comprobados en Lean con 
 versión 1.0 llamaba independiente a la segunda comprobación de las redes de cuatro unidades y
 decía que no estaba archivada: no es independiente, porque comparte con
 `pistas_numerico.py` el objetivo, los datos, el predictor inicial y código, y ahora está
-archivada (`python/numeric/segundo_optimizador.py`). Los cambios respecto de la versión 1.0
-están en `CHANGES.md`. Licencia: CC BY 4.0, salvo `paper/source/compositionalityarticle.cls`,
-que conserva la LPPL 1.3c. DOI de todas las versiones (DOI conceptual, que resuelve a la
-última): 10.5281/zenodo.24349943; DOI de la versión 1.0: 10.5281/zenodo.24349944; el DOI de
-la versión 1.1 se asigna al publicarla.
+archivada (`python/numeric/segundo_optimizador.py`). Los cambios respecto de las versiones
+1.0 y 1.1 están en `CHANGES.md`. Licencia: CC BY 4.0, salvo
+`paper/source/compositionalityarticle.cls`, que conserva la LPPL 1.3c. DOI de todas las
+versiones (DOI conceptual, que resuelve a la última): 10.5281/zenodo.24349943; DOI de la
+versión 1.0: 10.5281/zenodo.24349944; DOI de la versión 1.1: 10.5281/zenodo.24361411; el DOI
+de la versión 1.2 se asigna al publicarla.

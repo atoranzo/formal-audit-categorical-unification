@@ -2,7 +2,7 @@
 # Run every check of this archive, in this order:
 #   1. integrity: the SHA-256 sums of all its files, listed in SHA256SUMS;
 #   2. the seven Lean 4 files checked without Mathlib (lean/verify_lean.sh);
-#   3. the twelve Python scripts (python/verify_python.sh);
+#   3. the fifteen Python scripts (python/verify_python.sh);
 #   4. the Lean 4 project with Mathlib, eight modules (lean-mathlib/verify_mathlib.sh). Its first run clones
 #      Mathlib and downloads its prebuilt cache (about 1 GB in all) and needs about 7 GB of disk;
 #      skip it with SKIP_MATHLIB=1.

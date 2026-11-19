@@ -1,0 +1,15 @@
+[ok] seven bipartitions of four units, each once: 7
+[ok] C4: P = (I - A^2)^-1 solves P = A P A^T + E exactly, P symmetric and positive definite
+[ok] P4: P = (I - A^2)^-1 solves P = A P A^T + E exactly, P symmetric and positive definite
+[ok] P4: {0}|{1,2,3} attains w_min(P4) = 9/50 (exact): it is a cut of the proof of Theorem 36
+[ok] P4: B = A - A_cross({0}|{1,2,3}) has no coupling across the bipartition (B is in its predictor class)
+[ok] P4: det(E + (A - B) P (A - B)^T) / det E = 637088/511841 (exact)
+[ok] C4: w_min = min over the seven bipartitions of ||A_cross||_F^2 = 9/25 (exact), attained by every bipartition but {0,2}|{1,3}
+[ok] C4: 1 + w_min/kappa_E = 34/25 (kappa_E = 1 for E = I)
+[ok] 637088/511841 < 34/25 exactly (15927200 < 17402594): J(P4) < J(C4)
+     J(P4) <= 1/2 log(637088/511841) in [0.109446881831272, 0.109446881831272]
+     J(C4) >= 1/2 log(34/25)         in [0.15374234987398, 0.15374234987398]
+[ok] the two bounds are 0.109447 and 0.153742 to six decimals, as printed in the paper
+[ok] the value 0.221293 of J(C4) in Table 6 (an upper bound found numerically) is above the exact lower bound 1/2 log(34/25)
+checks passed: 11 of 11
+TODAS LAS COMPROBACIONES: sí
